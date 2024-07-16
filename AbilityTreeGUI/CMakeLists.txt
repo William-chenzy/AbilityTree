@@ -18,6 +18,7 @@ set(LIBS ${LIBS} ${LX_LIBRARY_NAME})
 
 file(GLOB RC *.rc )
 file(GLOB ALLHEARDERS *.h )
+file(GLOB ALLHPP *.hpp )
 file(GLOB UI_SRCS *.cpp)
 file(GLOB UI_FILES *.ui )
 qt5_wrap_ui(UI_HDRS ${UI_FILES})
@@ -33,6 +34,7 @@ add_executable(${GUI_ABILITY_TREE} WIN32
 	${UI_HDRS}
 	${UI_FILES}
 	${ALLHEARDERS}
+	${ALLHPP}
 	${QRC_FILES}
 	${RC}
 	${VERSION_RC}
@@ -46,3 +48,6 @@ target_link_libraries(${GUI_ABILITY_TREE}
 	Qt5::Network
 	${OpenCV_LIBS}
 	)
+	
+install(TARGETS ${GUI_ABILITY_TREE} DESTINATION  ${INSTALL_PLAT_PATH})
+
