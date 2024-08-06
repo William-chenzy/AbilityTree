@@ -50,6 +50,4 @@ target_link_libraries(${GUI_ABILITY_TREE}
 	Qt5::Network
 	${OpenCV_LIBS}
 	)
-	
-install(TARGETS ${GUI_ABILITY_TREE} DESTINATION  ${INSTALL_PLAT_PATH})
 

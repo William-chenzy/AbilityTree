@@ -43,6 +43,7 @@ QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}\
 QPushButton::disabled{background-color:#7d7d7d;}"
 
+#define is_CH !LoadConfigure::getInstance()->IS_EN()
 class LoadConfigure{
 public:
 	static LoadConfigure* getInstance() {

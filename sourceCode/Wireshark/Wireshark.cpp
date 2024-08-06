@@ -12,7 +12,7 @@
 #include <QApplication>
 #include <QStringListModel>
 #include "opencv2/opencv.hpp"
-#include "opencv2/imgcodecs.hpp"
+#include "opencv2/core/core.hpp"
 #include "GlobalDefine.h"
 #include <qdebug.h>
 #include <thread>
@@ -198,7 +198,6 @@ Wireshark::Wireshark(QWidget* parent) :
 	completer->setFilterMode(Qt::MatchContains);
 	ui->lineEdit_cmd->setCompleter(completer);
 
-	LoadConfigure config;
 	SwitchLanguage();
 }
 void Wireshark::SwitchLanguage() {
@@ -424,7 +423,7 @@ void Wireshark::netCard_itemdoubleClicked(QTreeWidgetItem* item) {
 	speed_val.val = all_speed[ch_guid].val;
 	ui->verticalScrollBar->setMaximum(0);
 
-	std::unique_ptr<std::thread> thread_ptr = std::make_unique<std::thread>(pcap_loop, pcap_handle, 0, packet_back, (unsigned char*)this);
+	auto thread_ptr = new std::thread(pcap_loop, pcap_handle, 0, packet_back, (unsigned char*)this);
 	thread_ptr->detach();
 	packview.start(50);
 }
@@ -537,6 +536,7 @@ void Wireshark::on_verticalScrollBar_valueChanged(int val) {
 		if (!d_port.isEmpty() && d_port != it->head.user.dst_port)continue;
 		if (!d_length.isEmpty() && d_length != QString::number(it->msg.size() - 42))continue;
 
+		auto intr_protocol = it->head.inter.protocol.toStdString();
 		ui->tableWidget_pack->item(i, 0)->setText(QString::number(number));
 		ui->tableWidget_pack->item(i, 1)->setText(GetTime(it->header.ts).c_str());
 		ui->tableWidget_pack->item(i, 2)->setText(it->head.inter.src_ip);
@@ -544,7 +544,7 @@ void Wireshark::on_verticalScrollBar_valueChanged(int val) {
 		ui->tableWidget_pack->item(i, 4)->setText(it->head.eth.protocol);
 		ui->tableWidget_pack->item(i, 5)->setText(it->head.inter.protocol);
 		ui->tableWidget_pack->item(i, 6)->setText(QString::number(it->header.caplen));
-		ui->tableWidget_pack->item(i, 7)->setText(ProtocolInfo(it->head.inter.protocol.toStdString(), it->msg).c_str());
+		ui->tableWidget_pack->item(i, 7)->setText(ProtocolInfo(intr_protocol, it->msg).c_str());
 
 		if(current_index == number)ui->tableWidget_pack->setCurrentCell(i, 0);
 		i++;

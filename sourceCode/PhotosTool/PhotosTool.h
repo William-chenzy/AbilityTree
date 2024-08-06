@@ -6,7 +6,6 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QToolButton>
-#include <Qtimer>
 #include <QLabel>
 #include <QTimer>
 namespace Ui {

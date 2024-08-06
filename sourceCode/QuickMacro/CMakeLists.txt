@@ -45,5 +45,3 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::Widgets
     ${OpenCV_LIBS}
     )
-
-install(TARGETS ${PROJECT_NAME} DESTINATION ${INSTALL_UPDATE_PATH})

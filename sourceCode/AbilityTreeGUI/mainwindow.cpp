@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QSpinbox>
 #include <qdesktopwidget.h>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"

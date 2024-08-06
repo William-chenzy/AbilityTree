@@ -4,7 +4,6 @@
 #include <QTextCodec>
 #include <QMouseEvent>
 #include <iostream>
-#include <qDebug>
 #include <QMessageBox>
 #include <QDragEnterEvent>
 #include <QDesktopServices>

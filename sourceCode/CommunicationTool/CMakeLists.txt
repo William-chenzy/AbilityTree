@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 if (NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-math-errno -ffast-math")# -march=native")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-math-errno -ffast-math -pthread")
 else()
 	SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /level='requireAdministrator' /uiAccess='false'")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
@@ -45,6 +45,5 @@ target_link_libraries(${COMMUNICATION_TOOL}
     Qt5::PrintSupport
     Qt5::SerialPort
     Qt5::Network
+    ${OpenCV_LIBS}
     )
-
-install(TARGETS ${COMMUNICATION_TOOL} DESTINATION ${INSTALL_PLAT_PATH})

@@ -51,5 +51,3 @@ add_executable(${THREADINJECTION}_execute WIN32
 execute/execute.cpp
 execute/execute.h
 )
-
-install(TARGETS ${PROJECT_NAME} DESTINATION ${INSTALL_UPDATE_PATH})

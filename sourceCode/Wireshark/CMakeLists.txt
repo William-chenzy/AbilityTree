@@ -56,5 +56,3 @@ target_link_libraries(${WIRESHARK}
     Qt5::Network
     ${OpenCV_LIBS}
     )
-
-install(TARGETS ${PROJECT_NAME} DESTINATION  ${INSTALL_PLAT_PATH})

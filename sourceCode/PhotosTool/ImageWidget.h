@@ -3,7 +3,6 @@
 
 #include <opencv2/opencv.hpp>
 #include <QMainWindow>
-#include <Qtimer>
 #include <QLabel>
 #include <QTimer>
 #include <QCheckBox>
