@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>res/LOGO-AT.ico</file>
+        <file>res/LOGO-AT.png</file>
+        <file>res/LOGO-ATW.png</file>
+        <file>res/LOGO-ATWR.png</file>
+        <file>res/Communication.png</file>
+        <file>res/Communication.ico</file>
+        <file>res/LOGO-AT-NTC.png</file>
+        <file>res/LOGO-AT-NTC.ico</file>
+        <file>res/LOGO-AT-Wireshark.ico</file>
+        <file>res/LOGO-AT-Wireshark.png</file>
+        <file>res/LOGO-AT-PeFileAnalyzer.ico</file>
+        <file>res/LOGO-AT-PeFileAnalyzer.png</file>
+        <file>res/LOGO-AT-PhotosTool.ico</file>
+        <file>res/LOGO-AT-PhotosTool.png</file>
+        <file>res/LOGO-AT-ThreadInjection.ico</file>
+        <file>res/LOGO-AT-ThreadInjection.png</file>
+    </qresource>
+</RCC>

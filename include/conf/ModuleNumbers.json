@@ -1,0 +1,181 @@
+[
+  {
+    "name_ch": "前端组件",
+    "name_en": "Front end components",
+    "describe_ch": "界面显示或控制的组件",
+    "describe_en": "Components displayed or controlled on the interface",
+    "icon_path": "./res/FrontIcon.png",
+    "choosed_icon_path": "./res/FrontIcon_bk.png",
+    "Func": [
+		{
+			"name":"图片查看工具",
+			"path":"./PhotosTool.exe"
+		},
+		{
+			"name":"点云查看工具",
+			"path":"Locked"
+		},
+		{
+			"name":"按键精灵",
+			"path":"./QuickMacro.exe"
+		}
+    ]
+  },
+  {
+    "name_ch": "网络组件",
+    "name_en": "Network components",
+    "describe_ch": "网络通讯的相关组件",
+    "describe_en": "Related components of network communication",
+    "icon_path": "./res/NetworkIcon.png",
+    "choosed_icon_path": "./res/NetworkIcon_bk.png",
+    "Func": [
+		{
+			"name":"抓包工具",
+			"path":"./Wireshark.exe"
+		},
+			{
+			"name":"Windows网络配置工具",
+			"path":"./NetConfigTool.exe"
+		},
+			{
+			"name":"通讯工具包",
+			"path":"./CommunicationTool.exe"
+		},
+			{
+			"name":"大流量服务器",
+			"path":"Locked"
+		},
+			{
+			"name":"限流服务器",
+			"path":"Locked"
+		},
+			{
+			"name":"高并发服务器",
+			"path":"Locked"
+		},
+			{
+			"name":"实时服务器",
+			"path":"Locked"
+		},
+			{
+			"name":"ARP扫描工具",
+			"path":"Locked"
+		},
+		{
+			"name":"局域网远程工具",
+			"path":"Locked"
+		}
+    ]
+  },
+  {
+    "name_ch": "汇编组件",
+    "name_en": "Assemble component",
+    "describe_ch": "汇编以及反汇编工具和源码",
+    "describe_en": "Assembly and disassembly tools and source code",
+    "icon_path": "./res/AssembleIcon.png",
+    "choosed_icon_path": "./res/AssembleIcon_bk.png",
+    "Func": [
+			{
+			"name":"PE文件分析器",
+			"path":"./PeFileAnalyzer.exe"
+		},
+			{
+			"name":"恶意软件破解",
+			"path":"Locked"
+		},
+			{
+			"name":"加壳脱壳测试",
+			"path":"Locked"
+		}
+    ]
+  },
+  {
+    "name_ch": "灰帽组件",
+    "name_en": "Hacker component",
+    "describe_ch": "本地破解与网络攻击组件",
+    "describe_en": "Local cracking and network attack components",
+    "icon_path": "./res/HackerIcon.png",
+    "choosed_icon_path": "./res/HackerIcon_bk.png",
+    "Func": [
+			{
+			"name":"DLL注入",
+			"path":"Locked"
+		},
+			{
+			"name":"HOOK测试",
+			"path":"Locked"
+		},
+			{
+			"name":"硬编码调用",
+			"path":"Locked"
+		},
+			{
+			"name":"堆栈抓取",
+			"path":"Locked"
+		},
+			{
+			"name":"内存修改",
+			"path":"Locked"
+		},
+			{
+			"name":"DDoS攻击",
+			"path":"Locked"
+		}
+
+    ]
+  },
+  {
+    "name_ch": "算法组件",
+    "name_en": "Algorithm components",
+    "describe_ch": "算法相关工具与组件",
+    "describe_en": "Algorithm related tools and components",
+    "icon_path": "./res/AlgorithmIcon.png",
+    "choosed_icon_path": "./res/AlgorithmIcon_bk.png",
+    "Func": [
+			{
+			"name":"加密算法",
+			"path":"345"
+		},
+			{
+			"name":"校验算法",
+			"path":"345"
+		},
+			{
+			"name":"2D图像算法",
+			"path":"345"
+		},
+			{
+			"name":"3D图像算法",
+			"path":"345"
+		}
+    ]
+  },
+  {
+    "name_ch": "开发组件",
+    "name_en": "Developer Components",
+    "describe_ch": "开发和优化本软件的组件",
+    "describe_en": "Develop and optimize the components of this software",
+    "icon_path": "./res/DeveloperIcon.png",
+    "choosed_icon_path": "./res/DeveloperIcon_bk.png",
+    "Func": [
+			{
+			"name":"插件开发",
+			"path":"345"
+		}
+    ]
+  },
+  {
+    "name_ch": "其他组件",
+    "name_en": "Other components",
+    "describe_ch": "其他应用程序或者组件",
+    "describe_en": "Other applications or components",
+    "icon_path": "./res/OtherIcon.png",
+    "choosed_icon_path": "./res/OtherIcon_bk.png",
+    "Func": [
+			{
+			"name":"Android",
+			"path":"345"
+		}
+    ]
+  }
+]
