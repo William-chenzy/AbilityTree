@@ -631,7 +631,7 @@ void Wireshark::IpToNet(){
 	pcap_freealldevs(all);
 }
 
-auto SetVal = [&](QString msg, QString tips, QTreeWidgetItem* parten = nullptr)->QTreeWidgetItem* {
+auto SetVal = [](QString msg, QString tips, QTreeWidgetItem* parten = nullptr)->QTreeWidgetItem* {
 	QTreeWidgetItem* _t = new QTreeWidgetItem;
 	_t->setText(0, msg); _t->setWhatsThis(0, tips);
 	if (parten)parten->addChild(_t);
