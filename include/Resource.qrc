@@ -16,5 +16,17 @@
         <file>res/LOGO-AT-PhotosTool.png</file>
         <file>res/LOGO-AT-ThreadInjection.ico</file>
         <file>res/LOGO-AT-ThreadInjection.png</file>
+        <file>res/LOGO-AT-InstallTool.ico</file>
+        <file>res/LOGO-AT-InstallTool.png</file>
+        <file>res/LOGO-AT-PackagedTool.ico</file>
+        <file>res/LOGO-AT-PackagedTool.png</file>
+        <file>res/close.png</file>
+        <file>res/close_hover.png</file>
+        <file>res/close_pressed.png</file>
+        <file>res/LOGO-AT-QuickMacro.ico</file>
+        <file>res/LOGO-AT-QuickMacro.png</file>
+        <file>res/min.png</file>
+        <file>res/min_hover.png</file>
+        <file>res/min_pressed.png</file>
     </qresource>
 </RCC>

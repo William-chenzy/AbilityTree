@@ -12,7 +12,7 @@
 #include <QApplication>
 #include <QStringListModel>
 #include "opencv2/opencv.hpp"
-#include "opencv2/imgcodecs.hpp"
+#include "opencv2/core/core.hpp"
 #include "GlobalDefine.h"
 #include <qdebug.h>
 #include <thread>
@@ -198,7 +198,6 @@ Wireshark::Wireshark(QWidget* parent) :
 	completer->setFilterMode(Qt::MatchContains);
 	ui->lineEdit_cmd->setCompleter(completer);
 
-	LoadConfigure config;
 	SwitchLanguage();
 }
 void Wireshark::SwitchLanguage() {

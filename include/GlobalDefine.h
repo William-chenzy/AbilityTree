@@ -43,6 +43,7 @@ QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}\
 QPushButton::disabled{background-color:#7d7d7d;}"
 
+#define is_CH !LoadConfigure::getInstance()->IS_EN()
 class LoadConfigure{
 public:
 	static LoadConfigure* getInstance() {
@@ -1508,6 +1509,7 @@ static std::string GetTime(timeval tv) {
 		.arg(_t->tm_min, 2, 10, QLatin1Char('0')).arg(_t->tm_sec, 2, 10, QLatin1Char('0')).arg(tv.tv_usec, 6, 10, QLatin1Char('0'));
 	return tim_.toStdString();
 }
+
 
 #define IS_CH !LoadConfigure::getInstance()->IS_EN()
 #define LU_STR1 (IS_CH?"错误":"Error")

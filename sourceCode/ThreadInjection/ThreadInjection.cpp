@@ -33,3 +33,6 @@ ThreadInjection::ThreadInjection(QWidget *parent) :
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-ThreadInjection.png")));
 
 }
+
+//C:\Qt\Qt5.12.12\5.12.12\msvc2017_64\bin\qtenv2.bat
+//windeployqt CommunicationTool.exe

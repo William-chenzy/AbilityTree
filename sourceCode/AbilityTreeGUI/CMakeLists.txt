@@ -1,4 +1,4 @@
-message("***************build GUI_ABILITY_TREE***************")
+message("***************build AbilityTreeViewer***************")
 project(${GUI_ABILITY_TREE} VERSION ${GUI_ABILITY_TREE_VER})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

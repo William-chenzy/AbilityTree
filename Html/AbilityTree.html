@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html><head>
+    <title>AbilityTree</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom,#474e5e 0%, #000000 100%);
+        margin: 0;
+    }
+    
+    a:link,a:hover,a:active,a:visited{
+        text-decoration:none;
+        color:#dddddd;
+    }
+
+    .imgbody {
+        flex: 1;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        color: #dddddd;
+        background-color: transparent;
+        margin: 0;
+    }
+
+    .imgbody_bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        color: #dddddd;
+        background-color: transparent;
+        margin: 0;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height:160px;
+        background-color: transparent;
+    }
+    
+    .footer {
+        height:100px;
+        padding: 20px;
+        font-size: 24px;
+        color: #dddddd;
+        text-align: center;
+        background-color: transparent;
+    }
+
+    .downloadbutton {
+        width:180px;
+        height:64px;
+        background-color: transparent;
+        border: 0px solid #000;
+        border-radius: 12px;
+        color: #dddddd;
+        font-size: 24px;
+    }
+    .downloadbutton:hover {
+        background-color: rgba(255,255,255,0.9);
+        color: #333333;
+    }
+
+    .image-container {
+        width: 90vw;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #current-image {
+        object-fit: cover;
+    }
+
+    .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        width: 48px;
+        height: 128px;
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    .thumbnail-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+    }
+
+    .thumbnail {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: gray;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .thumbnail.active {
+        background-color:#dddddd;
+    }
+
+    .gradient-line {
+            width: 100%; 
+            height: 1px; 
+            background: linear-gradient(to right,transparent 10%, #1edffc 50%, transparent 90%);
+    }
+    
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <img src="C:\Users\William_Chenzy\Desktop\AbilityTree\include\res\LOGO-ATWR.png" background-color="transparent" Ondragstart= "return false">
+        </div>
+
+        <div class="gradient-line"></div>
+        
+        <div class="imgbody">
+            <div class="image-container">
+                <button class="nav-button prev" onclick="prevImage()">&#10094;</button>
+                <img id="current-image" src="image1.jpg" alt="Image" Ondragstart= "return false" style="cursor: pointer;" onclick="clickedImage()">
+                <button class="nav-button next" onclick="nextImage()">&#10095;</button>
+            </div>
+        </div>
+        
+        <div class="imgbody_bottom">
+            <p id="module_version" height="5px">模组版本: 1.0.0</p>
+            <div class="thumbnail-container">
+                <span class="thumbnail" onclick="showImage(0)"></span>
+                <span class="thumbnail" onclick="showImage(1)"></span>
+                <span class="thumbnail" onclick="showImage(2)"></span>
+                <!-- Add more thumbnails based on the number of images -->
+            </div>
+            <script src="scripts.js"></script>
+        </div>
+
+        <div class="footer">
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadWindows()" >Windows</button>
+            |
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadLinux()">Linux</button>
+            |
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="gitSource()">Source</button>
+        </div>
+    </body>
+</html>
