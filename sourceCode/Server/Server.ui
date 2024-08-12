@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Server</class>
+ <widget class="QMainWindow" name="Server">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>794</width>
+    <height>458</height>
+   </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Server</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#centralwidget{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #000000, stop:0.7 #474e5e);}
+QWidget{color: rgb(223, 223, 223);}
+QPushButton{border-radius: 3px;border:0px solid transparent;background-color:rgba(88,88,88,150);color:#DDDDDD;height:24;}
+QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e, stop:0.5 transparent);}
+QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}
+QPushButton::disabled{background-color:#7d7d7d;}</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>9</number>
+    </property>
+    <property name="topMargin">
+     <number>9</number>
+    </property>
+    <property name="rightMargin">
+     <number>9</number>
+    </property>
+    <property name="bottomMargin">
+     <number>9</number>
+    </property>
+    <property name="horizontalSpacing">
+     <number>6</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>0</number>
+    </property>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

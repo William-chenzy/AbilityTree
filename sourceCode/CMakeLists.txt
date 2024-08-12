@@ -12,6 +12,7 @@ set(PHOTOSTOOL_VERSION 1.0.0)
 set(THREADINJECTION_VERSION 1.0.0)
 set(PACKAGEDTOOL_VERSION 1.0.0)
 set(INSTALLTOOL_VERSION 1.0.0)
+set(SERVER_VERSION 1.0.0)
 
 
 string(TIMESTAMP COMPILE_TIME %Y%m%d)
@@ -29,6 +30,7 @@ set(PHOTOSTOOL PhotosTool)
 set(THREADINJECTION ThreadInjection)
 set(PACKAGEDTOOL PackagedTool)
 set(INSTALLTOOL InstallTool)
+set(SERVER Server)
 
 
 #set path
@@ -60,6 +62,7 @@ option(BUILD_QuickMacro "" OFF)
 option(BUILD_NetConfigTool "" OFF)
 option(BUILD_PeFileAnalyzer "" OFF)
 option(BUILD_ThreadInjection "" OFF)
+option(BUILD_Server "" OFF)
 
 set(QT_STATIC OFF)
 if (${QT_STATIC})
@@ -77,6 +80,7 @@ else()
 		set(BUILD_CommunicationTool ON)
 		set(BUILD_PhotosTool ON)
 		set(BUILD_PackagedTool ON)
+		set(BUILD_Server ON)
 
 		if (WIN32)
 		set(BUILD_QuickMacro ON)
@@ -140,8 +144,13 @@ if(BUILD_PackagedTool)
 add_subdirectory(PackagedTool)
 endif()
 
-
 if(BUILD_InstallTool)
 	message("add_subdirectory: " InstallTool)
 add_subdirectory(InstallTool)
 endif()
+
+if(BUILD_Server)
+	message("add_subdirectory: " Server)
+add_subdirectory(Server)
+endif()
+

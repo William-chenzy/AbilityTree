@@ -33,7 +33,7 @@ function showImage(index) {
 
 function downloadWindows(){
     const link = document.createElement('a');
-    link.href = 'C:/Users/William_Chenzy/Desktop/AbilityTree/bin/win_x64/AbilityTreeInstallApp.exe'; // 文件路径
+    link.href = './AbilityTreeInstallApp_1.0.0.exe'; // 文件路径
     link.download = 'AbilityTreeInstallApp.exe'; // 下载时的文件名
     document.body.appendChild(link);
     link.click();
@@ -42,7 +42,7 @@ function downloadWindows(){
 
 function downloadLinux(){
     const link = document.createElement('a');
-    link.href = 'C:/Users/William_Chenzy/Desktop/AbilityTree/bin/win_x64/AbilityTreeInstallApp.exe'; // 文件路径
+    link.href = './AbilityTreeInstallApp_1.0.0'; // 文件路径
     link.download = 'AbilityTreeInstallApp'; // 下载时的文件名
     document.body.appendChild(link);
     link.click();
