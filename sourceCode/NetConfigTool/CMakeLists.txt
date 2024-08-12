@@ -46,5 +46,3 @@ target_link_libraries(${NET_CONFIG_TOOL}
     Qt5::SerialPort
     Qt5::Network
     )
-
-install(TARGETS ${NET_CONFIG_TOOL} DESTINATION  ${INSTALL_PLAT_PATH})

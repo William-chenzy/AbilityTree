@@ -23,7 +23,7 @@
 #include <errno.h>
 #include <net/if.h>
 #include <linux/if_arp.h>
-#include <armadillo>
+//#include <armadillo>
 typedef unsigned long       DWORD;
 #define localtime_s(A,B) {A = localtime(B);}
 #define pcap_open(a,b,c,d,e,f) pcap_open_live(a,b,c,d,f)

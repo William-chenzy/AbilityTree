@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QDir>
 #include <fstream>
+#include <GlobalDefine.h>
 #include <QApplication>
 #include <QInputDialog>
 #include <QMessageBox>
@@ -812,20 +813,35 @@ void CommunicationTool::RefreshFtpTable(int mode) {
 }
 void CommunicationTool::ShowFtpMenu(const QPoint& pt) {
 	QTableWidget* tw = (QTableWidget*)QObject::sender();
-	bool is_local = (tw == ui.tableWidget);
 	if (tw->currentRow() < 0)return;
+	if (tw->item(tw->currentRow(), 3)->text() == LU_STR233) return;
+
+	QMenu menu;
+	QAction *deleteAction = new QAction(LU_STR236, this);
+	QAction *editAction = new QAction(LU_STR237, this);
+	connect(deleteAction, &QAction::triggered, this, &CommunicationTool::MenuDelete);
+	connect(editAction, &QAction::triggered, this, &CommunicationTool::MenuEditItem);
+	menu.addAction(deleteAction);
+	menu.addAction(editAction);
+	menu.exec(QCursor::pos());
+}
+void CommunicationTool::MenuDelete(){
+	QTableWidget* tw = (QTableWidget*)QObject::sender();
+	if (tw->currentRow() < 0)return;
+	bool is_local = (tw == ui.tableWidget);
 	QString path = (is_local ? ui.comboBox_ftp_path->currentText() : ui.lineEdit_ftp_path_2->text());
 	QString sele = tw->item(tw->currentRow(), 1)->text();
 	QString golb = path + "/" + sele;
 	if (tw->item(tw->currentRow(), 3)->text() == LU_STR233) return;
 
-	QMenu menu;
-	menu.addAction(LU_STR236, this, [&]() {if(ftp.RemoveFile((is_local ? golb : sele).toStdString(), is_local)) RefreshFtpTable(is_local ? 1 : 2); });
-	menu.addAction(LU_STR237, this, [&]() {tw->editItem(tw->item(tw->currentRow(), 1)); });
-	menu.exec(QCursor::pos());
+	if(ftp.RemoveFile((is_local ? golb : sele).toStdString(), is_local)) RefreshFtpTable(is_local ? 1 : 2); 
 }
+void CommunicationTool::MenuEditItem(){
+	QTableWidget* tw = (QTableWidget*)QObject::sender();
+	tw->editItem(tw->item(tw->currentRow(), 1)); 
+}
+
 std::list<std::string> CommunicationTool::FtpTableSort(FtpMap* ptr, int sort_type) {
-	//排序分三块：至于顶层不变的一块，文件一块，文件夹一块
 	std::list<std::string> top_map, dir_map, file_map;
 	auto lef = ptr->find("..");
 	if (lef != ptr->end())top_map.push_back(lef->first);

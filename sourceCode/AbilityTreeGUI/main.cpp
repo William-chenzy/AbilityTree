@@ -1,7 +1,7 @@
 ﻿#include <QDir>
-#include <windows.h>
 #include <define.hpp>
 #include "mainwindow.h"
+#include "GlobalDefine.h"
 #include <QApplication>
 
 std::vector<ModuleMember>moduleList;

@@ -353,6 +353,8 @@ private slots:
 	void on_radioButton_udp_hex_2_toggled(bool state) { udp.recv_encoding = state; };
 
 	//=================================================== FTP ===================================================
+	void MenuDelete();
+	void MenuEditItem();
 	void DownloadOrUploadFiles();
 	void RefreshFtpTable(int mode);
 	void ShowFtpMenu(const QPoint& pt);

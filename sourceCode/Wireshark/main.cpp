@@ -1,4 +1,5 @@
 ﻿#include "Wireshark.h"
+#include "GlobalDefine.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

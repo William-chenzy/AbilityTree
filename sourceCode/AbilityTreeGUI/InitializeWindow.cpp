@@ -5,6 +5,7 @@
 #include <qdesktopwidget.h>
 #include "InitializeWindow.h"
 #include "GlobalDefine.h"
+#include <thread>
 #include <QDebug>
 using namespace std;
 

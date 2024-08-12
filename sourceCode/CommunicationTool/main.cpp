@@ -1,6 +1,6 @@
 ﻿#include <QDir>
-#include <windows.h>
 #include <QApplication>
+#include "GlobalDefine.h"
 #include "CommunicationTool.h"
 
 bool is_EN = false;
