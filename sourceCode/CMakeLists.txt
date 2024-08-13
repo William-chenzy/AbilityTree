@@ -64,7 +64,7 @@ option(BUILD_PeFileAnalyzer "" OFF)
 option(BUILD_ThreadInjection "" OFF)
 option(BUILD_Server "" OFF)
 
-set(QT_STATIC ON)
+set(QT_STATIC OFF)
 if (${QT_STATIC})
 		if (WIN32)
 		add_definitions(-DQT_STATICPLUGIN)
