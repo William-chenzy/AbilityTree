@@ -1,27 +1,88 @@
 #include "execute.h"
+#include <iostream>
+using namespace std;
 
-void abilitytree_cn(const httplib::Request &, httplib::Response &res) {
-	res.set_content(ServerExecute::ReadHtml("./AbilityTree.html"), "text/plain");
+map<string, string>http_url;
+void LoadHttpConfigure(){
+	std::fstream _file("http_configure", std::ios::in);
+	if (!_file.is_open())return;
+
+	char buf[1024];
+	while (!_file.eof()) {
+		memset(buf, 0, 1024);
+		_file.getline(buf, 1024);
+		std::string str = buf;
+		int sed_pos = str.find('=');
+		if (sed_pos == std::string::npos)continue;
+		str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+		str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
+		string url = str.substr(0, sed_pos), val = str.substr(sed_pos + 1);
+		cout<<"url: "<<url<<" : "<<val<<endl;
+		http_url[url] = val;
+	}
+	_file.close();
+}
+
+string get_mime_type(const string& path) {
+    auto ext_pos = path.find_last_of('.');
+    if (ext_pos == string::npos) return "application/octet-stream";
+
+    std::string extension = path.substr(ext_pos);
+    if (extension == ".html") return "text/html";
+    if (extension == ".css") return "text/css";
+    if (extension == ".js") return "application/javascript";
+    if (extension == ".png") return "image/png";
+    if (extension == ".jpg") return "image/jpeg";
+    if (extension == ".gif") return "image/gif";
+    return "application/octet-stream";
+}
+
+void serve_file(const string& path, httplib::Response& res) {
+	cout<<"visit path: "<<path<<endl;
+	ifstream file(path, ios::binary);
+	if (file) {
+        	stringstream buffer;
+        	buffer << file.rdbuf();
+        	res.set_content(buffer.str(), get_mime_type(path));
+	} else {
+    		ifstream file_404("html/404NotFind.html", ios::binary);
+        	stringstream buffer;
+        	buffer << file_404.rdbuf();
+        	res.set_content(buffer.str(), "text/html");
+	}
 }
 
 int main(int argc, char *argv[]) {
-	ServerExecute server(true);
-	if (!server.UdpBind("121.40.55.218.", 46784))return 0;
-	if (!server.TcpBind("121.40.55.218", 46785))return 0;
-	if (!server.HttpBind("121.40.55.218", 80))return 0;
+	system("sh ./config_server.sh");
+	cout<<"config_server init done!"<<endl;
 
-	server.SetHttplUrl("www.abilitytree.cn", abilitytree_cn);
+	ServerExecute server(true);
+	cout<<"ServerExecute init done!"<<endl;
+
+	string http_ip = "172.21.134.109";
+	if(argc>=2)http_ip = argv[1];
+
+	if (!server.UdpBind("121.40.55.218.", 46784))return 0;
+	cout<<"UdpBind init done!"<<endl;
+
+	if (!server.TcpBind("121.40.55.218", 46785))return 0;
+	cout<<"TcpBind init done!"<<endl;
+
+	LoadHttpConfigure();
+	cout<<"HttpBind init: "<<http_ip<<endl;
+	if (!server.HttpBind(http_ip, 8080))return 0;
 
 	while (1) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+		this_thread::sleep_for(chrono::milliseconds(5000));
 		server.OutputLog("server is running!\r");
+		cout<<"running..."<<endl;
 	}
 	return true;
 }
 
 ServerExecute::ServerExecute(bool flag) {
 	log_flag = flag;
-	if (log_flag)log = new std::fstream("./server.log", std::ios::out);
+	if (log_flag)log = new fstream("./server.log", ios::out);
 }
 ServerExecute::~ServerExecute() {}
 
@@ -32,6 +93,12 @@ bool ServerExecute::TcpBind(std::string ip, int port) {
 	return true;
 }
 bool ServerExecute::HttpBind(std::string ip, int port) {
+	http_svr.Get(R"(/.*)", [](const httplib::Request& req, httplib::Response& res) {
+        	std::string path = req.path;
+		if(path.find("/../") != string::npos)path="404NotFind.html";
+		if (http_url.count(path))path = http_url[path];
+        	serve_file("html" + path, res);
+	});
 	return http_svr.listen(ip, port);
 }
 bool ServerExecute::SetHttplUrl(std::string url, http_callback cb) {

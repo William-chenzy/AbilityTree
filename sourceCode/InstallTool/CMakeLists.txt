@@ -39,7 +39,13 @@ add_executable(${INSTALLTOOL}	WIN32
 	${QRC}
 	${VERSION_RC}
 	)
-
+if (NOT WIN32)
+target_link_libraries(${INSTALLTOOL} PRIVATE
+				Qt5::Core
+				Qt5::Gui
+				Qt5::Widgets
+    )
+else()
 target_link_libraries(${INSTALLTOOL} PRIVATE
 				Qt5::Core
 				Qt5::Gui
@@ -55,3 +61,4 @@ target_link_libraries(${INSTALLTOOL} PRIVATE
 				qtpcre2
 				qwindows
     )
+endif()

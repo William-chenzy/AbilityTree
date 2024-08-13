@@ -78,10 +78,10 @@ static std::string MD5_32Bit(std::string msg) {
 
 	char buf[4][10];
 	unsigned long Ds[]{ S_TO_B(A), S_TO_B(B), S_TO_B(C), S_TO_B(D) };
-	sprintf_s(buf[0], "%8X", Ds[0]);  //A
-	sprintf_s(buf[1], "%8X", Ds[1]);  //B
-	sprintf_s(buf[2], "%8X", Ds[2]);  //C
-	sprintf_s(buf[3], "%8X", Ds[3]);  //D
+	snprintf(buf[0], 10, "%8X", Ds[0]);  //A
+	snprintf(buf[1], 10, "%8X", Ds[1]);  //B
+	snprintf(buf[2], 10, "%8X", Ds[2]);  //C
+	snprintf(buf[3], 10, "%8X", Ds[3]);  //D
 
 	std::string _str;
 	for (int y = 0; y < 4; y++)for (int z = 0; z < 8; z++) _str.push_back(buf[y][z]);

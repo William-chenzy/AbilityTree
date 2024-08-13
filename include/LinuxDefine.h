@@ -1,6 +1,8 @@
 #ifndef __LINUX_DEFINE__H__
 #define __LINUX_DEFINE__H__
 
+#include <QFile>
+#include <QTextStream>
 #include "CppLinuxDefine.h"
 
 static QString QStringToLPCSTR(const QString& qstr) {
@@ -14,7 +16,7 @@ static bool GetRegistryValue(QString& key_val) {
 	QString key = "/usr/local/etc/" + key_val;
 	QFile _file(key);
 	if (_file.open(QFile::ReadOnly)) {
-		QString = _file.readAll();
+		key_val = _file.readAll();
 		_file.close();
 	}
 	else key_val = "";
@@ -36,9 +38,9 @@ static bool RemoveRegistryValue(QString key_val) {
 	return true;
 }
 
-bool CreateShortcut(QString targetPath, QString targetName) {
+static bool CreateShortcut(QString targetPath, QString targetName) {
 	QString cmd = QString("sudo ln -s %1 /usr/local/bin/%2").arg(targetPath).arg(targetName);
-	system(cmd);
+	system(cmd.toStdString().c_str());
 }
 
 #endif //__LINUX_DEFINE__H__

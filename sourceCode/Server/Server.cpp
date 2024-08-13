@@ -4,7 +4,7 @@
 #include <QTextCodec>
 #include <QMouseEvent>
 #include <iostream>
-#include <qDebug>
+#include <QDebug>
 #include <QMessageBox>
 #include <fstream>
 #include <thread>
