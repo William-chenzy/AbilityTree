@@ -1,4 +1,4 @@
-#ifndef DEFINE_HPP
+ï»¿#ifndef DEFINE_HPP
 #define DEFINE_HPP
 
 #include <cmath>
@@ -80,9 +80,9 @@ static bool LoadModuleNumbers() {
 	file.close();
 	QJsonArray moudle_json = QJsonDocument::fromJson(str.toUtf8()).array();
 	if (moudle_json.isEmpty()) {
-		auto choose = QMessageBox::warning(nullptr, "´íÎó", "×ÊÔ´ÎÄ¼şËğ»µ!ÊÇ·ñ»ØÍËµ½×îºóÒ»´ÎÕıÈ·ÅäÖÃ?", QMessageBox::Yes | QMessageBox::No);
+		auto choose = QMessageBox::warning(nullptr, "é”™è¯¯", "èµ„æºæ–‡ä»¶æŸå!æ˜¯å¦å›é€€åˆ°æœ€åä¸€æ¬¡æ­£ç¡®é…ç½®?", QMessageBox::Yes | QMessageBox::No);
 		if (choose == QMessageBox::No) {
-			QMessageBox::warning(nullptr, "´íÎó", "×ÊÔ´ÎÄ¼şËğ»µ!ÇëÖØĞÂ°²×°³ÌĞò!");
+			QMessageBox::warning(nullptr, "é”™è¯¯", "èµ„æºæ–‡ä»¶æŸå!è¯·é‡æ–°å®‰è£…ç¨‹åº!");
 			return false;
 		}
 		QFile file("./conf/ModuleNumbers_old.json");
@@ -91,7 +91,7 @@ static bool LoadModuleNumbers() {
 		file.close();
 		moudle_json = QJsonDocument::fromJson(str.toUtf8()).array();
 		if (moudle_json.isEmpty()) {
-			QMessageBox::warning(nullptr, "´íÎó", "»ØËİÊ§°Ü£¬ÎÄ¼şËğ»µ»ò²»´æÔÚ!ÇëÖØĞÂ°²×°³ÌĞò!");
+			QMessageBox::warning(nullptr, "é”™è¯¯", "å›æº¯å¤±è´¥ï¼Œæ–‡ä»¶æŸåæˆ–ä¸å­˜åœ¨!è¯·é‡æ–°å®‰è£…ç¨‹åº!");
 			return false;
 		}
 	}

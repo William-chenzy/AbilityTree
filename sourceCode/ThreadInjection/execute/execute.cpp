@@ -1,16 +1,16 @@
-#include "execute.h"
+ï»¿#include "execute.h"
 #include "GlobalDefine.h"
 using namespace std;
 
 DWORD __stdcall MyFunction(LPVOID data) {
-	exit(0);								//ÍË³öµ±Ç°±»×¢²áÏß³Ì
+	exit(0);								//é€€å‡ºå½“å‰è¢«æ³¨å†Œçº¿ç¨‹
 	return *(DWORD*)data;
 }
 void afterFunc() {
 
 }
 
-bool EnableDebugPriv()			//ÌáÈ¨º¯Êı
+bool EnableDebugPriv()			//ææƒå‡½æ•°
 {
 	HANDLE hToken;
 	LUID sedebugnameValue;
@@ -28,7 +28,7 @@ bool EnableDebugPriv()			//ÌáÈ¨º¯Êı
 	return true;
 }
 
-DWORD GetProcessID(LPCWSTR lpName)				//Í¨¹ı½ø³ÌÃû»ñÈ¡ID
+DWORD GetProcessID(LPCWSTR lpName)				//é€šè¿‡è¿›ç¨‹åè·å–ID
 {
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (INVALID_HANDLE_VALUE == hSnapshot)
@@ -49,14 +49,14 @@ DWORD GetProcessID(LPCWSTR lpName)				//Í¨¹ı½ø³ÌÃû»ñÈ¡ID
 int main()
 {
 	if (!EnableDebugPriv()) {
-		cout << "ÌáÈ¨Ê§°Ü!" << endl;
+		cout << "ææƒå¤±è´¥!" << endl;
 		return -1;
 	}
-	else cout << "ÌáÈ¨³É¹¦!" << endl;
+	else cout << "ææƒæˆåŠŸ!" << endl;
 
 	GetProcessID(TEXT("123"));
 
-	DWORD PID = 51340;//ÊäÈëÏß³ÌPIDÀ´×¢ÈëÏß³Ì
+	DWORD PID = 51340;//è¾“å…¥çº¿ç¨‹PIDæ¥æ³¨å…¥çº¿ç¨‹
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, false, PID);
 	if (hProcess == NULL)cout << "open process error: " << GetLastError() << endl;
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "GlobalDefine.h"
 #include "define.hpp"
@@ -86,5 +86,5 @@ void MainWindow::DeleteModule() {
 void MainWindow::SwitchStartPage() {
 	//todo::show welcome page
 	//todo:choose module show mode
-	//ʹ��רע��ͼѡ����ͼģʽ
+	//使用专注视图选择视图模式
 }

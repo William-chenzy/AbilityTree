@@ -14,8 +14,10 @@
 #include "miniz.c"
 #include <QProcess>
 #include <md5.hpp>
+#include <thread>
 using namespace std;
 
+#define PACKAGE_NAME "AbilityTreePackage"
 #define REG_NAME "AbilityTree"
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
@@ -85,33 +87,36 @@ void InstallTool::on_toolButton_path_clicked() {
 }
 
 void InstallTool::on_pushButton_user_rule_clicked() {
-	static QString rule = "免费软件用户许可协议\
-重要：请在使用本软件之前仔细阅读本用户许可协议（“协议”）。安装或使用本软件即表示您同意接受本协议的条款。如果您不同意本协议的条款，请不要安装或使用本软件。\
-1. 授权\
-根据本协议，林煜涵（以下简称“授权方”）授予您一个非独占有限许可，以在个人电脑或设备上安装和使用本软件以及该软件所附带的所有免费软件（以下简称“软件”）。本许可仅限于个人、非商业用途。\
-2. 使用限制\
-您不得：\
-商业用途：将软件用于任何商业目的，除非事先获得明确的书面许可。\
-非法使用：将软件用于任何非法活动或违反适用法律的活动。\
-3. 知识产权\
-软件及其所有相关版权、商标、专利和其他知识产权归授权方及其许可方所有。本协议仅授予您有限的使用许可，不转让任何知识产权或所有权。\
-4. 免责声明\
-软件按“现状”提供，不提供任何明示或暗示的保证，包括但不限于对软件适销性、特定用途适用性或不侵权的暗示保证。在法律允许的最大范围内，授权方不对因使用或无法使用软件而导致的任何损害、损失或其他责任负责。\
-5. 责任限制\
-在法律允许的最大范围内，授权方不对因使用软件而导致的任何直接、间接、附带、特殊或后果性损害负责，包括但不限于数据丢失或利润损失，即使授权方已被告知可能发生此类损害。\
-6. 终止\
-如果您违反本协议的任何条款，授权方可以立即终止本协议，并要求您停止使用软件并销毁所有软件副本。终止本协议不影响授权方在法律允许的最大范围内的权利。\
-7. 适用法律\
-本协议应受中国法律的管辖，并按照该法律解释。任何因本协议引起的争议应提交至中国管辖法院。\
-8. 完整协议\
-本协议构成您与授权方之间关于软件的完整协议，取代所有之前的口头或书面协议和沟通。任何对本协议的修改或补充应以书面形式进行，并由双方签署。\
-9. 联系信息\
-如有任何关于本协议的问题或需要联系授权方，请通过以下方式联系我们：\
-名称：林煜涵\
-电子邮件：862167084@qq.com\
+	int res = QMessageBox::information(nullptr, "软件使用许可", "是否弹窗显示?", QMessageBox::Yes | QMessageBox::No);
+
+	static QString rule = "AbilityTree用户许可协议\r\n\
+重要：请在使用本软件之前仔细阅读本用户许可协议（“协议”）。安装或使用本软件即表示您同意接受本协议的条款。如果您不同意本协议的条款，请不要安装或使用本软件。\r\n\
+1. 授权\r\n\
+根据本协议，林煜涵（以下简称“授权方”）授予您一个非独占有限许可，以在个人电脑或设备上安装和使用本软件以及该软件所附带的所有免费软件（以下简称“软件”）。本许可仅限于个人、非商业用途。\r\n\
+2. 使用限制\r\n\
+您不得：\r\n\
+商业用途：将软件用于任何商业目的，除非事先获得明确的书面许可。\r\n\
+非法使用：将软件用于任何非法活动或违反适用法律的活动。\r\n\
+3. 知识产权\r\n\
+软件及其所有相关版权、商标、专利和其他知识产权归授权方及其许可方所有。本协议仅授予您有限的使用许可，不转让任何知识产权或所有权。\r\n\
+4. 免责声明\r\n\
+软件按“现状”提供，不提供任何明示或暗示的保证，包括但不限于对软件适销性、特定用途适用性或不侵权的暗示保证。在法律允许的最大范围内，授权方不对因使用或无法使用软件而导致的任何损害、损失或其他责任负责。\r\n\
+5. 责任限制\r\n\
+在法律允许的最大范围内，授权方不对因使用软件而导致的任何直接、间接、附带、特殊或后果性损害负责，包括但不限于数据丢失或利润损失，即使授权方已被告知可能发生此类损害。\r\n\
+6. 终止\r\n\
+如果您违反本协议的任何条款，授权方可以立即终止本协议，并要求您停止使用软件并销毁所有软件副本。终止本协议不影响授权方在法律允许的最大范围内的权利。\r\n\
+7. 适用法律\r\n\
+本协议应受中国法律的管辖，并按照该法律解释。任何因本协议引起的争议应提交至中国管辖法院。\r\n\
+8. 完整协议\r\n\
+本协议构成您与授权方之间关于软件的完整协议，取代所有之前的口头或书面协议和沟通。任何对本协议的修改或补充应以书面形式进行，并由双方签署。\r\n\
+9. 联系信息\r\n\
+如有任何关于本协议的问题或需要联系授权方，请通过以下方式联系我们：\r\n\
+名称：林煜涵\r\n\
+电子邮件：862167084@qq.com\r\n\
 安装和使用本软件即表示您同意本协议的所有条款。";
 
-	QMessageBox::information(nullptr, "软件使用许可", rule);
+	system("start http://121.40.55.218:8080/UserLicense.html");
+	if (res == QMessageBox::Yes)QMessageBox::information(nullptr, "软件使用许可", rule);
 }
 
 void InstallTool::SetProcessBar(float val) {
@@ -152,12 +157,12 @@ bool InstallTool::UnPackage() {
 	auto package_str = app_str.substr(app_str.size() - 65 - package_size, package_size);
 	auto md5 = MD5_32Bit(package_str);
 	if (md5 != package_md5.toStdString()) {
-		QMessageBox::warning(nullptr, "错误", "MD5码校验失败，请重新下载安装包!");
+		QMessageBox::warning(nullptr, "错误", QString("MD5码校验失败，请重新下载安装包!\r\nraw: % 1, now : % 2").arg(package_md5).arg(md5.c_str()));
 		return false;
 	}
 	SetProcessBar(0.5);
 
-	QFile package_file("AbilityTreePackage.zip");
+	QFile package_file(PACKAGE_NAME);
 	package_file.open(QFile::WriteOnly);
 	for (auto i : package_str)package_file.write(&i, 1);
 	package_file.close();
@@ -222,12 +227,12 @@ bool extract_zip_file(const char *zip_filename, const char *output_dir) {
 bool InstallTool::UnZip(QString path) {
 	const char *dir = path.toLocal8Bit().toStdString().c_str();
 
-	int result = extract_zip_file("./AbilityTreePackage.zip", path.toStdString().c_str());
-	if (result != 0) QMessageBox::warning(nullptr, "错误", "包解压缩失败!");
+	bool result = extract_zip_file(PACKAGE_NAME, path.toStdString().c_str());
+	if (!result) QMessageBox::warning(nullptr, "错误", "包解压缩失败!");
 	else SetProcessBar(0.9);
 
-	QFile("AbilityTreePackage.zip").remove();
-	return !result;
+	QFile(PACKAGE_NAME).remove();
+	return result;
 }
 void InstallTool::on_pushButton_start_clicked() {
 	if (!ui->checkBox_user_rule->isChecked()) {

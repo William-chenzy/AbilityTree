@@ -32,4 +32,6 @@ Server::Server(QWidget *parent) :
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-Server.png")));
 
+	QString str;
+	str.toStdString()
 }

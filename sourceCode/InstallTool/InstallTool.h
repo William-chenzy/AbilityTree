@@ -1,7 +1,7 @@
 ﻿#ifndef MAINWINDOW_H_LN
 #define MAINWINDOW_H_LN
 
-#include <QTimer.h>
+#include <qtimer.h>
 #include <QMainWindow>
 #include "GlobalDefine.h"
 #include "ui_InstallTool.h"

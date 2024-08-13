@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QTableWidgetItem>
 #include <QScrollArea>
@@ -132,9 +132,9 @@ namespace Communication {
 	public:
 		void Close() override;
 		std::list<std::string> GetComList();
-		//parity     £ºĞ£Ñé·½Ê½ EVENPARITY  Å¼Ğ£Ñé MARKPARITY  ±êºÅĞ£Ñé NOPARITY    ÎŞĞ£Ñé ODDPARITY   ÆæĞ£Ñé SPACEPARITY ¿Õ¸ñĞ£Ñé 
-		//byte_size  £ºÊı¾İÎ»´óĞ¡ 4£¬5£¬6£¬7£¬8
-		//stop_bits  £ºÍ£Ö¹Î» ONESTOPBIT, ONE5STOPBITS, TWOSTOPBITS
+		//parity     ï¼šæ ¡éªŒæ–¹å¼ EVENPARITY  å¶æ ¡éªŒ MARKPARITY  æ ‡å·æ ¡éªŒ NOPARITY    æ— æ ¡éªŒ ODDPARITY   å¥‡æ ¡éªŒ SPACEPARITY ç©ºæ ¼æ ¡éªŒ 
+		//byte_size  ï¼šæ•°æ®ä½å¤§å° 4ï¼Œ5ï¼Œ6ï¼Œ7ï¼Œ8
+		//stop_bits  ï¼šåœæ­¢ä½ ONESTOPBIT, ONE5STOPBITS, TWOSTOPBITS
 		bool ConnectCom(std::string com, int baud,int parity, int byte_size, int stop_bits);
 		void Send(std::string cli, void* data, unsigned long long size) override;
 	};

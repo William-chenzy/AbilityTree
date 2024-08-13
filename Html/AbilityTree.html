@@ -21,6 +21,12 @@
         text-decoration:none;
         color:#dddddd;
     }
+    
+    img{
+        width: auto/9;
+        height: 100%;
+        object-fit: contain;
+    }
 
     .imgbody {
         flex: 1;
@@ -33,6 +39,16 @@
         color: #dddddd;
         background-color: transparent;
         margin: 0;
+    }
+
+    .imgtitel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        font-size: larger;
+        color: #dddddd;
+        background-color: transparent;
     }
 
     .imgbody_bottom {
@@ -51,7 +67,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        height:160px;
+        height:120px;
         background-color: transparent;
     }
     
@@ -80,10 +96,18 @@
 
     .image-container {
         width: 90vw;
-        position: relative;
         display: flex;
+        position: relative;
         align-items: center;
         justify-content: center;
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+    }
+    .image-container img {
+        max-height: 100%;
+	max-width: 100%;
+	height: auto;
     }
 
     #current-image {
@@ -142,34 +166,43 @@
     </head>
     <body>
         <div class="header">
-            <img src="C:\Users\William_Chenzy\Desktop\AbilityTree\include\res\LOGO-ATWR.png" background-color="transparent" Ondragstart= "return false">
+            <img src="img/LOGO-ATWR.png" background-color="transparent" Ondragstart= "return false">
         </div>
 
         <div class="gradient-line"></div>
+
+        <div class="imgtitel">
+            <p id="module_name" height="5px"></p>
+        </div>
         
         <div class="imgbody">
             <div class="image-container">
                 <button class="nav-button prev" onclick="prevImage()">&#10094;</button>
-                <img id="current-image" src="image1.jpg" alt="Image" Ondragstart= "return false" style="cursor: pointer;" onclick="clickedImage()">
+                <img id="current-image" src="" alt="Image" Ondragstart= "return false" style="cursor: pointer;" onclick="clickedImage()">
                 <button class="nav-button next" onclick="nextImage()">&#10095;</button>
             </div>
         </div>
         
         <div class="imgbody_bottom">
-            <p id="module_version" height="5px">模组版本: 1.0.0</p>
+            <p id="module_version" height="5px"></p>
             <div class="thumbnail-container">
                 <span class="thumbnail" onclick="showImage(0)"></span>
                 <span class="thumbnail" onclick="showImage(1)"></span>
                 <span class="thumbnail" onclick="showImage(2)"></span>
-                <!-- Add more thumbnails based on the number of images -->
+                <span class="thumbnail" onclick="showImage(3)"></span>
+                <span class="thumbnail" onclick="showImage(4)"></span>
+                <span class="thumbnail" onclick="showImage(5)"></span>
+                <span class="thumbnail" onclick="showImage(6)"></span>
+                <span class="thumbnail" onclick="showImage(7)"></span>
+                <span class="thumbnail" onclick="showImage(8)"></span>
             </div>
             <script src="AbilityTree.js"></script>
         </div>
 
         <div class="footer">
-            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadWindows()" >Windows</button>
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadWindows()" >Windows x64</button>
             |
-            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadLinux()">Linux</button>
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadLinux()">Linux x64</button>
             |
             <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="gitSource()">Source</button>
         </div>

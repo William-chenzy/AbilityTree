@@ -7,7 +7,6 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QApplication>
-#include <tchar.h>
 #include <fstream>
 #include <iostream>
 #include <QIODevice>

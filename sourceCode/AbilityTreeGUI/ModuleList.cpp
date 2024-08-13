@@ -1,4 +1,4 @@
-#include <ModuleList.h>
+Ôªø#include <ModuleList.h>
 #include <QDebug>
 #include <random>
 #include <QPixmap>
@@ -69,8 +69,8 @@ ModuleList::ModuleList(QWidget* parent) : QWidget(parent) {
 	layout->addWidget(color_line, 2, 0, 1, 3);
 	layout->addWidget(icon_widget, 0, 0, 2, 1);
 	layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-	describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
-	name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size:20px;font-weight: bold;background-color: transparent;");
+	describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
+	name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size:20px;font-weight: bold;background-color: transparent;");
 
 	connect(&animation, &QTimer::timeout, this, &ModuleList::CreateAnimation);
 	has_fouce = animation_val = animation_rand = 0;
@@ -164,8 +164,8 @@ void ModuleList::CreateAnimation() {
 
 void ModuleList::GetFouce() {
 	icon_lab->setStyleSheet(QString("border-image:url(%1) 4 4 4 4 stretch stretch;border-radius: 4px;").arg(ch_icon));
-	describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #eeeeee;background-color: transparent;font-size: 14px;");
-	name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size: 20px;font-weight: bold;background-color: transparent;color: #eeeeee;");
+	describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #eeeeee;background-color: transparent;font-size: 14px;");
+	name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size: 20px;font-weight: bold;background-color: transparent;color: #eeeeee;");
 	if (LoadConfigure::getInstance()->GetAnimation())animation.start(25);
 	RefreshDescribe(max_show);
 	lm_page->clicked();
@@ -173,8 +173,8 @@ void ModuleList::GetFouce() {
 }
 void ModuleList::ClearFouce() {
 	icon_lab->setStyleSheet(QString("border-image:url(%1) 4 4 4 4 stretch stretch;border-radius: 4px;").arg(icon));
-	name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size: 20px;font-weight: bold;background-color: transparent;");
-	describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
+	name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size: 20px;font-weight: bold;background-color: transparent;");
+	describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
 	ground_widget->setStyleSheet(RAW_STYLE.arg(""));
 	lm_page->releseFouce();
 	RefreshDescribe(2);
@@ -212,19 +212,19 @@ void ModuleList::enterEvent(QEvent* event) {
 	ground_widget->setStyleSheet(RAW_STYLE.arg("background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #575e6e, stop:1 transparent);"));
 	color_line->setStyleSheet("background: qlineargradient(x1:0,y1:1,x2:1,y2:1,stop:0 transparent, stop:0.5 #1edffc, stop:1 transparent);");
 
-	describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #1edffc;background-color: transparent;font-size: 14px;");
-	name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size: 20px;font-weight: bold;background-color: transparent;color: #1edffc;");
+	describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #1edffc;background-color: transparent;font-size: 14px;");
+	name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size: 20px;font-weight: bold;background-color: transparent;color: #1edffc;");
 }
 void ModuleList::leaveEvent(QEvent* event) {
 	color_line->setStyleSheet("");
 	ground_widget->setStyleSheet(RAW_STYLE.arg(""));
 
 	if (has_fouce) {
-		describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #eeeeee;background-color: transparent;font-size: 14px;");
-		name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size: 20px;font-weight: bold;background-color: transparent;color: #eeeeee;");
+		describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #eeeeee;background-color: transparent;font-size: 14px;");
+		name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size: 20px;font-weight: bold;background-color: transparent;color: #eeeeee;");
 	}
 	else {
-		describe_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
-		name_lab->setStyleSheet("font-family: \"ª™Œƒø¨ÃÂ\";font-size: 20px;font-weight: bold;background-color: transparent;");
+		describe_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";color: #AAAAAA;background-color: transparent;font-size: 14px;");
+		name_lab->setStyleSheet("font-family: \"ÂçéÊñáÊ•∑‰Ωì\";font-size: 20px;font-weight: bold;background-color: transparent;");
 	}
 }

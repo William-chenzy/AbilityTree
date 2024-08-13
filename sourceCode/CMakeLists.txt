@@ -64,7 +64,7 @@ option(BUILD_PeFileAnalyzer "" OFF)
 option(BUILD_ThreadInjection "" OFF)
 option(BUILD_Server "" OFF)
 
-set(QT_STATIC OFF)
+set(QT_STATIC ON)
 if (${QT_STATIC})
 		add_definitions(-DQT_STATICPLUGIN)
 		set(Qt5_DIR_BASE "C:/Qt/Qt5.12.12 Static")

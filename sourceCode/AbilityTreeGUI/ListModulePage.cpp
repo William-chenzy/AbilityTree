@@ -1,4 +1,4 @@
-#include <ModuleList.h>
+ï»¿#include <ModuleList.h>
 #include <QDebug>
 #include <random>
 #include <QPixmap>
@@ -63,8 +63,8 @@ ListModulePage::ListModulePage() {
 	ground->setStyleSheet(QString(SCROLL_AREA_STYLE));
 	icon_widget->setStyleSheet("border-radius: 6px;border:2px solid #eeeeee;");
 	module->setStyleSheet("border-radius: 6px;background-color: rgba(170,170,170,24);");
-	describe->setStyleSheet("font-family: \"»ªÎÄ¿¬Ìå\";color: #eeeeee;background-color: transparent;font-size: 18px;");
-	titel->setStyleSheet("font-family: \"»ªÎÄ¿¬Ìå\";font-size: 36px;font-weight: bold;background-color: transparent;color: #eeeeee;");
+	describe->setStyleSheet("font-family: \"åæ–‡æ¥·ä½“\";color: #eeeeee;background-color: transparent;font-size: 18px;");
+	titel->setStyleSheet("font-family: \"åæ–‡æ¥·ä½“\";font-size: 36px;font-weight: bold;background-color: transparent;color: #eeeeee;");
 	setting->setStyleSheet("QToolButton{border-image:url(./res/setting.png);}QToolButton:hover{background-color: rgba(170,170,170,66);}");
 
 	connect(&refresh, &QTimer::timeout, this, &ListModulePage::CreateAnimation);
@@ -184,7 +184,7 @@ void ListModulePage::ModuleDelete(QString name, void* ptr) {
 
 void ListModulePage::ModuleModify(QString _name, QString _describe, bool is_delete) {
 	if (is_delete) {
-		auto res = QMessageBox::information(this, "ÌáÊ¾", "È·ÈÏÉ¾³ı´ËÄ£×éÂğ?", QMessageBox::Yes | QMessageBox::No);
+		auto res = QMessageBox::information(this, "æç¤º", "ç¡®è®¤åˆ é™¤æ­¤æ¨¡ç»„å—?", QMessageBox::Yes | QMessageBox::No);
 		if (res == QMessageBox::No)return;
 		for (int i = 0; i < all_card.size(); i++) delete all_card[i];
 		all_card.clear();
