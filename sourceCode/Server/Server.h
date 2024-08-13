@@ -2,7 +2,7 @@
 #define Server_H
 
 #include <QMainWindow>
-#include <Qtimer>
+#include <QTimer>
 namespace Ui {
     class Server;
 }

@@ -3,7 +3,7 @@
 
 #include <qtimer.h>
 #include <QMainWindow>
-#include "GlobalDefine.h"
+#include <LinuxDefine.h>
 #include "ui_InstallTool.h"
 namespace Ui {
     class InstallTool;

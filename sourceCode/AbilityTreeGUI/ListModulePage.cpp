@@ -91,7 +91,8 @@ void ListModulePage::SetModuleFunc(std::vector<ModuleFunc>& _func) {
 	static unsigned int index = 0;
 	for (auto i : module_func) {
 		QString path = "./res/BrokenIcon.png";
-		if (CheckFile(i.path)) {
+		QString check_str = i.path + (is_Linux?"":".exe");
+		if (CheckFile(check_str)) {
 			QFileIconProvider icon_provider;
 			path = QString("./temp/%1.png").arg(index++);
 			icon_provider.icon(i.path).pixmap(12, 12).save(path, "png");

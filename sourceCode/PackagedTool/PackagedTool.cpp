@@ -64,7 +64,8 @@ void PackagedTool::on_toolButton_install_dir_clicked() {
 	auto raw = ui->lineEdit_qt_dir->text();
 	if (raw.isEmpty())raw = "./";
 
-	QString fileName = QFileDialog::getOpenFileName(this, "Open File", raw, tr("EXE (*.exe)"));
+	QString type = is_Linux?"":"EXE (*.exe)";
+	QString fileName = QFileDialog::getOpenFileName(this, "Open File", raw, type);
 	if (fileName.isEmpty()) return;
 	ui->lineEdit_install_dir->setText(fileName);
 }
@@ -89,15 +90,15 @@ void PackagedTool::on_toolButton_output_dir_clicked() {
 void PackagedTool::CreateScript() {
 	QString file_str;
 	QStringList filePathList;
-	QString pack_cmd = is_Linux ? "linuxdeployqt " : "windeployqt ";
 	QString qt_dir = ui->lineEdit_qt_dir->text().remove('\r').remove('\n');
 	QString pack_dir = ui->lineEdit_package_dir->text().remove('\r').remove('\n');
 	QString file_name = pack_dir + (is_Linux ? "/PackagedTool.sh" : "/PackagedTool.bat");
 	QFileInfoList fileList = QDir(pack_dir).entryInfoList(QDir::Files | QDir::NoSymLinks);
+	QString pack_cmd = is_Linux ? qt_dir + " " : "windeployqt ";
 
 	if (is_Linux)file_str += "#!/bin/bash\r\n";
 	else file_str += "@echo off\r\nset \"PATH=" + qt_dir + "\; %PATH%\"" + "\r\n";
-	for (auto i : fileList)if (i.suffix() == "exe")file_str += pack_cmd + i.filePath() + "\r\n";
+	for (auto i : fileList)if (is_Linux || i.suffix() == "exe")file_str += pack_cmd + i.filePath() + "\r\n";
 
 	QFile cmd_file(file_name);
 	cmd_file.open(QFile::WriteOnly);
@@ -110,9 +111,9 @@ void PackagedTool::CreateScript() {
 		return;
 	}
 
-	QString sys_cmd = (is_Linux ? "./" : "") + file_name;
+	QString sys_cmd = (is_Linux ? "sh " : "") + file_name;
 	system(sys_cmd.toStdString().c_str());
-	QFile::remove(file_name);
+        QFile::remove(file_name);
 }
 
 void addFileToZip(struct zip_t *zip, const QString &filePath, const QString &entryName) {
@@ -139,8 +140,10 @@ void addDirectoryToZip(struct zip_t *zip, const QString &dirPath, const QString 
 		addDirectoryToZip(zip, dir_info.absoluteFilePath(), _basePath + dir_info.fileName());
 
 	QFileInfoList file_list = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
-	for (const QFileInfo &file_info : file_list) 
+        for (const QFileInfo &file_info : file_list) {
+                if(file_info.fileName() == "PackagedTool.zip")continue;
 		addFileToZip(zip, file_info.absoluteFilePath(), _basePath + file_info.fileName());
+        }
 }
 void PackagedTool::ZipAllFiles() {
 	QFile::remove("PackagedTool.zip");

@@ -7,10 +7,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 if (NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-math-errno -ffast-math")
-ENDIF()
-
-if(WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-math-errno -ffast-math -pthread")
+else()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
 endif()
 

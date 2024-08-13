@@ -1,7 +1,8 @@
 ﻿#include "InstallTool.h"
 #include <QApplication>
-#include <QtPlugin>
 
+#ifdef _WIN32
+#include <QtPlugin>
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #pragma comment(lib, "version.lib")
 #pragma comment(lib, "Netapi32.lib")
@@ -13,6 +14,7 @@ Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #pragma comment(lib, "Imm32.lib") 
 #pragma comment(lib, "Winmm.lib") 
 #pragma comment(lib, "ws2_32.lib")
+#endif
 
 int main(int argc, char *argv[]){
     QApplication a(argc, argv);

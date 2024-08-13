@@ -4,7 +4,7 @@
 #include <QTextCodec>
 #include <QMouseEvent>
 #include <iostream>
-#include <qDebug>
+#include <QDebug>
 #include <QMessageBox>
 #include <fstream>
 #include <thread>
@@ -32,6 +32,4 @@ Server::Server(QWidget *parent) :
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-Server.png")));
 
-	QString str;
-	str.toStdString()
 }

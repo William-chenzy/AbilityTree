@@ -8,10 +8,10 @@
 #include <QMouseEvent>
 #include <QStandardPaths>
 #include <QFileDialog>
-#include <tchar.h>
 #include <fstream>
 #include <iostream>
 #include "miniz.c"
+#include <QDebug>
 #include <QProcess>
 #include <md5.hpp>
 #include <thread>
@@ -255,28 +255,33 @@ void InstallTool::on_pushButton_start_clicked() {
 
 	QString name = REG_NAME, key_res;
 	QString key_value = dir_str + "/AbilityTree.ifo";
-	while (key_res != key_value) {
-		key_res = name;
-		GetRegistryValue(key_res);
-		SetRegistryValue(name, key_value);
-		key_res = key_res.mid(0, key_value.size());
-		this_thread::sleep_for(chrono::milliseconds(500));
-	}
+        auto exe_path = dir_str + "/AbilityTreeViewer.exe";
 
-	this_thread::sleep_for(chrono::milliseconds(500));
-	auto exe_path = dir_str + "/AbilityTreeViewer.exe";
-	if (ui->checkBox_auto_start->isChecked()) {
-		QProcess* process = new QProcess();
-		process->start(exe_path);
-	}
-	if (ui->checkBox_ln->isChecked()) {
-		QString tar_dir_str;
-		if (is_Linux)tar_dir_str = "/usr/local/bin";
-		else tar_dir_str = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+        if(!is_Linux){
+            while (key_res != key_value) {
+                    key_res = name;
+                    GetRegistryValue(key_res);
+                    SetRegistryValue(name, key_value);
+                    key_res = key_res.mid(0, key_value.size());
+                    this_thread::sleep_for(chrono::milliseconds(500));
+            }
 
-		auto tar_path = tar_dir_str + "/AbilityTreeViewer.lnk";
-		CreateShortcut(QStringToStdWstring(tar_path), QStringToLPCSTR(exe_path));
-	}
+            this_thread::sleep_for(chrono::milliseconds(500));
+            if (ui->checkBox_ln->isChecked()) {
+                    QString tar_dir_str;
+                    if (is_Linux)tar_dir_str = "/usr/local/bin";
+                    else tar_dir_str = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+
+                    auto tar_path = tar_dir_str + "/AbilityTreeViewer.lnk";
+                    CreateShortcut(QStringToStdWstring(tar_path), QStringToLPCSTR(exe_path));
+            }
+        }
+        else qInfo()<<"Linux can not create reg and lnk!";
+
+        if (ui->checkBox_auto_start->isChecked()) {
+                QProcess* process = new QProcess();
+                process->start(exe_path);
+        }
 
 	SetProcessBar(1);
 	QMessageBox::information(nullptr, "安装", "安装完成!");
