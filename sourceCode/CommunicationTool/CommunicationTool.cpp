@@ -560,7 +560,7 @@ void CommunicationTool::on_tableWidget_itemDoubleClicked(QTableWidgetItem* item)
 	}
 	else {
 		if (ftp.ftp_map.find(st1) != ftp.ftp_map.end()) {
-			auto cig = QMessageBox::information(this, LU_STR44, LU_STR232, QMessageBox::Yes, QMessageBox::No);
+			auto cig = QMessageBox::information(nullptr, LU_STR44, LU_STR232, QMessageBox::Yes, QMessageBox::No);
 			if (cig == QMessageBox::No)return;
 		}
 		FtpDUStu du{ path + '/' + st, st, false };
@@ -580,7 +580,7 @@ void CommunicationTool::on_tableWidget_2_itemDoubleClicked(QTableWidgetItem* ite
 	else {
 		std::string dst = ui.comboBox_ftp_path->currentText().toStdString() + "/" + st;
 		if (QFile::exists(dst.c_str())) {
-			auto cig = QMessageBox::information(this, LU_STR44, LU_STR232, QMessageBox::Yes, QMessageBox::No);
+			auto cig = QMessageBox::information(nullptr, LU_STR44, LU_STR232, QMessageBox::Yes, QMessageBox::No);
 			if (cig == QMessageBox::No)return;
 		}
 		FtpDUStu du{ st, dst, true };

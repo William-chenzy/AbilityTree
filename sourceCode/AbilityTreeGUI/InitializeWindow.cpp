@@ -44,7 +44,7 @@ void InitializeWindow::ReloadParam() {
 	RefreshStatus("正在加载模块资源...");
 	if (!LoadModuleNumbers())exit(0);
 	RefreshStatus("正在预制图像资源...");
-	DrawAllImg();
+	DrawAllImg(QCoreApplication::applicationDirPath());
 
 	RefreshStatus("正在加载用户模块...");
 

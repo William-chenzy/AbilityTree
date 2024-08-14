@@ -29,13 +29,13 @@ NetConfigTool::NetConfigTool(QWidget *parent) :
 
 	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 	if (hr != RPC_E_CHANGED_MODE && FAILED(hr)) {
-		QMessageBox::information(this, LU_STR44, LU_STR157);
+		QMessageBox::information(nullptr, LU_STR44, LU_STR157);
 		exit(0);
 	}
 
 	HINSTANCE  hDevMgr = LoadLibrary(_TEXT("devmgr.dll"));
 	if (!hDevMgr) {
-		QMessageBox::information(this, LU_STR44, LU_STR158);
+		QMessageBox::information(nullptr, LU_STR44, LU_STR158);
 		exit(0);
 	}
 	pDeviceProperties = (PDEVICEPROPERTIES)GetProcAddress((HMODULE)hDevMgr, DeviceProperties_RunDLL);
@@ -137,7 +137,7 @@ void NetConfigTool::on_pushButton_fire_wall_clicked() {
 Cleanup:
 	if (pNetFwPolicy2 != NULL)pNetFwPolicy2->Release();
 	if (SUCCEEDED(hr))CoUninitialize();
-	QMessageBox::information(this, LU_STR167, buf);
+	QMessageBox::information(nullptr, LU_STR167, buf);
 }
 
 void NetConfigTool::on_pushButton_ip_attr_clicked() {

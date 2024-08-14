@@ -17,6 +17,8 @@ public:
     ~PackagedTool() = default;
 
 private:
+	void GetIngnoreFile();
+	void GetIngnoreDir();
 	void CreateScript();
 	void ZipAllFiles();
 
@@ -28,9 +30,6 @@ private slots:
 	void on_toolButton_output_dir_clicked();
 
 private:
-    std::map<std::string, std::string>net_hard;
-	std::vector<QString>netcard_word;
-	std::map<int, bool>netcard_rule;
     Ui::PackagedTool* ui;
 };
 

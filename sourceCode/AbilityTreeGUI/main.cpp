@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
 	ShowWindow(hWnd, SW_HIDE);
 #endif
 	QApplication a(argc, argv);
+	QDir::setCurrent(a.applicationDirPath());
 	a.setWindowIcon(QIcon(":/img/res/LOGO-AT.ico"));
 
 	MainWindow mw;

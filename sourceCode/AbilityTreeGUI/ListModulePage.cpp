@@ -89,13 +89,15 @@ void ListModulePage::SetModuleFunc(std::vector<ModuleFunc>& _func) {
 
 	module_func = _func;
 	static unsigned int index = 0;
+	QString raw_path = QCoreApplication::applicationDirPath() + "/";
 	for (auto i : module_func) {
-		QString path = "./res/BrokenIcon.png";
-		QString check_str = i.path + (is_Linux?"":".exe");
+		QString path = raw_path + "/res/BrokenIcon.png";
+		QString check_str = raw_path + i.path + (is_Linux?"":".exe");
+
 		if (CheckFile(check_str)) {
 			QFileIconProvider icon_provider;
-			path = QString("./temp/%1.png").arg(index++);
-			icon_provider.icon(i.path).pixmap(12, 12).save(path, "png");
+			path = QString(raw_path + "/temp/%1.png").arg(index++);
+			icon_provider.icon(check_str).pixmap(12, 12).save(path, "png");
 		}
 		ModuleCard* card = new ModuleCard();
 		connect(card, &ModuleCard::deleteModule, this, &ListModulePage::ModuleDelete);
@@ -185,7 +187,7 @@ void ListModulePage::ModuleDelete(QString name, void* ptr) {
 
 void ListModulePage::ModuleModify(QString _name, QString _describe, bool is_delete) {
 	if (is_delete) {
-		auto res = QMessageBox::information(this, "提示", "确认删除此模组吗?", QMessageBox::Yes | QMessageBox::No);
+		auto res = QMessageBox::information(nullptr, "提示", "确认删除此模组吗?", QMessageBox::Yes | QMessageBox::No);
 		if (res == QMessageBox::No)return;
 		for (int i = 0; i < all_card.size(); i++) delete all_card[i];
 		all_card.clear();

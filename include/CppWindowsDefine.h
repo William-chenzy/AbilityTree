@@ -1,7 +1,6 @@
 #ifndef __CPP_WINDOWS_DEFINE__H__
 #define __CPP_WINDOWS_DEFINE__H__
 
-
 #include <tchar.h>
 #include <ws2tcpip.h>
 #include <WinSock2.h>
@@ -11,6 +10,7 @@
 #include <TlHelp32.h>
 #include <comdef.h>
 #include <shlobj.h>
+#include <shobjidl.h>
 #pragma comment(lib, "Shell32.lib")
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "DXGI.lib")

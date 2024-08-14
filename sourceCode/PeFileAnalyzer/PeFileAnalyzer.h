@@ -126,6 +126,6 @@ static std::string s_to_fos(std::string bm, std::string msg_) {
 		if (msg_[i] < 32 || msg_[i] > 126)msg_[i] = '.';
 	return bm + msg_;
 }
-#define MSG_RET(A) {QMessageBox::warning(this, "提示", A);return false;}
+#define MSG_RET(A) {QMessageBox::warning(nullptr, "提示", A);return false;}
 
 #endif // PEFILEANALYZER_H

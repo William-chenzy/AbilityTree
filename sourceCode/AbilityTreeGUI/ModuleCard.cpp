@@ -100,8 +100,6 @@ void ModuleCard::SetParam(QString name, QString icon, int _width, int _height) {
 
 	if (!name.isEmpty())name_lab->setText(name);
 	if (!icon.isEmpty())icon_lab->setStyleSheet(QString("border-image:url(%1);").arg(icon));
-
-	if (start)start->setEnabled(icon != "./res/BrokenIcon.png");
 }
 
 void ModuleCard::enterEvent(QEvent* event) {
@@ -173,11 +171,19 @@ void ModuleCard::AddStartModifyButton() {
 }
 void ModuleCard::StartButtonClicked() {
 	if (program->state() != QProcess::Running) {
+		QString raw_path = QCoreApplication::applicationDirPath() + "/";
+		QString check_str = raw_path + exe_path + (is_Linux ? "" : ".exe");
+		if (!CheckFile(check_str)) {
+			if (exe_path == "Locked")QMessageBox::information(nullptr, "提示", "功能被锁定，将会在后续更新中开放!");
+			else QMessageBox::warning(nullptr, "错误", "文件损坏或不存在，请重新安装或检查文件路径!");
+			return;
+		}
+
 		program->start(exe_path);
 		int max_wait = 100;
 		for (; max_wait && program->waitForStarted(10); max_wait--);
 		if (program->state() != QProcess::Running) {
-			QMessageBox::warning(this, "错误", "程序启动失败!");
+			QMessageBox::warning(nullptr, "错误", "程序启动失败!");
 			return;
 		}
 
@@ -191,13 +197,13 @@ void ModuleCard::StartButtonClicked() {
 void ModuleCard::DeleteButtonClicked(bool is_exit) {
 	if (program->state() == QProcess::Running) {
 		QString msg = "模块: " + name_lab->text() + " 正在运行，是否结束?";
-		auto res = QMessageBox::information(this, LU_STR44, msg, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+		auto res = QMessageBox::information(nullptr, LU_STR44, msg, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 		if (res == QMessageBox::Cancel)return;
 		disconnect(program, static_cast<void (QProcess::*)(int)>(&QProcess::finished), nullptr, nullptr);
 		if (res == QMessageBox::Yes)program->kill(), delete program;
 	}
 	else if(!is_exit) {
-		auto res = QMessageBox::information(this, LU_STR44, "是否确认删除模块?", QMessageBox::Yes | QMessageBox::No);
+		auto res = QMessageBox::information(nullptr, LU_STR44, "是否确认删除模块?", QMessageBox::Yes | QMessageBox::No);
 		if (res == QMessageBox::No)return;
 	}
 	GlobalImage::getInstance()->GlobalImage::UnInstallEvent(background, card);

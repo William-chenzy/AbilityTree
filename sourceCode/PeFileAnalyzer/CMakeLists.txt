@@ -46,5 +46,3 @@ target_link_libraries(${PEFILEANALYAZER}
     Qt5::SerialPort
     Qt5::Network
     )
-
-install(TARGETS ${PEFILEANALYAZER} DESTINATION  ${INSTALL_PLAT_PATH})

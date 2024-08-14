@@ -44,6 +44,8 @@ PackagedTool::PackagedTool(QWidget *parent) :
 		if (_dir.size() > 2)ui->lineEdit_package_dir->setText(_dir[2]);
 		if (_dir.size() > 3)ui->lineEdit_output_dir->setText(_dir[3]);
 		if (_dir.size() > 4)ui->lineEdit_output_name->setText(_dir[4]);
+		if (_dir.size() > 5)ui->lineEdit_ignore_file->setText(_dir[5]);
+		if (_dir.size() > 6)ui->lineEdit_ignore_dir->setText(_dir[6]);
 		_file.close();
 	}
 	else {
@@ -107,13 +109,42 @@ void PackagedTool::CreateScript() {
 		cmd_file.close();
 	}
 	else {
-		QMessageBox::warning(this, "错误", "无法写入脚本");
+		QMessageBox::warning(nullptr, "错误", "无法写入脚本");
 		return;
 	}
 
 	QString sys_cmd = (is_Linux ? "sh " : "") + file_name;
 	system(sys_cmd.toStdString().c_str());
         QFile::remove(file_name);
+}
+
+std::map<QString, bool>ignore_dir;
+std::map<QString, bool>ignore_file;
+void PackagedTool::GetIngnoreFile() {
+	QString raw_str = ui->lineEdit_ignore_file->text();
+	raw_str = raw_str.remove('\r').remove('\n');
+	while (raw_str.size() > 0) {
+		QString one_str;
+		int index = raw_str.indexOf(';');
+		one_str = index < 0 ? raw_str : raw_str.mid(0, index);
+
+		ignore_file[one_str] = true;
+		if (index < 0)raw_str.clear();
+		else raw_str = raw_str.mid(index + 1);
+	}
+}
+void PackagedTool::GetIngnoreDir() {
+	QString raw_str = ui->lineEdit_ignore_dir->text();
+	raw_str = raw_str.remove('\r').remove('\n');
+	while (raw_str.size() > 0) {
+		QString one_str;
+		int index = raw_str.indexOf(';');
+		one_str = index < 0 ? raw_str : raw_str.mid(0, index);
+
+		ignore_dir[one_str] = true;
+		if (index < 0)raw_str.clear();
+		else raw_str = raw_str.mid(index + 1);
+	}
 }
 
 void addFileToZip(struct zip_t *zip, const QString &filePath, const QString &entryName) {
@@ -136,17 +167,19 @@ void addDirectoryToZip(struct zip_t *zip, const QString &dirPath, const QString 
 	QString _basePath = (basePath.isEmpty() ? "" : basePath + "/");
 
 	QFileInfoList dir_list = dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
-	for (const QFileInfo &dir_info : dir_list) 
+	for (const QFileInfo &dir_info : dir_list) {
+		if (ignore_dir.count(dir_info.fileName()))continue;
 		addDirectoryToZip(zip, dir_info.absoluteFilePath(), _basePath + dir_info.fileName());
+	}
 
 	QFileInfoList file_list = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
-        for (const QFileInfo &file_info : file_list) {
-                if(file_info.fileName() == "PackagedTool.zip")continue;
+	for (const QFileInfo &file_info : file_list) {
+		if (ignore_file.count(file_info.fileName()))continue;
+		if(file_info.fileName() == "PackagedTool.zip")continue;
 		addFileToZip(zip, file_info.absoluteFilePath(), _basePath + file_info.fileName());
-        }
+	}
 }
 void PackagedTool::ZipAllFiles() {
-	QFile::remove("PackagedTool.zip");
 	QString pack_dir = ui->lineEdit_package_dir->text().remove('\r').remove('\n');
 
 	struct zip_t *zip = zip_open("PackagedTool.zip", ZIP_DEFAULT_COMPRESSION_LEVEL, 'w');
@@ -171,6 +204,8 @@ void PackagedTool::on_pushButton_start_package_clicked() {
 		str += ui->lineEdit_package_dir->text() + "\r\n";
 		str += ui->lineEdit_output_dir->text() + "\r\n";
 		str += ui->lineEdit_output_name->text() + "\r\n";
+		str += ui->lineEdit_ignore_file->text() + "\r\n";
+		str += ui->lineEdit_ignore_dir->text() + "\r\n";
 		_file.write(str.toLocal8Bit());
 		_file.close();
 	}
@@ -189,6 +224,10 @@ void PackagedTool::on_pushButton_start_package_clicked() {
 	ui->pushButton_start_package->setText("正在执行脚本");
 	QApplication::processEvents();
 	CreateScript();
+
+	GetIngnoreDir();
+	GetIngnoreFile();
+
 	ui->pushButton_start_package->setText("正在压缩打包");
 	QApplication::processEvents();
 	ZipAllFiles();
@@ -225,6 +264,7 @@ void PackagedTool::on_pushButton_start_package_clicked() {
 	pack_file.close();
 	zip_file.close();
 	app_file.close();
+	QFile::remove("PackagedTool.zip");
 	QMessageBox::information(nullptr, "提示", "打包完成");
 	ui->pushButton_start_package->setText("开始打包");
 	ui->pushButton_start_package->setEnabled(true);

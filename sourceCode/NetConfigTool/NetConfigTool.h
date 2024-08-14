@@ -2,7 +2,7 @@
 #define MAINWINDOW_H_LN
 
 #include <QMainWindow>
-#include "GlobalDefine.h"
+#include "CppGlobalDefine.h"
 #include "ui_NetConfigTool.h"
 namespace Ui {
     class NetConfigTool;

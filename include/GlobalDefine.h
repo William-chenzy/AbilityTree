@@ -37,6 +37,8 @@ QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}\
 QPushButton::disabled{background-color:#7d7d7d;}"
 
+static QString g_base_path;
+static std::string g_base_path_std;
 static cv::Mat DrawRGBBcakGround(int w = 48, int h = 48) {
 	cv::Mat img = cv::Mat(h, w, CV_8UC4, cv::Scalar(255, 255, 255, 0));
 
@@ -88,7 +90,7 @@ static cv::Mat DrawColorBar(bool write = false){
 		if (i == 3) for (int r = 0; r < 255; r++) colorbar.at<cv::Vec3b>(0, i * 255 + r) = cv::Vec3b(r, r, r);
 	}
 	for (int x = 1; x < colorbar.rows; x++) colorbar.row(0).copyTo(colorbar.row(x));
-	if (write)cv::imwrite("./res/colorbar.png", colorbar);
+	if (write)cv::imwrite(g_base_path_std + "/res/colorbar.png", colorbar);
 
 	cv::Mat colorch(10, 5, CV_8UC4, cv::Scalar(0));
 	for (int i = 0; i < 5; i++) colorch.at<cv::Vec4b>(0, i) = cv::Vec4b(255 * (i % 2), 255 * (i % 2), 255 * (i % 2), 255);
@@ -97,7 +99,7 @@ static cv::Mat DrawColorBar(bool write = false){
 	for (int i = 1; i < 3; i++) colorch.at<cv::Vec4b>(1, i) = colorch.at<cv::Vec4b>(8, i) = cv::Vec4b(0, 0, 0, 255);
 	colorch.at<cv::Vec4b>(2, 3) = colorch.at<cv::Vec4b>(7, 3) = cv::Vec4b(0, 0, 0, 255);
 	for (int i = 0; i < 10; i++) colorch.at<cv::Vec4b>(i, 3) = cv::Vec4b(0, 0, 0, 0);//中间颜色透明
-	if (write)cv::imwrite("./res/colorch.png", colorch);
+	if (write)cv::imwrite(g_base_path_std + "/res/colorch.png", colorch);
 	return colorbar;
 }
 
@@ -130,9 +132,9 @@ static void DrawCloseImg() {
 			img_pressed.at<cv::Vec4b>(i, end - i - j) = cv::Vec4b(120, 120, 120, 255);
 		}
 	}
-	cv::imwrite("./res/close.png", img);
-	cv::imwrite("./res/close_hover.png", img_hover);
-	cv::imwrite("./res/close_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/close.png", img);
+	cv::imwrite(g_base_path_std + "/res/close_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/close_pressed.png", img_pressed);
 }
 
 static void DrawMaxImg() {
@@ -160,9 +162,9 @@ static void DrawMaxImg() {
 		}
 	}
 
-	cv::imwrite("./res/max.png", img);
-	cv::imwrite("./res/max_hover.png", img_hover);
-	cv::imwrite("./res/max_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/max.png", img);
+	cv::imwrite(g_base_path_std + "/res/max_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/max_pressed.png", img_pressed);
 }
 
 static void DrawFullImg() {
@@ -193,9 +195,9 @@ static void DrawFullImg() {
 			img_pressed.at<cv::Vec4b>(i, j) = img.at<cv::Vec4b>(i, j);
 		}
 	}
-	cv::imwrite("./res/full.png", img);
-	cv::imwrite("./res/full_hover.png", img_hover);
-	cv::imwrite("./res/full_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/full.png", img);
+	cv::imwrite(g_base_path_std + "/res/full_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/full_pressed.png", img_pressed);
 }
 
 static void DrawMinImg() {
@@ -213,9 +215,9 @@ static void DrawMinImg() {
 			img_pressed.at<cv::Vec4b>(i, j) = cv::Vec4b(120, 120, 120, 255);
 		}
 	}
-	cv::imwrite("./res/min.png", img);
-	cv::imwrite("./res/min_hover.png", img_hover);
-	cv::imwrite("./res/min_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/min.png", img);
+	cv::imwrite(g_base_path_std + "/res/min_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/min_pressed.png", img_pressed);
 }
 
 static void DrawHelpImg() {
@@ -234,9 +236,9 @@ static void DrawHelpImg() {
 		}
 	}
 
-	cv::imwrite("./res/help.png", img);
-	cv::imwrite("./res/help_hover.png", img_hover);
-	cv::imwrite("./res/help_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/help.png", img);
+	cv::imwrite(g_base_path_std + "/res/help_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/help_pressed.png", img_pressed);
 }
 
 static void DrawSettingImg() {
@@ -263,9 +265,9 @@ static void DrawSettingImg() {
 			img_pressed.at<cv::Vec4b>(i, j) = val;
 		}
 
-	cv::imwrite("./res/setting.png", img);
-	cv::imwrite("./res/setting_hover.png", img_hover);
-	cv::imwrite("./res/setting_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/setting.png", img);
+	cv::imwrite(g_base_path_std + "/res/setting_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/setting_pressed.png", img_pressed);
 }
 
 static void DrawSerchImg() {
@@ -277,7 +279,7 @@ static void DrawSerchImg() {
 			img.at<cv::Vec4b>(i - 2, i + j) = { 120, 120, 120, 255 };
 		}
 
-	cv::imwrite("./res/serch.png", img);
+	cv::imwrite(g_base_path_std + "/res/serch.png", img);
 }
 
 static void DrawFrontIcon() {
@@ -320,8 +322,8 @@ static void DrawFrontIcon() {
 		}
 	}
 
-	cv::imwrite("./res/FrontIcon.png", img);
-	cv::imwrite("./res/FrontIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/FrontIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/FrontIcon_bk.png", img_bk);
 }
 
 static void DrawNetworkIcon() {
@@ -367,8 +369,8 @@ static void DrawNetworkIcon() {
 		}
 	}
 
-	cv::imwrite("./res/NetworkIcon.png", img);
-	cv::imwrite("./res/NetworkIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/NetworkIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/NetworkIcon_bk.png", img_bk);
 }
 
 static void DrawAssembleIcon() {
@@ -386,8 +388,8 @@ static void DrawAssembleIcon() {
 		}
 	}
 
-	cv::imwrite("./res/AssembleIcon.png", img);
-	cv::imwrite("./res/AssembleIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/AssembleIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/AssembleIcon_bk.png", img_bk);
 }
 
 static void DrawHackerIcon() {
@@ -446,8 +448,8 @@ static void DrawHackerIcon() {
 		}
 	}
 
-	cv::imwrite("./res/HackerIcon.png", img);
-	cv::imwrite("./res/HackerIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/HackerIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/HackerIcon_bk.png", img_bk);
 }
 
 static void DrawAlgorithmIcon() {
@@ -493,8 +495,8 @@ static void DrawAlgorithmIcon() {
 		}
 	}
 
-	cv::imwrite("./res/AlgorithmIcon.png", img);
-	cv::imwrite("./res/AlgorithmIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/AlgorithmIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/AlgorithmIcon_bk.png", img_bk);
 }
 
 static void DrawDeveloperIcon() {
@@ -511,8 +513,8 @@ static void DrawDeveloperIcon() {
 		}
 	}
 
-	cv::imwrite("./res/DeveloperIcon.png", img);
-	cv::imwrite("./res/DeveloperIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/DeveloperIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/DeveloperIcon_bk.png", img_bk);
 }
 
 static void DrawOtherIcon() {
@@ -533,8 +535,8 @@ static void DrawOtherIcon() {
 		}
 	}
 
-	cv::imwrite("./res/OtherIcon.png", img);
-	cv::imwrite("./res/OtherIcon_bk.png", img_bk);
+	cv::imwrite(g_base_path_std + "/res/OtherIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/OtherIcon_bk.png", img_bk);
 }
 
 static void DrawBrokenIcon() {
@@ -543,19 +545,19 @@ static void DrawBrokenIcon() {
 	cv::circle(img, { 24,24 }, 20, { 170,170,170,255 }, -1, 50);
 	cv::putText(img, "!", cv::Point{ 17,39 }, 1, 3, { 170, 170, 170, 0 }, 2, 50);
 
-	cv::imwrite("./res/BrokenIcon.png", img);
+	cv::imwrite(g_base_path_std + "/res/BrokenIcon.png", img);
 }
 
 static void DrawExpandImg() {
 	cv::Mat img = cv::Mat(48, 48, CV_8UC4, cv::Scalar(255, 255, 255, 0));
 	cv::putText(img, "+", cv::Point{ 6,39 }, 1, 3, { 170, 170, 170, 255 }, 2, 50);
-	cv::imwrite("./res/expand.png", img);
+	cv::imwrite(g_base_path_std + "/res/expand.png", img);
 }
 
 static void DrawRetractImg() {
 	cv::Mat img = cv::Mat(48, 48, CV_8UC4, cv::Scalar(255, 255, 255, 0));
 	cv::putText(img, "-", cv::Point{ 6,39 }, 1, 3, { 170, 170, 170, 255 }, 2, 50);
-	cv::imwrite("./res/retract.png", img);
+	cv::imwrite(g_base_path_std + "/res/retract.png", img);
 }
 
 static cv::Mat DrawMouseCircleImg(bool save = true) {
@@ -571,7 +573,7 @@ static cv::Mat DrawMouseCircleImg(bool save = true) {
 		}
 	}
 	cv::circle(img, { 24,24 }, 12, { 255,255,255,20 }, 3, 120);
-	if (save)cv::imwrite("./res/mouseCircle.png", img);
+	if (save)cv::imwrite(g_base_path_std + "/res/mouseCircle.png", img);
 	return img;
 }
 static void DrawMouseLeftImg() {
@@ -586,7 +588,7 @@ static void DrawMouseLeftImg() {
 		}
 	}
 
-	cv::imwrite("./res/mouseLeft.png", img);
+	cv::imwrite(g_base_path_std + "/res/mouseLeft.png", img);
 }
 static void DrawMouseRightImg() {
 	cv::Mat img = DrawMouseCircleImg(false);
@@ -600,13 +602,13 @@ static void DrawMouseRightImg() {
 		}
 	}
 
-	cv::imwrite("./res/mouseRight.png", img);
+	cv::imwrite(g_base_path_std + "/res/mouseRight.png", img);
 }
 static void DrawMouseMiddleImg() {
 	cv::Mat img = DrawMouseCircleImg(false);
 
 	cv::circle(img, { 24,24 }, 9, { 255,255,255,255 }, -1, 120);
-	cv::imwrite("./res/mouseMiddle.png", img);
+	cv::imwrite(g_base_path_std + "/res/mouseMiddle.png", img);
 }
 
 static void DrawDownImg() {
@@ -619,7 +621,7 @@ static void DrawDownImg() {
 	cv::line(img, { 18,4 }, { 24,8 }, { 255,255,255,255 }, 1, 120);
 	cv::line(img, { 24,8 }, { 30,4 }, { 255,255,255,255 }, 1, 120);
 
-	cv::imwrite("./res/down_img.png", img);
+	cv::imwrite(g_base_path_std + "/res/down_img.png", img);
 }
 static void DrawUpImg() {
 	cv::Mat img = cv::Mat(12, 48, CV_8UC4, NORMAL_COLOR);
@@ -631,7 +633,7 @@ static void DrawUpImg() {
 	cv::line(img, { 18,8 }, { 24,4 }, { 255,255,255,255 }, 1, 120);
 	cv::line(img, { 24,4 }, { 30,8 }, { 255,255,255,255 }, 1, 120);
 
-	cv::imwrite("./res/up_img.png", img);
+	cv::imwrite(g_base_path_std + "/res/up_img.png", img);
 }
 static void DrawRightImg() {
 	cv::Mat img = cv::Mat(48, 48, CV_8UC4, NORMAL_COLOR);
@@ -639,7 +641,7 @@ static void DrawRightImg() {
 	cv::line(img, { 18,18 }, { 30,24 }, { 255,255,255,255 }, 2, 120);
 	cv::line(img, { 30,24 }, { 18,30 }, { 255,255,255,255 }, 2, 120);
 
-	cv::imwrite("./res/right_img.png", img);
+	cv::imwrite(g_base_path_std + "/res/right_img.png", img);
 }
 static void DrawLeftImg() {
 	cv::Mat img = cv::Mat(48, 48, CV_8UC4, NORMAL_COLOR);
@@ -647,7 +649,7 @@ static void DrawLeftImg() {
 	cv::line(img, { 30,18 }, { 18,24 }, { 255,255,255,255 }, 2, 120);
 	cv::line(img, { 18,24 }, { 30,30 }, { 255,255,255,255 }, 2, 120);
 
-	cv::imwrite("./res/left_img.png", img);
+	cv::imwrite(g_base_path_std + "/res/left_img.png", img);
 }
 static void DrawImageFullImg() {
 	bool img_mask[24][24]{
@@ -690,9 +692,9 @@ static void DrawImageFullImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_full.png", img);
-	cv::imwrite("./res/image_full_hover.png", img_hover);
-	cv::imwrite("./res/image_full_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_full.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_full_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_full_pressed.png", img_pressed);
 }
 static void DrawImageFullCancelImg() {
 	bool img_mask[24][24]{
@@ -735,9 +737,9 @@ static void DrawImageFullCancelImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_full_cancel.png", img);
-	cv::imwrite("./res/image_full_cancel_hover.png", img_hover);
-	cv::imwrite("./res/image_full_cancel_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_full_cancel.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_full_cancel_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_full_cancel_pressed.png", img_pressed);
 }
 static void DrawImageMaxImg() {
 	bool img_mask[24][24]{
@@ -780,9 +782,9 @@ static void DrawImageMaxImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_max.png", img);
-	cv::imwrite("./res/image_max_hover.png", img_hover);
-	cv::imwrite("./res/image_max_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_max.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_max_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_max_pressed.png", img_pressed);
 }
 static void DrawImageMaxCancelImg() {
 	bool img_mask[24][24]{
@@ -825,9 +827,9 @@ static void DrawImageMaxCancelImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_max_cancel.png", img);
-	cv::imwrite("./res/image_max_cancel_hover.png", img_hover);
-	cv::imwrite("./res/image_max_cancel_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_max_cancel.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_max_cancel_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_max_cancel_pressed.png", img_pressed);
 }
 static void DrawImageBiggerImg() {
 	bool img_mask[24][24]{
@@ -872,9 +874,9 @@ static void DrawImageBiggerImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_bigger.png", img);
-	cv::imwrite("./res/image_bigger_hover.png", img_hover);
-	cv::imwrite("./res/image_bigger_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_bigger.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_bigger_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_bigger_pressed.png", img_pressed);
 }
 static void DrawImageSmallImg() {
 	bool img_mask[24][24]{
@@ -919,9 +921,9 @@ static void DrawImageSmallImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_small.png", img);
-	cv::imwrite("./res/image_small_hover.png", img_hover);
-	cv::imwrite("./res/image_small_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_small.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_small_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_small_pressed.png", img_pressed);
 }
 static void DrawImagePrevImg() {
 	bool img_mask[24][24]{
@@ -966,9 +968,9 @@ static void DrawImagePrevImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_prev.png", img);
-	cv::imwrite("./res/image_prev_hover.png", img_hover);
-	cv::imwrite("./res/image_prev_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_prev.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_prev_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_prev_pressed.png", img_pressed);
 }
 static void DrawImageNextImg() {
 	bool img_mask[24][24]{
@@ -1013,9 +1015,9 @@ static void DrawImageNextImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_next.png", img);
-	cv::imwrite("./res/image_next_hover.png", img_hover);
-	cv::imwrite("./res/image_next_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_next.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_next_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_next_pressed.png", img_pressed);
 }
 static void DrawImageLeftRotateImg() {
 	bool img_mask[24][24]{
@@ -1060,9 +1062,9 @@ static void DrawImageLeftRotateImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_left_rotate.png", img);
-	cv::imwrite("./res/image_left_rotate_hover.png", img_hover);
-	cv::imwrite("./res/image_left_rotate_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_left_rotate.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_left_rotate_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_left_rotate_pressed.png", img_pressed);
 }
 static void DrawImageRightRotateImg() {
 	bool img_mask[24][24]{
@@ -1107,9 +1109,9 @@ static void DrawImageRightRotateImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_right_rotate.png", img);
-	cv::imwrite("./res/image_right_rotate_hover.png", img_hover);
-	cv::imwrite("./res/image_right_rotate_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_right_rotate.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_right_rotate_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_right_rotate_pressed.png", img_pressed);
 }
 static void DrawImageDeleteImg() {
 	bool img_mask[24][24]{
@@ -1154,9 +1156,9 @@ static void DrawImageDeleteImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_delete.png", img);
-	cv::imwrite("./res/image_delete_hover.png", img_hover);
-	cv::imwrite("./res/image_delete_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_delete.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_delete_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_delete_pressed.png", img_pressed);
 }
 static void DrawImageInfoImg() {
 	bool img_mask[24][24]{
@@ -1201,9 +1203,9 @@ static void DrawImageInfoImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_info.png", img);
-	cv::imwrite("./res/image_info_hover.png", img_hover);
-	cv::imwrite("./res/image_info_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_info.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_info_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_info_pressed.png", img_pressed);
 }
 static void DrawImageInfoCancelImg() {
 	bool img_mask[24][24]{
@@ -1248,9 +1250,9 @@ static void DrawImageInfoCancelImg() {
 		}
 	}
 
-	cv::imwrite("./res/image_info_cancel.png", img);
-	cv::imwrite("./res/image_info_cancel_hover.png", img_hover);
-	cv::imwrite("./res/image_info_cancel_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/image_info_cancel.png", img);
+	cv::imwrite(g_base_path_std + "/res/image_info_cancel_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/image_info_cancel_pressed.png", img_pressed);
 }
 
 static void DrawOpenDirImg() {
@@ -1296,9 +1298,9 @@ static void DrawOpenDirImg() {
 		}
 	}
 
-	cv::imwrite("./res/open_dir.png", img);
-	cv::imwrite("./res/open_dir_hover.png", img_hover);
-	cv::imwrite("./res/open_dir_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/open_dir.png", img);
+	cv::imwrite(g_base_path_std + "/res/open_dir_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/open_dir_pressed.png", img_pressed);
 }
 static void DrawSaveAsImg() {
 	bool img_mask[24][24]{
@@ -1343,18 +1345,20 @@ static void DrawSaveAsImg() {
 		}
 	}
 
-	cv::imwrite("./res/save_as.png", img);
-	cv::imwrite("./res/save_as_hover.png", img_hover);
-	cv::imwrite("./res/save_as_pressed.png", img_pressed);
+	cv::imwrite(g_base_path_std + "/res/save_as.png", img);
+	cv::imwrite(g_base_path_std + "/res/save_as_hover.png", img_hover);
+	cv::imwrite(g_base_path_std + "/res/save_as_pressed.png", img_pressed);
 }
 
 static void InitDir() {
 	QDir dir;
-	dir.mkpath("./res/");
-	dir.mkpath("./conf/");
-	dir.mkpath("./temp/");
+	dir.mkpath(g_base_path + "/res/");
+	dir.mkpath(g_base_path + "/conf/");
+	dir.mkpath(g_base_path + "/temp/");
 }
-static void DrawAllImg() {
+static void DrawAllImg(QString base_path) {
+	g_base_path_std = base_path.toLocal8Bit().toStdString();
+	g_base_path = base_path;
 	InitDir();
 
 	DrawDeveloperIcon();

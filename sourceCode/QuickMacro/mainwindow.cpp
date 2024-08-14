@@ -293,7 +293,6 @@ QuickMacro::QuickMacro(QWidget *parent) :
 		ErrExit(QString("Key Hook初始化失败: %1").arg(QString::number(GetLastError())));
 	}
 	hwnd = (HWND)this->winId();
-	DrawAllImg();
 
 	hot_1 = hotK_1, hot_2 = hotK_2, hot_3 = hotK_3;
 	std::thread hk_t(&QuickMacro::HotKetBack, this);
@@ -311,7 +310,6 @@ QuickMacro::QuickMacro(QWidget *parent) :
 	ui->lineEdit_8->installEventFilter(this);
 	ui->lineEdit_12->installEventFilter(this);
 	lf_execute = mf_execute = false;
-	on_pushButton_top_clicked();
 }
 
 void QuickMacro::HotKetBack() {
@@ -485,7 +483,7 @@ void QuickMacro::SaveConfigure() {
 	int r_speed = ui->doubleSpinBox_speed->value();
 
 	fstream _file("./conf/QuickMacro.conf", ios::in | ios::out | ios::binary);
-	if (!_file.is_open())QMessageBox::warning(this, "错误", "配置文件读写失败，请检查权限!");
+	if (!_file.is_open())QMessageBox::warning(nullptr, "错误", "配置文件读写失败，请检查权限!");
 	else {
 		string str;
 		while (!_file.eof()) str.push_back(_file.get());
@@ -514,7 +512,7 @@ void QuickMacro::on_pushButton_set_cancel_clicked(bool init) {
 
 	fstream _file("./conf/QuickMacro.conf", ios::in | ios::out | ios::binary);
 	if (!_file.is_open())_file.open("./conf/QuickMacro.conf", ios::in | ios::out | ios::trunc | ios::binary);
-	if (!_file.is_open())QMessageBox::warning(this, "错误", "配置文件读写失败，请检查权限!");
+	if (!_file.is_open())QMessageBox::warning(nullptr, "错误", "配置文件读写失败，请检查权限!");
 	else while (!_file.eof()) str.push_back(_file.get());
 	_file.close();
 
@@ -569,7 +567,7 @@ void QuickMacro::on_pushButton_set_cancel_clicked(bool init) {
 }
 void QuickMacro::on_pushButton_set_done_clicked() {
 	fstream _file("./conf/QuickMacro.conf", ios::in | ios::out |ios::binary);
-	if (!_file.is_open())QMessageBox::warning(this, "错误", "配置文件读写失败，请检查权限!");
+	if (!_file.is_open())QMessageBox::warning(nullptr, "错误", "配置文件读写失败，请检查权限!");
 	else {
 		string str;
 		while (!_file.eof()) str.push_back(_file.get());
@@ -590,12 +588,7 @@ void QuickMacro::on_pushButton_set_done_clicked() {
 	if (hot_3 != hotK_3)old_key = hot_3;
 	hot_1 = hotK_1, hot_2 = hotK_2, hot_3 = hotK_3;
 
-	
-	keybd_event(VK_MENU, 0, 0, 0);
-	keybd_event(old_key, 0, 0, 0);
-	keybd_event(old_key, 0, KEYEVENTF_KEYUP, 0);
-	keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, 0);
-	QMessageBox::information(this, "提示", "修改完成");
+	QMessageBox::information(nullptr, "提示", "修改完成，重启软件后生效!");
 }
 
 void QuickMacro::RefreshView() {
@@ -627,7 +620,7 @@ void QuickMacro::on_horizontalSlider_action_valueChanged(int val) {
 
 
 void QuickMacro::ErrExit(QString msg) {
-	QMessageBox::warning(this, "错误", msg);
+	QMessageBox::warning(nullptr, "错误", msg);
 	exit(-1);
 }
 void QuickMacro::closeEvent(QCloseEvent *event) {

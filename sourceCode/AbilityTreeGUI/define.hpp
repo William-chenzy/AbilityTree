@@ -9,6 +9,7 @@
 #include <QScrollArea>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QCoreApplication>
 #include "opencv2/opencv.hpp"
 
 #if _MSC_VER >= 1600
@@ -37,10 +38,11 @@ struct ModuleMember {
 
 extern std::vector<ModuleMember>moduleList;
 static void WriteModuleNumbers() {
-	QFile file("./conf/ModuleNumbers.json");
+	QString raw_path = QCoreApplication::applicationDirPath();
+	QFile file(raw_path + "/conf/ModuleNumbers.json");
 	file.open(QIODevice::ReadWrite | QIODevice::Text);
 
-	QFile file_old("./conf/ModuleNumbers_old.json");
+	QFile file_old(raw_path + "/conf/ModuleNumbers_old.json");
 	file_old.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
 	file_old.write(file.readAll());
 	file_old.close();
@@ -74,7 +76,8 @@ static void WriteModuleNumbers() {
 	file.close();
 }
 static bool LoadModuleNumbers() {
-	QFile file("./conf/ModuleNumbers.json");
+	QString raw_path = QCoreApplication::applicationDirPath();
+	QFile file(raw_path + "/conf/ModuleNumbers.json");
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	QString str = file.readAll();
 	file.close();
@@ -85,7 +88,7 @@ static bool LoadModuleNumbers() {
 			QMessageBox::warning(nullptr, "错误", "资源文件损坏!请重新安装程序!");
 			return false;
 		}
-		QFile file("./conf/ModuleNumbers_old.json");
+		QFile file(raw_path + "/conf/ModuleNumbers_old.json");
 		file.open(QIODevice::ReadOnly | QIODevice::Text);
 		QString str = file.readAll();
 		file.close();
