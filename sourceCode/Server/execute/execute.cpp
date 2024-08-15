@@ -1,5 +1,6 @@
 #include "execute.h"
 #include <iostream>
+#include <unistd.h>
 using namespace std;
 
 string GetTime() {
@@ -69,7 +70,19 @@ void serve_file(const string& path, httplib::Response& res) {
 	}
 }
 
+void SetCurrentPath(){
+	char path[1024];
+	ssize_t len = readlink("/proc/self/exe", path, sizeof(path) - 1);
+
+	path[len] = '\0';
+	std::string directory = path;
+	std::string::size_type pos = directory.find_last_of("/\\");
+	if (pos != std::string::npos) directory = directory.substr(0, pos);
+	chdir(directory.c_str());
+}
+
 int main(int argc, char *argv[]) {
+	SetCurrentPath();
 	system("sh ./config_server.sh");
 	cout << "config_server init done!" << endl;
 
