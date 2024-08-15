@@ -4,6 +4,7 @@
 #include <vector>
 #include <chrono>
 #include <fstream>
+#include <iostream>
 
 typedef unsigned char uchar;
 typedef unsigned long Socket_fd;
@@ -46,7 +47,7 @@ private:
 		}
 
 		if (val.size() < 1)val.push_back(0);//语言
-		if (val.size() < 2)val.push_back(0);//动画效果
+		if (val.size() < 2)val.push_back(1);//动画效果
 		
 		ts.open("./conf/AbilityTree.pr", std::ios::in | std::ios::out | std::ios::trunc | std::ios::binary);
 		config_status = ts.is_open();
@@ -58,6 +59,7 @@ private:
 		if (!config_status) return;
 		ts.seekg(0, std::ios::beg);
 		ts.write(val.c_str(), val.length());
+		ts.flush();
 	}
 	std::fstream ts;
 	std::string val;

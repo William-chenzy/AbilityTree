@@ -402,6 +402,9 @@ QToolButton:pressed{border-image:url(./res/close_pressed.png);}</string>
              </item>
              <item>
               <widget class="QComboBox" name="comboBox_serch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>126</width>
@@ -646,7 +649,7 @@ QScrollBar::sub-page:horizontal {background:transparent;border-top-left-radius: 
                <x>0</x>
                <y>0</y>
                <width>200</width>
-               <height>804</height>
+               <height>797</height>
               </rect>
              </property>
              <property name="cursor">

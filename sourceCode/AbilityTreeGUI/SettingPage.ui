@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>328</width>
-    <height>376</height>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,6 +22,10 @@ QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}
 QPushButton::disabled{background-color:#7d7d7d;}
 
+QRadioButton::indicator{color:#dddddd;}
+QRadioButton{color: #dddddd;}
+QRadioButton::checked{color: #dddddd;}
+QRadioButton::unchecked{color: #dddddd;}
 QLineEdit{background-color:transparent;}
 QTextEdit{background-color:transparent;}</string>
   </property>
@@ -39,7 +43,7 @@ QTextEdit{background-color:transparent;}</string>
        <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>20</number>
+       <number>0</number>
       </property>
       <item row="0" column="0">
        <widget class="QWidget" name="widget_language_set" native="true">
@@ -65,6 +69,9 @@ QTextEdit{background-color:transparent;}</string>
          </item>
          <item>
           <widget class="QRadioButton" name="radioButton_ch">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
            <property name="text">
             <string>中文</string>
            </property>
@@ -74,10 +81,16 @@ QTextEdit{background-color:transparent;}</string>
            <property name="checked">
             <bool>true</bool>
            </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QRadioButton" name="radioButton_en">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
            <property name="text">
             <string>English</string>
            </property>
@@ -110,6 +123,9 @@ QTextEdit{background-color:transparent;}</string>
          </item>
          <item>
           <widget class="QRadioButton" name="radioButton_ani_low">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
            <property name="text">
             <string>低</string>
            </property>
@@ -117,6 +133,9 @@ QTextEdit{background-color:transparent;}</string>
          </item>
          <item>
           <widget class="QRadioButton" name="radioButton_ani_height">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
            <property name="text">
             <string>高</string>
            </property>
@@ -130,6 +149,9 @@ QTextEdit{background-color:transparent;}</string>
       </item>
       <item row="2" column="0">
        <widget class="QPushButton" name="pushButton_main_confirm">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string>确认修改</string>
         </property>
@@ -178,19 +200,33 @@ QTextEdit{background-color:transparent;}</string>
       </item>
       <item row="2" column="2">
        <widget class="QPushButton" name="pushButton_module_confirm">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string>确认修改</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1" colspan="2">
-       <widget class="QTextEdit" name="textEdit_mdule_describe"/>
+       <widget class="QTextEdit" name="textEdit_mdule_describe">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1" colspan="2">
-       <widget class="QLineEdit" name="lineEdit_module_name"/>
+       <widget class="QLineEdit" name="lineEdit_module_name">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+       </widget>
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="pushButton_module_delete">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string>删除模组</string>
         </property>

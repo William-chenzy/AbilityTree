@@ -131,7 +131,7 @@ private slots:
 	void on_toolButton_over_clicked();
 	void on_toolButton_save_clicked();
 	void on_toolButton_start_clicked();
-	void on_pushButton_net_start_cicked();
+	void on_pushButton_net_start_clicked();
 	void on_lineEdit_cmd_editingFinished();
 	void on_pushButton_net_refresh_clicked();
 	void on_lineEdit_cmd_textChanged(QString);
@@ -148,6 +148,7 @@ public:
 	std::list<PACKAGE> packets;
 
 private:
+	bool start_main_speed_get = false;
 	long long current_index = -1;
 	bool is_execute = false;
 	pcap_t* pcap_handle;

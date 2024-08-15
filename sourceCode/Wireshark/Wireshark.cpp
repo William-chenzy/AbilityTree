@@ -273,11 +273,10 @@ string wideCharToMultiByte(wchar_t* pWCStrKey){
 void packet_back(u_char* pt, const struct pcap_pkthdr* header, const u_char* pkt_data) {
 	auto this_ = (Wireshark*)pt;
 	if (this_->stopping)return;
-
 	PACKAGE pak;
 	pak.header = *header;
 	pak.msg.append((char*)pkt_data, header->caplen);
-	this_->packets.push_back(pak);
+	this_->packets.insert(this_->packets.end(),pak);
 }
 
 ushort S2B_S(const char* val) {
@@ -364,8 +363,9 @@ Wireshark::Wireshark(QWidget* parent) :
 void Wireshark::SwitchLanguage() {
 	ui->pushButton_net_refresh->setText(LU_STR390);
 	QStringList heardList;
-	if (is_CH)heardList << "网卡" << "流量" << "峰值(Mbps)" << "MAC" << "GUID";
-	else heardList << "Network card" << "Flow" << "Peak value(Mbps)" << "MAC" << "GUID";
+	QString descirbe = is_Linux?"MTU":"GUID";
+	if (is_CH)heardList << "网卡" << "流量" << "峰值(Mbps)" << "MAC" << descirbe;
+	else heardList << "Network card" << "Flow" << "Peak value(Mbps)" << "MAC" << descirbe;
 	ui->treeWidget_netCard->setHeaderLabels(heardList);
 
 	ui->toolButton_start->setText(LU_STR414);
@@ -377,7 +377,7 @@ void Wireshark::SwitchLanguage() {
 }
 
 void Wireshark::RefreshSpeed() {
-	if (!ch_guid.empty()) {
+	if (start_main_speed_get && !ch_guid.empty()) {
 		DWORD val[3]{ 0,0,0 };
 		if (!GetSpeedAndByte(ch_guid, val[0], val[1], val[2]))return;
 		float fval = ((val[1] - speed_val.inout[0]) + (val[2] - speed_val.inout[1])) / 1000000.f;
@@ -561,7 +561,7 @@ void Wireshark::netCard_itemClicked(QTreeWidgetItem* item){
 	ui->pushButton_net_start->setEnabled(true);
 }
 
-void Wireshark::on_pushButton_net_start_cicked() {
+void Wireshark::on_pushButton_net_start_clicked() {
 	netCard_itemdoubleClicked(ui->treeWidget_netCard->currentItem());
 }
 void Wireshark::netCard_itemdoubleClicked(QTreeWidgetItem* item) {
@@ -578,6 +578,7 @@ void Wireshark::netCard_itemdoubleClicked(QTreeWidgetItem* item) {
 		ch_guid = ch_name = "";
 		return;
 	}
+	start_main_speed_get = true;
 	on_toolButton_start_clicked();
 	ui->widget_6->setVisible(false);
 	ui->widget_2->setVisible(true);
@@ -778,15 +779,19 @@ void Wireshark::AnalysisPackages() {
 }
 
 void Wireshark::IpToNet(){
+	ch_name = "";
 	char buf[512];
 	pcap_if_t* all;
 	if (pcap_findalldevs(&all, buf) == -1)return;
-	for (; all != nullptr; all = all->next) {
-		for (pcap_addr_t* a = all->addresses; a != nullptr; a = a->next) {
+	for (; all != nullptr && ch_name.empty(); all = all->next) {
+		for (pcap_addr_t* a = all->addresses; a != nullptr && ch_name.empty(); a = a->next) {
 			string _guid = all->name;
-			int f_ = _guid.find('{'), l_ = _guid.find('}');
-			if (f_ == string::npos || l_ == string::npos)continue;
-			if (_guid.substr(f_, l_ - f_ + 1) == ch_guid)ch_name = all->name;
+			if(!is_Linux){
+				int f_ = _guid.find('{'), l_ = _guid.find('}');
+				if (f_ == string::npos || l_ == string::npos)continue;
+				if (_guid.substr(f_, l_ - f_ + 1) == ch_guid)ch_name = all->name;
+			}
+			else if (_guid == ch_guid)ch_name = all->name;
 		}
 	}
 	pcap_freealldevs(all);
@@ -1047,6 +1052,7 @@ void Wireshark::on_toolButton_save_clicked() {
 void Wireshark::on_toolButton_over_clicked() {
 	auto result = QMessageBox::information(nullptr, LU_STR142, LU_STR143, QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
 	if (result == QMessageBox::Cancel)return;
+	start_main_speed_get = false;
 
 	on_toolButton_stop_clicked();
 	if (result == QMessageBox::Yes) on_toolButton_save_clicked();

@@ -44,7 +44,14 @@ PhotosTool::PhotosTool(QWidget *parent) :
 	img_list_layout->setSpacing(12);
 	img_list_layout->setMargin(0);
 	AddNextPrevButton();
+	drop_path.clear();
 
+	offset_x = offset_y = 0;
+	img_move_refresh = 0;
+	img_move = false;
+	refresh_bar = 0;
+	t_multiple = 0;
+	multiple = 0;
 
 	connect(&load, &QTimer::timeout, this, [&]() {if (!drop_path.isEmpty()) LoadDir(drop_path), drop_path.clear(); });
 	connect(&monitor, &QTimer::timeout, this, &PhotosTool::MonitorEvent);
@@ -68,10 +75,6 @@ PhotosTool::PhotosTool(QWidget *parent) :
 	}
 	for (float i = 1; i < 50; i *= 1.15) mutiple_list.push_back(i);
 	mutiple_list.push_back(50);
-	t_multiple = multiple = 0;
-	offset_x = offset_y = 0;
-	img_move = false;
-	refresh_bar = 0;
 }
 
 void PhotosTool::AddNextPrevButton() {
@@ -97,14 +100,14 @@ void PhotosTool::AddNextPrevButton() {
 	next_button->setVisible(false);
 	next_button->setCursor(Qt::ArrowCursor);
 	connect(next_button, &QToolButton::clicked, this, &PhotosTool::on_toolButton_image_next_clicked);
-	next_button->setStyleSheet("border-image:url(./res/right_img.png) 0 0 0  stretch stretch;background-color:rgba(255,255,255,120)");
+	next_button->setStyleSheet("border-image:url(./res/right_img.png) 0 0 0  stretch stretch;background-color:rgba(255,255,255,64)");
 		
 	prev_button->setFixedWidth(36);
 	prev_button->setFixedHeight(36);
 	prev_button->setVisible(false);
 	prev_button->setCursor(Qt::ArrowCursor);
 	connect(prev_button, &QToolButton::clicked, this, &PhotosTool::on_toolButton_image_prev_clicked);
-	prev_button->setStyleSheet("border-image:url(./res/left_img.png) 0 0 0  stretch stretch;background-color:rgba(255,255,255,120);");
+	prev_button->setStyleSheet("border-image:url(./res/left_img.png) 0 0 0  stretch stretch;background-color:rgba(255,255,255,64);");
 
 	prev_button_wid->setLayout(l_lay);
 	next_button_wid->setLayout(r_lay);

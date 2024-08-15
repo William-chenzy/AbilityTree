@@ -28,7 +28,7 @@ QPushButton{border-radius: 3px;border:0px solid #474e5e;background-color:transpa
 QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e, stop:0.5 transparent);}
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}
 QPushButton::disabled{background-color:#7d7d7d;}
-QLineEdit{background-color:transparent;}
+QLineEdit{background-color:transparent;border:1px solid #1edffc}
 QComboBox{background-color:transparent;}
 QComboBox QAbstractItemView{background-color:transparent;}</string>
   </property>
@@ -47,7 +47,8 @@ QTabBar::tab::selected{background-color:rgb(66,66,66);}
 QPushButton{border-radius: 3px;border:0px solid #474e5e;background-color:rgba(88,88,88,150);color:#DDDDDD;height:24;}
 QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e, stop:0.5 transparent);}
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}
-QPushButton::disabled{background-color:#7d7d7d;}</string>
+QPushButton::disabled{background-color:#7d7d7d;}
+QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -371,8 +372,8 @@ QPushButton::disabled{background-color:#7d7d7d;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>286</height>
+               <width>1318</width>
+               <height>256</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -743,8 +744,8 @@ QPushButton::disabled{background-color:#7d7d7d;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>286</height>
+               <width>1318</width>
+               <height>256</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -803,8 +804,8 @@ QPushButton::disabled{background-color:#7d7d7d;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>706</height>
+               <width>1318</width>
+               <height>669</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1470,7 +1471,7 @@ QPushButton::disabled{background-color:#7d7d7d;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
+               <width>1318</width>
                <height>148</height>
               </rect>
              </property>
@@ -1489,6 +1490,9 @@ QPushButton::disabled{background-color:#7d7d7d;}</string>
               </property>
               <item>
                <widget class="QLabel" name="label_ftp_msg">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgba(255, 255, 255,128);color:#000000;</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>

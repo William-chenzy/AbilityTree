@@ -115,7 +115,8 @@ void InstallTool::on_pushButton_user_rule_clicked() {
 电子邮件：862167084@qq.com\r\n\
 安装和使用本软件即表示您同意本协议的所有条款。";
 
-	system("start http://121.40.55.218:8080/UserLicense.html");
+	std::string cmd = (is_Linux?"xdg-open ":"start ");
+	system((cmd+"http://121.40.55.218:8080/UserLicense.html").c_str());
 	if (res == QMessageBox::Yes)QMessageBox::information(nullptr, "软件使用许可", rule);
 }
 
