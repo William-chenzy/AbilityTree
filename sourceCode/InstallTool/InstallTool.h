@@ -3,8 +3,14 @@
 
 #include <qtimer.h>
 #include <QMainWindow>
-#include <LinuxDefine.h>
 #include "ui_InstallTool.h"
+
+#ifdef __linux__
+#include <LinuxDefine.h>
+#else
+#include <WindowsDefine.h>
+#endif
+
 namespace Ui {
     class InstallTool;
 }
@@ -41,6 +47,7 @@ private slots:
 private:
 	float cur, set;
 	QTimer animation;
+	std::string package_str;
     Ui::InstallTool* ui;
 };
 

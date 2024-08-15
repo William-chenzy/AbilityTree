@@ -1,5 +1,6 @@
 ﻿#include "InstallTool.h"
 #include <QApplication>
+#include <QDir>
 
 #ifdef _WIN32
 #include <QtPlugin>
@@ -18,6 +19,7 @@ Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 
 int main(int argc, char *argv[]){
     QApplication a(argc, argv);
+	QDir::setCurrent(a.applicationDirPath());
 
     InstallTool w(0);
     w.show();

@@ -17,7 +17,6 @@
 #include <thread>
 using namespace std;
 
-#define PACKAGE_NAME "AbilityTreePackage"
 #define REG_NAME "AbilityTree"
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
@@ -42,7 +41,8 @@ InstallTool::InstallTool(QWidget *parent) :
 }
 
 void InstallTool::CreateAnimation() {
-	static QString raw = "#centralwidget{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #000000, stop:0.7 #474e5e);border-radius: 10px;\
+	static QString raw = "#centralwidget{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #000000, stop:0.7 #474e5e);\
+							border-top-left-radius: 10px;border-top-right-radius: 10px;\
 							border-bottom:2px solid qlineargradient(x1:0,y1:1,x2:1,y2:1,stop:0 #f4716e, stop:%1 #42f875, stop:1 #1edffc);}";
 	static float val = 0.5;
 	QString val_str = QString::number(abs(val += 0.01) , 'f', 2);
@@ -154,30 +154,24 @@ bool InstallTool::UnPackage() {
 
 	SetProcessBar(0.4);
 
-	auto package_str = app_str.substr(app_str.size() - 65 - package_size, package_size);
+	package_str = app_str.substr(app_str.size() - 65 - package_size, package_size);
 	auto md5 = MD5_32Bit(package_str);
 	if (md5 != package_md5.toStdString()) {
 		QMessageBox::warning(nullptr, "错误", QString("MD5码校验失败，请重新下载安装包!\r\nraw: % 1, now : % 2").arg(package_md5).arg(md5.c_str()));
 		return false;
 	}
-	SetProcessBar(0.5);
-
-	QFile package_file(PACKAGE_NAME);
-	package_file.open(QFile::WriteOnly);
-	for (auto i : package_str)package_file.write(&i, 1);
-	package_file.close();
 	SetProcessBar(0.6);
 	return true;
 }
 
-bool extract_zip_file(const char *zip_filename, const char *output_dir) {
+bool extract_zip_file(std::string* zip_data, const char *output_dir) {
 	mz_zip_archive zip_archive = { 0 };
 	mz_bool status;
 	size_t uncomp_size;
 	void *p;
 	int i;
 
-	status = mz_zip_reader_init_file(&zip_archive, zip_filename, 0);
+	status = mz_zip_reader_init_mem(&zip_archive, zip_data->c_str(), zip_data->size(), 0);
 	if (!status)return false;
 
 	int file_count = mz_zip_reader_get_num_files(&zip_archive);
@@ -227,11 +221,9 @@ bool extract_zip_file(const char *zip_filename, const char *output_dir) {
 bool InstallTool::UnZip(QString path) {
 	const char *dir = path.toLocal8Bit().toStdString().c_str();
 
-	bool result = extract_zip_file(PACKAGE_NAME, path.toStdString().c_str());
+	bool result = extract_zip_file(&package_str, path.toStdString().c_str());
 	if (!result) QMessageBox::warning(nullptr, "错误", "包解压缩失败!");
 	else SetProcessBar(0.9);
-
-	QFile(PACKAGE_NAME).remove();
 	return result;
 }
 void InstallTool::on_pushButton_start_clicked() {
@@ -288,16 +280,19 @@ void InstallTool::on_pushButton_start_clicked() {
 	exit(0);
 }
 void InstallTool::on_pushButton_updata_clicked() {
+	QString install_path = ui->lineEdit_path->text();
+	if (!QDir(install_path).exists()) {
+		QMessageBox::warning(nullptr, "卸载", "目录不存在，请确认安装目录");
+		return;
+	}
+
 	ui->toolButton_close->setEnabled(false);
 	ui->pushButton_delete->setVisible(false);
 	ui->pushButton_updata->setEnabled(false);
 	ui->pushButton_updata->setText("正在修复/升级...");
 
-	QString dir_str = ui->lineEdit_path->text();
-	if (!QDir(dir_str).exists()) QDir().mkpath(dir_str);
-
 	if (!UnPackage())exit(0);
-	if (!UnZip(dir_str))exit(0);
+	if (!UnZip(install_path))exit(0);
 
 	SetProcessBar(1);
 	QMessageBox::information(nullptr, "修复/升级", "修复/升级 完成!");
@@ -324,6 +319,12 @@ bool deleteFilesInDirectory(const QString &dirPath, QString dir_mask) {
 	return true;
 }
 void InstallTool::on_pushButton_delete_clicked() {
+	QString install_path = ui->lineEdit_path->text();
+	if (!QDir(install_path).exists()) {
+		QMessageBox::warning(nullptr, "卸载", "目录不存在，请确认安装目录");
+		return;
+	}
+
 	auto res = QMessageBox::warning(nullptr, "卸载", "确认要卸载程序吗?", QMessageBox::Yes | QMessageBox::No);
 	if (res == QMessageBox::No)return;
 	auto clear = QMessageBox::warning(nullptr, "卸载", "是否清空个人数据?", QMessageBox::Yes | QMessageBox::No);
@@ -335,7 +336,7 @@ void InstallTool::on_pushButton_delete_clicked() {
 	ui->pushButton_delete->setText("正在卸载...");
 
 	RemoveRegistryValue(REG_NAME);
-	deleteFilesInDirectory(ui->lineEdit_path->text(), mask);
+	deleteFilesInDirectory(install_path, mask);
 
 	QString tar_dir_str;
 	if (is_Linux)tar_dir_str = "/usr/local/bin";
@@ -344,31 +345,30 @@ void InstallTool::on_pushButton_delete_clicked() {
 
 	QMessageBox::information(nullptr, "卸载", "卸载完成!");
 
-	QString scriptPath = ui->lineEdit_path->text();
 	if (is_Linux) {
-		scriptPath += "delete_self.sh";
-		QFile scriptFile(scriptPath);
+		install_path += "delete_self.sh";
+		QFile scriptFile(install_path);
 		if (scriptFile.open(QIODevice::WriteOnly)) {
 			QTextStream out(&scriptFile);
 			out << "#!/bin/sh\n";
 			out << "sleep 1\n";
-			out << "rm -rf \"" << ui->lineEdit_path->text() << "\"\n";
+			out << "rm -rf \"" << install_path << "\"\n";
 			scriptFile.close();
-			QFile::setPermissions(scriptPath, QFile::permissions(scriptPath) | QFile::ExeUser);
+			QFile::setPermissions(install_path, QFile::permissions(install_path) | QFile::ExeUser);
 		}
 	}
 	else {
-		scriptPath += "delete_self.bat";
-		QFile batFile(scriptPath);
+		install_path += "delete_self.bat";
+		QFile batFile(install_path);
 		if (batFile.open(QIODevice::WriteOnly)) {
 			QTextStream out(&batFile);
 			out << "@echo off\n";
 			out << "timeout /t 1 /nobreak > NUL\n";
-			out << "rmdir /s /q \"" << ui->lineEdit_path->text() << "\"\n";
+			out << "rmdir /s /q \"" << install_path << "\"\n";
 			batFile.close();
 		}
 	}
-	QProcess::startDetached(scriptPath);
+	QProcess::startDetached(install_path);
 	exit(0);
 }
 

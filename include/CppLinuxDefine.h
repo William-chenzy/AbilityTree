@@ -1,7 +1,6 @@
 #ifndef __CPP_LINUX_DEFINE__H__
 #define __CPP_LINUX_DEFINE__H__
 
-
 static const bool is_Linux = true;
 #include <sys/socket.h>
 #include <netinet/in.h>
