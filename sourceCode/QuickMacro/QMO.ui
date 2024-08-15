@@ -21,7 +21,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #000000, stop:0.7 #474e5e);}
-QWidget{color: rgb(223, 223, 223);}
+QWidget{color: rgb(223, 223, 223);background-color:transparent;}
 QPushButton{border-radius: 3px;border:0px solid transparent;background-color:rgba(88,88,88,150);color:#DDDDDD;height:24;}
 QPushButton:hover{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #f4716e, stop:0.5 transparent);}
 QPushButton:pressed{background: qlineargradient(x1:1,y1:1,x2:1,y2:0,stop:0 #42f875, stop:0.5 transparent);}

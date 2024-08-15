@@ -63,7 +63,7 @@ function GetDocument(){
 }
 
 function clickedImage() {
-    window.open("img/" + Key[currentIndex] + ".png");
+    window.open(Key[currentIndex]);
 }
 
 function prevImage() {

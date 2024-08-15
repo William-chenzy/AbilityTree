@@ -3,6 +3,7 @@
     <title>AbilityTree</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/LOGO-AT.ico" type="image/x-icon">
     <style>
     * {
         box-sizing: border-box;
@@ -26,6 +27,42 @@
         width: auto/9;
         height: 100%;
         object-fit: contain;
+    }
+    
+    .menu {
+        display: flex;
+        font-size: 16px;
+        color: #dddddd;
+        padding-left: 16px;
+        padding-right: 16px;
+        background-color: transparent;
+        justify-content: space-between;
+    }
+    .left-align {
+        flex: 1;
+        font-size: 12px;
+        text-align: left;
+    }
+    .left-align p{
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+    }
+    .right-align {
+        flex: 1;
+        text-align: right;
+    }
+    .right-align a:hover{
+        color:#ffffff;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height:120px;
+        background-color: transparent;
     }
 
     .imgbody {
@@ -60,15 +97,6 @@
         color: #dddddd;
         background-color: transparent;
         margin: 0;
-    }
-    
-    .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        height:120px;
-        background-color: transparent;
     }
     
     .footer {
@@ -106,8 +134,8 @@
     }
     .image-container img {
         max-height: 100%;
-	max-width: 100%;
-	height: auto;
+	    max-width: 100%;
+	    height: auto;
     }
 
     #current-image {
@@ -165,6 +193,23 @@
     </style>
     </head>
     <body>
+        <div class="menu">
+            <div class="left-align">
+                <P>Copyright © 2024 YuhanLin All Rights Reserved.&nbsp;&nbsp;&nbsp;备案号: </P>
+            </div>
+            <div class="right-align">
+                <a href="AboutAbilityTree"  target="_blank">关于AbilityTree</a>
+                |
+                <a href="UserLicense"  target="_blank">用户协议</a>
+                |
+                <a href="ProblemFeedback"  target="_blank">问题反馈</a>
+                |
+                <a href="BusinessCooperation"  target="_blank">支持</a>
+                |
+                <a href="Contact"  target="_blank">联系开发者</a>
+            </div>
+        </div>
+
         <div class="header">
             <img src="img/LOGO-ATWR.png" background-color="transparent" Ondragstart= "return false">
         </div>
@@ -178,7 +223,7 @@
         <div class="imgbody">
             <div class="image-container">
                 <button class="nav-button prev" onclick="prevImage()">&#10094;</button>
-                <img id="current-image" src="" alt="Image" Ondragstart= "return false" style="cursor: pointer;" onclick="clickedImage()">
+                <img id="current-image" src="" alt="Image" Ondragstart= "return false" title="点击进入软件详情页" style="cursor: pointer;" onclick="clickedImage()">
                 <button class="nav-button next" onclick="nextImage()">&#10095;</button>
             </div>
         </div>
@@ -208,5 +253,6 @@
             |
             <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="GetDocument()">Document</button>
         </div>
+    
     </body>
 </html>
