@@ -192,7 +192,7 @@ static tm GetTimeT() {
 #define LU_STR271 (IS_CH?"服务器已连接":"Server connected")
 #define LU_STR272 (IS_CH?"连接失败":"Connect failed")
 #define LU_STR273 (IS_CH?"设置CAN失败":"Failed to set CAN")
-#define LU_STR378 (IS_CH?"LxProtocol - 通讯工具包":"LxProtocol - Communication tool")
+#define LU_STR378 (IS_CH?"CommunicationTool - 通讯工具包":"Communication tool")
 #define LU_STR379 (IS_CH?"TCP 服务器":"TCP Server")
 #define LU_STR380 (IS_CH?"TCP 客户端":"TCP Client")
 #define LU_STR381 (IS_CH?"Ip地址: ":"IP Address")

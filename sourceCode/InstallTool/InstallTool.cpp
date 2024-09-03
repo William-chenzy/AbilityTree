@@ -63,7 +63,11 @@ void InstallTool::CreateAnimation() {
 
 void InstallTool::CheckInstallStatus() {
 	QString name = REG_NAME;
-	bool ret = GetRegistryValue(name);
+	bool ret = ret = GetRegistryValue(name);
+	if (!QDir(name.mid(0, name.lastIndexOf("/AbilityTree.ifo"))).exists()) {
+		QFile file_(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/AbilityTree.ifo");
+		if (file_.open(QIODevice::ReadOnly)) name = file_.readAll();
+	}
 	name = name.mid(0, name.lastIndexOf("/AbilityTree.ifo"));
 
 	ui->widget_3->setVisible(!ret);
@@ -88,7 +92,7 @@ void InstallTool::on_toolButton_path_clicked() {
 
 void InstallTool::on_pushButton_user_rule_clicked() {
 	std::string cmd = (is_Linux?"xdg-open ":"start ");
-	system((cmd+"http://121.40.55.218:8080/UserLicense").c_str());
+	system((cmd+"http://www.abilitytree.cn/UserLicense").c_str());
 }
 
 void InstallTool::SetProcessBar(float val) {
@@ -219,36 +223,39 @@ void InstallTool::on_pushButton_start_clicked() {
 
 	QString name = REG_NAME, key_res;
 	QString key_value = dir_str + "/AbilityTree.ifo";
-        auto exe_path = dir_str + "/AbilityTreeViewer.exe";
+    auto exe_path = dir_str + "/AbilityTreeViewer.exe";
 
-        if(!is_Linux){
-            while (key_res != key_value) {
-                    key_res = name;
-                    GetRegistryValue(key_res);
-                    SetRegistryValue(name, key_value);
-                    key_res = key_res.mid(0, key_value.size());
-                    this_thread::sleep_for(chrono::milliseconds(500));
-            }
+	if(!is_Linux){
+		for (int i = 0; i < 3 && key_res != key_value; i++) {
+				key_res = name;
+				GetRegistryValue(key_res);
+				SetRegistryValue(name, key_value);
+				key_res = key_res.mid(0, key_value.size());
+				this_thread::sleep_for(chrono::milliseconds(500));
+		}
+		QString ini_f = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/AbilityTree.ifo";
+		fstream _file(ini_f.toLocal8Bit().toStdString(), ios::out | ios::trunc);
+		_file << key_value.toLocal8Bit().toStdString();
+		_file.close();
 
-            this_thread::sleep_for(chrono::milliseconds(500));
-            if (ui->checkBox_ln->isChecked()) {
-                    QString tar_dir_str;
-                    if (is_Linux)tar_dir_str = "/usr/local/bin";
-                    else tar_dir_str = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+		this_thread::sleep_for(chrono::milliseconds(500));
+		if (ui->checkBox_ln->isChecked()) {
+				QString tar_dir_str;
+				if (is_Linux)tar_dir_str = "/usr/local/bin";
+				else tar_dir_str = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
-                    auto tar_path = tar_dir_str + "/AbilityTreeViewer.lnk";
-                    CreateShortcut(QStringToStdWstring(tar_path), QStringToLPCSTR(exe_path));
-            }
-        }
-        else qInfo()<<"Linux can not create reg and lnk!";
-
-        if (ui->checkBox_auto_start->isChecked()) {
-                QProcess* process = new QProcess();
-                process->start(exe_path);
-        }
+				auto tar_path = tar_dir_str + "/AbilityTreeViewer.lnk";
+				CreateShortcut(QStringToStdWstring(tar_path), QStringToLPCSTR(exe_path));
+		}
+	}
+	else qInfo()<<"Linux can not create reg and lnk!";
 
 	SetProcessBar(1);
-	QMessageBox::information(nullptr, "安装", "安装完成!");
+	if (ui->checkBox_auto_start->isChecked()) {
+			QProcess* process = new QProcess();
+			process->start(exe_path);
+	}
+	else QMessageBox::information(nullptr, "安装", "安装完成!");
 	exit(0);
 }
 void InstallTool::on_pushButton_updata_clicked() {

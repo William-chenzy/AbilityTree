@@ -1,7 +1,12 @@
 #ifndef __CPP_WINDOWS_DEFINE__H__
 #define __CPP_WINDOWS_DEFINE__H__
 
+#include <Pdh.h>
 #include <tchar.h>
+#include <Psapi.h>
+#include <WbemCli.h>
+#include <winternl.h>
+#include <processthreadsapi.h>
 #include <ws2tcpip.h>
 #include <WinSock2.h>
 #include <Windows.h>

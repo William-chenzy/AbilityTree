@@ -276,7 +276,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                 <string>99999</string>
                </property>
                <property name="text">
-                <string>8080</string>
+                <string>8991</string>
                </property>
               </widget>
              </item>
@@ -372,8 +372,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1318</width>
-               <height>256</height>
+               <width>1320</width>
+               <height>286</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -632,7 +632,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                 <string>99999</string>
                </property>
                <property name="text">
-                <string>8080</string>
+                <string>8991</string>
                </property>
               </widget>
              </item>
@@ -744,8 +744,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1318</width>
-               <height>256</height>
+               <width>1320</width>
+               <height>286</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -804,8 +804,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1318</width>
-               <height>669</height>
+               <width>1320</width>
+               <height>706</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1471,7 +1471,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1318</width>
+               <width>1320</width>
                <height>148</height>
               </rect>
              </property>

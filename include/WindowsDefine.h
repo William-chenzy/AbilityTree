@@ -34,7 +34,7 @@ static bool SetRegistryValue(QString& key_val, QString val) {
 	LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey);
 	if (result != ERROR_SUCCESS) return false;
 
-	auto t_val = reinterpret_cast<const BYTE*>(val.toStdString().c_str());
+	auto t_val = reinterpret_cast<const BYTE*>(val.toLocal8Bit().toStdString().c_str());
 	result = RegSetValueEx(hKey, key_val.toStdString().c_str(), 0, REG_SZ, t_val, (val.size() + 1) * sizeof(wchar_t));
 
 	RegCloseKey(hKey);
