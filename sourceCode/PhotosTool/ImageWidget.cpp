@@ -77,6 +77,7 @@ void ImageWidget::clear() {
 void ImageWidget::GetNewImage() {
 	cv::Mat img = cv::imread(path.toLocal8Bit().toStdString(), cv::IMREAD_UNCHANGED);
 	if (img.empty()) {
+		qInfo() << path << " is empty";
 		clear();
 		return;
 	}

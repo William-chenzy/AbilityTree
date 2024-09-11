@@ -14,6 +14,7 @@
 #include <QHeaderView>
 #include <QStandardPaths>
 #include <QFileIconProvider>
+#include <QDesktopWidget>
 using namespace Communication;
 
 #if _MSC_VER >= 1600
@@ -32,6 +33,13 @@ CommunicationTool::CommunicationTool(QWidget *parent) : QDialog(parent){
 	windowFlag |= Qt::WindowMaximizeButtonHint;
 	windowFlag |= Qt::WindowCloseButtonHint;
 	setWindowFlags(windowFlag);
+
+	QRect deskRect = QApplication::desktop()->availableGeometry();
+	if (deskRect.width() < width() || deskRect.height() < height()) {
+		this->setBaseSize(deskRect.width(), deskRect.height());
+		this->move(0, 0);
+	}
+	else this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 
 	qRegisterMetaType<Communication::DataStu>("Communication::DataStu");
 	qRegisterMetaType<Communication::Cb_type>("Communication::Cb_type");

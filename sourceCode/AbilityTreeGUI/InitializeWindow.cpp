@@ -13,12 +13,13 @@ InitializeWindow::InitializeWindow(QWidget* parent) : QMainWindow(parent), ui(ne
     ui->setupUi(this);
 
 	this->setAttribute(Qt::WA_TranslucentBackground);
-    QRect deskRect = QApplication::desktop()->availableGeometry();
-
-	int _width = deskRect.width() / 3;
-	int _height = deskRect.height() / 3;
+	QRect deskRect = QApplication::desktop()->availableGeometry();
+	int _width = deskRect.width(), _height = deskRect.height();
 	int f_val = _width < _height ? _width : _height;
-	this->setFixedWidth(f_val), this->setFixedHeight(f_val);
+	f_val = f_val <= 360 ? f_val : 360;
+	this->setFixedHeight(f_val);
+	this->setFixedWidth(f_val);
+
     this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());

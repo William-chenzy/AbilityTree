@@ -22,6 +22,7 @@ NetConfigTool::NetConfigTool(QWidget *parent) :
 {
 	ui->setupUi(this);
 	QRect deskRect = QApplication::desktop()->availableGeometry();
+	if (deskRect.width() < width() || deskRect.height() < height()) this->setBaseSize(deskRect.width(), deskRect.height());
 	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	this->setWindowFlags(this->windowFlags() &~Qt::WindowMaximizeButtonHint);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));

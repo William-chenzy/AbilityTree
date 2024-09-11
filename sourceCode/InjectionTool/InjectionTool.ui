@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>InjectionTool</class>
  <widget class="QMainWindow" name="InjectionTool">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -43,8 +40,8 @@ QTreeView::branch:closed:has-children:has-siblings {image: url(./res/expand.png)
 QTreeView::item:selected:!active{background: rgba(255,255,255,120);}
 QTreeView::item:selected:active{background: rgba(255,255,255,72);}</string>
   </property>
-  <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonIconOnly</enum>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -518,7 +515,7 @@ QTreeView::item:selected:active{background: rgba(255,255,255,72);}</string>
              <x>0</x>
              <y>0</y>
              <width>358</width>
-             <height>493</height>
+             <height>494</height>
             </rect>
            </property>
            <widget class="QPushButton" name="pushButton">
@@ -583,7 +580,7 @@ QTreeView::item:selected:active{background: rgba(255,255,255,72);}</string>
              <x>0</x>
              <y>0</y>
              <width>358</width>
-             <height>493</height>
+             <height>494</height>
             </rect>
            </property>
           </widget>

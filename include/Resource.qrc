@@ -8,12 +8,10 @@
         <file>./res/Communication.ico</file>
         <file>./res/LOGO-AT-NTC.png</file>
         <file>./res/LOGO-AT-NTC.ico</file>
-        <file>./res/LOGO-AT-Wireshark.ico</file>
-        <file>./res/LOGO-AT-Wireshark.png</file>
         <file>./res/LOGO-AT-PeFileAnalyzer.ico</file>
         <file>./res/LOGO-AT-PeFileAnalyzer.png</file>
-        <file>./res/LOGO-AT-PhotosTool.ico</file>
-        <file>./res/LOGO-AT-PhotosTool.png</file>
+        <file>./res/LOGO-AT-ImageFilterTool.ico</file>
+        <file>./res/LOGO-AT-ImageFilterTool.png</file>
         <file>./res/LOGO-AT-InstallTool.ico</file>
         <file>./res/LOGO-AT-InstallTool.png</file>
         <file>./res/LOGO-AT-PackagedTool.ico</file>

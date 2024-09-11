@@ -50,6 +50,27 @@
         color:#ffffff;
     }
     
+    @keyframes shake {
+        0% { transform: rotate(24deg); }
+        75% { transform: rotate(24deg); }
+        80% { transform: rotate(8deg); }
+        85% { transform: rotate(40deg); }
+        90% { transform: rotate(8deg); }
+        95% { transform: rotate(40deg); }
+        100% { transform: rotate(24deg); }
+    }
+    .shaking-text {
+        color: rgba(255, 33, 33, 0.8);
+        right: 0px;
+        top: 0px;
+        position: absolute;
+        font-size: 15px;
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        animation: shake 1.5s linear infinite;
+    }
+
     .header {
         display: flex;
         justify-content: center;
@@ -221,10 +242,10 @@
         margin: 0;
     }
 
-.tab-content p{
-    padding: 0;
-    margin: 0;
-}
+    .tab-content p{
+        padding: 0;
+        margin: 0;
+    }
 
     .tab-content.active {
         display: flex;
@@ -258,7 +279,7 @@
             <div class="tab" data-tab="tab1" onclick="showTab('tab1')">首页</div>
             <div class="tab" data-tab="tab2" onclick="showTab('tab2')" style="position: relative;">
                 上新
-                <p style="color: rgba(255, 33, 33, 0.8);right: 0px;top: 0px;position: absolute;font-size: 14px;padding: 0;margin: 0;transform: rotate(24deg);">new</p>
+                <p class="shaking-text">new</p>
             </div>
             <div class="tab" data-tab="tab3" onclick="showTab('tab3')">前端</div>
             <div class="tab" data-tab="tab4" onclick="showTab('tab4')">网络</div>
@@ -327,7 +348,7 @@
                         <h2 style="padding: 0;margin: 0;">PhotosTool</h2>
                         <h4 style="padding: 0;margin: 0;background-color: rgba(93, 253, 44, 0.363);">支持平台：Windows x64、Ubuntu x64</h4>
                         <p>查看图片以及修改图片</p>
-                        <p>更新时间：2024.08.15</p>
+                        <p>更新时间：2024.09.04</p>
                     </div>
                 </div>
 
@@ -421,7 +442,7 @@
                     <img src="img/InjectionTool.png" background-color="transparent" Ondragstart= "return false" style="width: 120px;height: 100px;">
                     <div style="display: flex;flex-direction: column;align-items: flex-start;width: 100%;">
                         <h2 style="padding: 0;margin: 0;">InjectionTool</h2>
-                        <h4 style="padding: 0;margin: 0;">支持平台：Windows x64</h4>
+                        <h4 style="padding: 0;margin: 0;background-color: rgba(93, 253, 44, 0.363);">支持平台：Windows x64</h4>
                         <p>进程管理，注入DLL、HOOK以及函数到目标进程中</p>
                         <p>更新时间：2024.09.03</p>
                     </div>
@@ -435,9 +456,11 @@
             |
             <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="downloadLinux()">Linux x64</button>
             |
-            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="gitSource()">Source</button>
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="gitSource()">Resources</button>
             |
             <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="GetDocument()">Document</button>
+            |
+            <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="exampleAndTool()">Example</button>
         </div>
         <script src="AbilityTree.js"></script>
 

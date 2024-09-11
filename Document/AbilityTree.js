@@ -1,5 +1,5 @@
 const version = [
-    '1.0.0',
+    '1.0.1',
     '1.1.1',
     '1.1.0',
     '1.1.0',
@@ -88,6 +88,10 @@ function gitSource() {
     window.open("https://github.com/William-chenzy/AbilityTree.git");
 }
 
+function exampleAndTool() {
+    window.open("ExampleAndTools");
+}
+
 function showTab(tabId) {
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => {
@@ -104,7 +108,7 @@ function showTab(tabId) {
 
     document.getElementById(tabId).classList.add('active');
     
-    const clickedTab = Array.from(tabs).find(tab => tab.textContent.trim() === document.querySelector(`#${tabId} h2`).textContent.trim());
+    const clickedTab = Array.from(tabs).find(tab => tab.textContent.trim() === document.querySelector(`#${tabId}`).textContent.trim());
     if (clickedTab) {
         clickedTab.classList.add('active');
         clickedTab.setAttribute('data-now', 'true');

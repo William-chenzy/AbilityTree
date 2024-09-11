@@ -29,9 +29,14 @@ InjectionTool::InjectionTool(QWidget *parent) :
 {
 	ui->setupUi(this);
 	QRect deskRect = QApplication::desktop()->availableGeometry();
-	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
+	if (deskRect.width() < width() || deskRect.height() < height()) {
+		this->setBaseSize(deskRect.width(), deskRect.height());
+		this->move(0, 0);
+	}
+	else this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-InjectionTool.png")));
+	this->setWindowFlags(Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
 
 	ui->scrollArea_info->setVisible(false);
 	ui->tabWidget_process_info->removeTab(1);

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html><head>
+    <title>示例与工具下载</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/LOGO-AT.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    html, body  {
+        flex-direction: column;
+        font-family: Arial;
+        color:#dddddd;
+        text-align: center;
+        background: #474e5e;
+        margin: 12;
+    }
+
+    .title  {
+        display: flex;
+        color:#dddddd;
+        background: transparent;
+        margin: 1;
+    }
+
+    .left {
+        flex: 1;
+        text-align: left;
+        padding: 1px;
+    }
+
+    .center {
+        text-align: center;
+        margin: 0px;
+        padding: 1px;
+    }
+
+    .right {
+        flex: 1;
+        text-align: right;
+        padding: 1px;
+    }
+
+    .tabs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        background: linear-gradient(to right,transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    }
+
+    .tab {
+        padding: 10px 20px;
+        margin: 0;
+        color: #dddddd;
+        border: 1px solid transparent;
+        border-bottom: none;
+        transform: skew(-20deg);
+        transform-origin: 0 0;
+        background-color: transparent;
+        text-align: center;
+    }
+
+    .tab:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab[data-now="true"] {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: none;
+        padding: 20px;
+        border: 1px solid transparent;
+        border-top: none;
+        background-color: transparent;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+    
+    .downloadbutton {
+        width:180px;
+        height:64px;
+        background-color: transparent;
+        border: 0px solid #000;
+        border-radius: 12px;
+        color: #dddddd;
+        font-size: 24px;
+    }
+    .downloadbutton:hover {
+        background-color: rgba(255,255,255,0.9);
+        color: #333333;
+    }
+
+
+    .search-div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+    .search-container {
+        width: 50%;
+        display: flex;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: transparent;
+    }
+    .search-input {
+        border: none;
+        padding: 10px;
+        flex: 1;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    .search-button {
+        border: none;
+        padding: 10px 20px;
+        background-color: #15ff0098;
+        color: white;
+        cursor: pointer;
+    }
+    .search-button:hover {
+        background-color: #2bff00d3;
+    }
+
+    table {
+        display: inline-table;
+		width: 50%;
+        text-align: center;
+        border-radius: 5px;
+		padding:0px;
+        margin: 0px;
+        border-spacing: 10px 20px;
+        border-collapse: separate;
+        background-color: rgba(255, 255, 255, 0.1);
+	}
+	th, td {
+		padding: 8px;
+        border-radius: 5px;
+		text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+	}
+    thead {
+		padding: 0px;
+        margin: -100px;
+        border-radius: 0px;
+        background-color: transparent;
+        }
+    thead th {
+		padding: 0px;
+        margin: -100px;
+        border-radius: 0px;
+        background-color: transparent;
+        }
+    td:nth-child(2) {
+        background-color: transparent;
+    }
+	.download-link {
+		padding: 8px;
+    	color: #dddddd;
+        border-radius: 5px;
+		text-decoration: none;
+		background-color: #48f01480;
+	}
+	.download-link:hover{
+    	color: #dddddd;
+		background-color: #47f014aa;
+	}
+
+	.center-box {
+        display: flex;
+        justify-content: center;
+	}
+
+    
+    </style>
+    </head>
+    <body>
+
+        <div class="title">
+            <div class="left">
+                <img src="img/LOGO-ATWR.png" Ondragstart= "return false" style="width: auto/9;height: 60px;object-fit: contain;" onclick="backToHome()" title="返回首页">
+            </div>
+            <div class="center"><h1>示例与工具下载</h1></div>
+            <div class="right">
+                <a href="https://beian.miit.gov.cn"  target="_blank" style="font-size: 12px; color:#dddddd;text-align: center;padding: 0px;margin: 0px;">浙ICP备2024116932号-1</a>
+                <br>
+                <a href="https://beian.mps.gov.cn/#/query/webSearch"  target="_blank" style="font-size: 12px; color:#dddddd;text-align: center;padding: 0px;margin: 0px;">浙公网安备33019202002494号</a>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab" data-tab="tab1" onclick="showTab('tab1');getFileList('Example', 'res_example','example');">示例</div>
+            <div class="tab" data-tab="tab2" onclick="showTab('tab2');getFileList('Tools', 'res_tools','tools');">工具</div>
+            <div class="tab" data-tab="tab3" onclick="showTab('tab3')">来个建议</div>
+        </div>
+ 
+<!--
+        <div class="search-div">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search...">
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+-->
+
+        <div class="tab-content" id="tab1">
+            <table id="res_example">
+                <thead>
+                    <tr>
+                        <th>示例名</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-content" id="tab2">
+        <div class="center-box">
+            <table id="res_tools">
+                <thead>
+                    <tr>
+                        <th>工具名</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+        <div class="tab-content" id="tab3">
+            <p>如果你有任何需求、好的想法、一个创新的主意，请联系作者邮箱，并说明你的来意</p>
+            <br>
+            <p style="font-weight: bold;">邮箱： wimier218@gmail.com</p>
+        </div>
+
+        <button type="button" class="downloadbutton" style="cursor: pointer;" onclick="backToHome()">返回首页</button>
+
+        <script>
+            function getFileList(path,id,file_path) {
+            fetch(path)
+                .then(response => {return response.text();})
+                .then(text => {
+                    const parts = text.split('/').map(part => part.trim()).filter(part => part);
+                    
+                    const tbody = '#' + id + ' tbody';
+					const tableBody = document.querySelector(tbody);
+					tableBody.innerHTML = '';
+
+					parts.forEach(fileName => {
+						const row = document.createElement('tr');
+						
+						const nameCell = document.createElement('td');
+						nameCell.textContent = fileName;
+						row.appendChild(nameCell);
+						
+						const actionCell = document.createElement('td');
+						const downloadLink = document.createElement('a');
+						downloadLink.href = file_path + `/${fileName}`;
+						downloadLink.textContent = '下载';
+						downloadLink.className = 'download-link';
+						downloadLink.download = fileName;
+						actionCell.appendChild(downloadLink);
+						row.appendChild(actionCell);
+						
+						tableBody.appendChild(row);
+					});
+                })
+                .catch(error => {alert('获取服务器数据失败: ' + error.message);});
+            }
+            
+            function showTab(tabId) {
+				const contents = document.querySelectorAll('.tab-content');
+				contents.forEach(content => {
+					content.classList.remove('active');
+				});
+
+				const tabs = document.querySelectorAll('.tab');
+				tabs.forEach(tab => {
+					tab.classList.remove('active');
+					tab.setAttribute('data-now', 'false');
+				});
+				const currentTab = document.querySelector(`.tab[data-tab="${tabId}"]`);
+				currentTab.setAttribute('data-now', 'true');
+
+				document.getElementById(tabId).classList.add('active');
+				
+				const clickedTab = Array.from(tabs).find(tab => tab.textContent.trim() === document.querySelector(`#${tabId}`).textContent.trim());
+				if (clickedTab) {
+					clickedTab.classList.add('active');
+					clickedTab.setAttribute('data-now', 'true');
+				}
+            }
+
+
+	function backToHome() {
+	    window.open("http://www.abilitytree.cn/");
+	}
+
+            showTab('tab1');
+            getFileList('Example','res_example','example');
+        </script>
+
+    </body>
+</html>

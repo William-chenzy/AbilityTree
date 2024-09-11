@@ -21,9 +21,11 @@
 #include <QFileDialog>
 #include <QApplication>
 #include "GlobalDefine.h"
+#include <../3rdParty/stb_image.h>
 using namespace std;
 using namespace chrono;
 
+#define STB_IMAGE_IMPLEMENTATION
 #define ANIMATION_TIMES 15.f;
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
@@ -36,6 +38,7 @@ PhotosTool::PhotosTool(QWidget *parent) :
 	this->setAttribute(Qt::WA_TranslucentBackground);
 	setWindowFlags(Qt::FramelessWindowHint | windowFlags());
 	QRect deskRect = QApplication::desktop()->availableGeometry();
+	if (deskRect.width() < width() || deskRect.height() < height()) this->setMaximumSize(deskRect.width(), deskRect.height());
 	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-PhotosTool.png")));
@@ -255,12 +258,18 @@ void PhotosTool::RefreshImage() {
 	}
 	multiple_step = (multiple - t_multiple) / ANIMATION_TIMES;
 }
+
+
 void PhotosTool::ShowImageToLabel() {
+	//int width, height, channels;
+	//unsigned char *img = stbi_load(curr_path.toLocal8Bit().toStdString().c_str(), &width, &height, &channels, 0);
+	//auto c_n = channels == 4 ? QImage::Format_RGBA8888 : QImage::Format_RGB888;
+	//ui->label_main_image->setPixmap(QPixmap::fromImage(QImage(img, width, height, width * channels, QImage::Format_RGBA8888)));
+
 	auto c_n = cv_img.channels() == 4 ? QImage::Format_RGBA8888 : QImage::Format_RGB888;
 	QImage q_img = QImage(cv_img.data, cv_img.cols, cv_img.rows, cv_img.cols * cv_img.channels(), c_n);
-	QPixmap pix_img = QPixmap::fromImage(q_img);
-	ui->label_main_image->setPixmap(pix_img);
 	ui->label_multiple->setText(QString::number(t_multiple * 100, 'f', 0) + "%");
+	ui->label_main_image->setPixmap(QPixmap::fromImage(q_img));
 }
 void PhotosTool::MoveHScrollBar(ImageWidget* wid) {
 	int now_w = wid->pos().x();
@@ -282,10 +291,9 @@ void PhotosTool::LoadDir(QString path_name) {
 	if (!dir.exists())return;
 
 	QStringList filename;
-	filename << "*.png" << "*.jpg" << "*.jepg" << "*.bmp" << "*.tif" << "*.tiff" 
-			 << "*.jfif";
+	filename << "*.png" << "*.jpg" << "*.jepg" << "*.bmp" << "*.tif" << "*.tiff" << "*.jfif";
 	all_file = dir.entryList(filename, QDir::Files | QDir::Readable, QDir::Name);
-	for (auto& i : all_file)i = path + i;
+	for (auto& i : all_file)i = path + i, qInfo() << i;
 
 	int index = 0;
 	for (auto i : all_file) {
@@ -311,7 +319,7 @@ void PhotosTool::LoadDirImage(int now_index) {
 	ui->widget_main_tools->setVisible(true);
 	ui->widget_image_list->setVisible(all_file.size() - 1);
 
-	if (img_list.size() < all_file.size())img_list.resize(all_file.size());
+	if (img_list.size() <= all_file.size())img_list.resize(all_file.size());
 	for (auto& i : img_list) {
 		if (i == nullptr)i = new ImageWidget();
 		connect(i, &ImageWidget::clicked, this, &PhotosTool::LoadIamge);
@@ -346,6 +354,10 @@ void PhotosTool::LoadDirImage(int now_index) {
 void PhotosTool::LoadIamge(QString path, QString name, QString size, QString index) {
 	raw_img = cv::imread(path.toLocal8Bit().toStdString(), cv::IMREAD_UNCHANGED);
 	if (raw_img.empty())return;
+
+	qInfo() << raw_img.rows << raw_img.cols;
+	cv::imshow("raw_img", raw_img);
+	cv::waitKey(1);
 
 	ui->label_image_all_path->setText(path);
 	QDateTime created = QFileInfo(path).created();
@@ -542,6 +554,16 @@ void PhotosTool::dragEnterEvent(QDragEnterEvent* event) {
 void PhotosTool::dropEvent(QDropEvent* event) {
 	QList<QUrl> urls = event->mimeData()->urls();
 	if (urls.isEmpty()) return;
+
+	cv::Mat img = cv::imread(urls[0].toLocalFile().toLocal8Bit().toStdString(), cv::IMREAD_UNCHANGED);
+	if (img.empty()) {
+		QMessageBox box;
+		box.setWindowTitle("提示");
+		box.setText("此文件暂时无法识别\r\n您可以登录 http://www.abilitytree.cn/ProblemFeedback 反馈此问题");
+		box.setTextInteractionFlags(Qt::TextSelectableByMouse);
+		box.exec();
+		return;
+	}
 
 	drop_path = urls[0].toLocalFile();
 	ui->label_main_image->setText("加载中...");

@@ -1,6 +1,7 @@
 #include "execute.h"
 #include <iostream>
 #include <unistd.h>
+#include <dirent.h>
 using namespace std;
 
 string GetTime() {
@@ -55,7 +56,6 @@ string get_mime_type(const string& path) {
 }
 
 void serve_file(const string& path, httplib::Response& res) {
-	cout << "visit path: " << path << endl;
 	ifstream file(path, ios::binary);
 	if (file) {
 		stringstream buffer;
@@ -68,6 +68,23 @@ void serve_file(const string& path, httplib::Response& res) {
 		buffer << file_404.rdbuf();
 		res.set_content(buffer.str(), "text/html");
 	}
+}
+
+void serve_file_list(const string& path, httplib::Response& res) {
+	std::string zipFiles;
+	const char* dir_path = "path/to/your/directory";
+	cout << "serve_file_list========================================:" << path << endl;
+
+	// ´ò¿ªÄ¿Â¼
+	DIR* dir = opendir(path.c_str());
+	if (dir == nullptr)return;
+
+	struct dirent* entry;
+	while ((entry = readdir(dir)) != nullptr)
+		if (entry->d_type == DT_REG) zipFiles += entry->d_name, zipFiles += "/";
+
+	cout << zipFiles << "========================================" << endl;
+	res.set_content(zipFiles.c_str(), "text/html");
 }
 
 void SetCurrentPath(){
@@ -125,10 +142,12 @@ bool ServerExecute::TcpBind(std::string ip, int port) {
 bool ServerExecute::HttpBind(std::string ip, int port) {
 	http_svr.Get(R"(/.*)", [](const httplib::Request& req, httplib::Response& res) {
 		std::string path = req.path;
+		if (get_url.count(path)) path = get_url[path];
 		if (path.find("/../") != string::npos)path = "404NotFind.html";
-		if (get_url.count(path))path = get_url[path];
-		serve_file("html" + path, res);
+		if (path[0] != '#') serve_file("html" + path, res);
+		else serve_file_list("html" + path.substr(1), res);
 		});
+
 	http_svr.Post(R"(/.*)", [&](const httplib::Request& req, httplib::Response& res) {
 		std::string path = req.path;
 		if (!post_url.count(path))return;

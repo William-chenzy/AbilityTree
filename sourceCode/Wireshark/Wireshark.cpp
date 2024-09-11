@@ -302,8 +302,12 @@ Wireshark::Wireshark(QWidget* parent) :
 	QMainWindow(parent), ui(new Ui::Wireshark)
 {
 	ui->setupUi(this);
-	QRect deskRect = QApplication::desktop()->availableGeometry();//获取可用桌面大小
-	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);//让窗口居中显示
+	QRect deskRect = QApplication::desktop()->availableGeometry();
+	if (deskRect.width() < width() || deskRect.height() < height()) {
+		this->setBaseSize(deskRect.width(), deskRect.height());
+		this->move(0, 0);
+	}
+	else this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(":/img/res/LOGO-AT-Wireshark.ico"));
 

@@ -18,7 +18,11 @@ PeFileAnalyzer::PeFileAnalyzer(QWidget *parent) :
 {
 	ui->setupUi(this);
 	QRect deskRect = QApplication::desktop()->availableGeometry();
-	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
+	if (deskRect.width() < width() || deskRect.height() < height()) {
+		this->setBaseSize(deskRect.width(), deskRect.height());
+		this->move(0, 0);
+	}
+	else this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 
 	ui->treeWidget->setHeaderHidden(true);

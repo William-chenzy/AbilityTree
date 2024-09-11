@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1384</width>
-    <height>899</height>
+    <width>1243</width>
+    <height>838</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -309,12 +309,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </item>
              <item>
               <widget class="QComboBox" name="comboBox_tcp_sev">
-               <property name="minimumSize">
-                <size>
-                 <width>180</width>
-                 <height>0</height>
-                </size>
-               </property>
                <item>
                 <property name="text">
                  <string>ALL CLIENT</string>
@@ -372,8 +366,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>286</height>
+               <width>1179</width>
+               <height>256</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -665,12 +659,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </item>
              <item>
               <widget class="QComboBox" name="comboBox_tcp_cli">
-               <property name="minimumSize">
-                <size>
-                 <width>180</width>
-                 <height>0</height>
-                </size>
-               </property>
                <property name="currentText">
                 <string>127.0.0.1:8080</string>
                </property>
@@ -744,8 +732,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>286</height>
+               <width>1179</width>
+               <height>255</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -804,8 +792,8 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
-               <height>706</height>
+               <width>1179</width>
+               <height>645</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1079,12 +1067,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <widget class="QComboBox" name="comboBox_udp">
                <property name="enabled">
                 <bool>false</bool>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>180</width>
-                 <height>0</height>
-                </size>
                </property>
                <property name="editable">
                 <bool>true</bool>
@@ -1471,7 +1453,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1320</width>
+               <width>1179</width>
                <height>148</height>
               </rect>
              </property>
@@ -1610,292 +1592,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
        <string>Modbus TCP</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string>Modbus - Slave</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
-          <item>
-           <widget class="QWidget" name="widget_16" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_15">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLabel" name="label_27">
-               <property name="text">
-                <string>Ip地址: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_mstcp_ip">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="inputMask">
-                <string/>
-               </property>
-               <property name="text">
-                <string>127.0.0.12</string>
-               </property>
-               <property name="maxLength">
-                <number>32767</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_28">
-               <property name="text">
-                <string>Port: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_mstcp_port">
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="inputMask">
-                <string/>
-               </property>
-               <property name="text">
-                <string>502</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_mstcp_ok">
-               <property name="text">
-                <string>连接</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_34">
-               <property name="text">
-                <string>主机ID: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_mstcp_id">
-               <property name="minimum">
-                <number>0</number>
-               </property>
-               <property name="maximum">
-                <number>255</number>
-               </property>
-               <property name="value">
-                <number>1</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget_18" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLabel" name="label_mstcp_msg">
-               <property name="minimumSize">
-                <size>
-                 <width>500</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial</family>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>No Connect</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>起始地址: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_mstcp_start">
-               <property name="minimum">
-                <number>0</number>
-               </property>
-               <property name="maximum">
-                <number>20000</number>
-               </property>
-               <property name="singleStep">
-                <number>1</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_32">
-               <property name="text">
-                <string>地址长度:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_mstcp_len">
-               <property name="minimum">
-                <number>0</number>
-               </property>
-               <property name="maximum">
-                <number>20000</number>
-               </property>
-               <property name="singleStep">
-                <number>1</number>
-               </property>
-               <property name="value">
-                <number>1000</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_16">
-               <property name="text">
-                <string>模式: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_mstcp">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="currentIndex">
-                <number>0</number>
-               </property>
-               <item>
-                <property name="text">
-                 <string>01 Read Coils(0x)</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>02 Read Discrete Inputs(1x)</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>03 Read Holding Registers(4x)</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>04 Read Input Registers(3x)</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_mstcp_set">
-               <property name="text">
-                <string>设置完成</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget_mstcp">
-            <property name="editTriggers">
-             <set>QAbstractItemView::DoubleClicked</set>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="columnCount">
-             <number>0</number>
-            </property>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>94</number>
-            </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>10</number>
-            </attribute>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
@@ -2058,12 +1754,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </property>
              <item>
               <widget class="QLabel" name="label_mptcp_msg">
-               <property name="minimumSize">
-                <size>
-                 <width>500</width>
-                 <height>20</height>
-                </size>
-               </property>
                <property name="font">
                 <font>
                  <family>Arial</family>
@@ -2145,12 +1835,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </item>
              <item>
               <widget class="QComboBox" name="comboBox_mptcp">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>0</height>
-                </size>
-               </property>
                <item>
                 <property name="text">
                  <string>01 Coil Status(0x)</string>
@@ -2199,6 +1883,280 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
          </layout>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Modbus - Slave</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QWidget" name="widget_16" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_27">
+               <property name="text">
+                <string>Ip地址: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_mstcp_ip">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="inputMask">
+                <string/>
+               </property>
+               <property name="text">
+                <string>127.0.0.12</string>
+               </property>
+               <property name="maxLength">
+                <number>32767</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_28">
+               <property name="text">
+                <string>Port: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_mstcp_port">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="inputMask">
+                <string/>
+               </property>
+               <property name="text">
+                <string>502</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_mstcp_ok">
+               <property name="text">
+                <string>连接</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_34">
+               <property name="text">
+                <string>主机ID: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_mstcp_id">
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>255</number>
+               </property>
+               <property name="value">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_18" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_mstcp_msg">
+               <property name="font">
+                <font>
+                 <family>Arial</family>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>No Connect</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>起始地址: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_mstcp_start">
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>20000</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_32">
+               <property name="text">
+                <string>地址长度:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_mstcp_len">
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>20000</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="value">
+                <number>1000</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>模式: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_mstcp">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>01 Read Coils(0x)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>02 Read Discrete Inputs(1x)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>03 Read Holding Registers(4x)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>04 Read Input Registers(3x)</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_mstcp_set">
+               <property name="text">
+                <string>设置完成</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tableWidget_mstcp">
+            <property name="editTriggers">
+             <set>QAbstractItemView::DoubleClicked</set>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="columnCount">
+             <number>0</number>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>94</number>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>10</number>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_6">
@@ -2220,7 +2178,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_19">
+            <layout class="QGridLayout" name="gridLayout_10">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -2231,33 +2189,46 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <number>0</number>
              </property>
              <property name="bottomMargin">
-              <number>0</number>
+              <number>20</number>
              </property>
-             <item>
-              <widget class="QLabel" name="label_43">
-               <property name="text">
-                <string>端口: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_msrtu_com">
-               <property name="minimumSize">
-                <size>
-                 <width>120</width>
-                 <height>0</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
+             <item row="0" column="2">
               <widget class="QLabel" name="label_44">
                <property name="text">
                 <string>波特率: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="comboBox_msrtu_com"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_43">
+               <property name="text">
+                <string>端口: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="13">
+              <spacer name="horizontalSpacer_11">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="10">
+              <widget class="QPushButton" name="pushButton_msrtu_ok">
+               <property name="text">
+                <string>连接</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
               <widget class="QComboBox" name="comboBox_msrtu_baud">
                <property name="currentIndex">
                 <number>6</number>
@@ -2334,14 +2305,14 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
+             <item row="1" column="0">
               <widget class="QLabel" name="label_49">
                <property name="text">
                 <string>校验位: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="1" column="1">
               <widget class="QComboBox" name="comboBox_msrtu_parity">
                <property name="minimumSize">
                 <size>
@@ -2379,14 +2350,14 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
+             <item row="1" column="2">
               <widget class="QLabel" name="label_50">
                <property name="text">
                 <string>数据位: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="1" column="3">
               <widget class="QComboBox" name="comboBox_msrtu_bs">
                <property name="minimumSize">
                 <size>
@@ -2427,14 +2398,37 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
+             <item row="1" column="4">
               <widget class="QLabel" name="label_51">
                <property name="text">
                 <string>停止位: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="4">
+              <widget class="QLabel" name="label_45">
+               <property name="text">
+                <string>主机ID: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="6">
+              <widget class="QSpinBox" name="spinBox_msrtu_id">
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>255</number>
+               </property>
+               <property name="singleStep">
+                <number>2</number>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="6">
               <widget class="QComboBox" name="comboBox_msrtu_sts">
                <property name="minimumSize">
                 <size>
@@ -2462,49 +2456,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_msrtu_ok">
-               <property name="text">
-                <string>连接</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_45">
-               <property name="text">
-                <string>主机ID: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_msrtu_id">
-               <property name="minimum">
-                <number>0</number>
-               </property>
-               <property name="maximum">
-                <number>255</number>
-               </property>
-               <property name="singleStep">
-                <number>2</number>
-               </property>
-               <property name="value">
-                <number>2</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_11">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
            </widget>
           </item>
@@ -2525,12 +2476,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </property>
              <item>
               <widget class="QLabel" name="label_msrtu_msg">
-               <property name="minimumSize">
-                <size>
-                 <width>500</width>
-                 <height>20</height>
-                </size>
-               </property>
                <property name="font">
                 <font>
                  <family>Arial</family>
@@ -2689,7 +2634,7 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_17">
+            <layout class="QGridLayout" name="gridLayout_9">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -2702,31 +2647,14 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item>
-              <widget class="QLabel" name="label_36">
-               <property name="text">
-                <string>端口: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_mprtu_com">
-               <property name="minimumSize">
-                <size>
-                 <width>120</width>
-                 <height>0</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
+             <item row="1" column="14">
               <widget class="QLabel" name="label_37">
                <property name="text">
                 <string>波特率: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="1" column="15">
               <widget class="QComboBox" name="comboBox_mprtu_baud">
                <property name="currentIndex">
                 <number>6</number>
@@ -2803,59 +2731,53 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
+             <item row="1" column="11">
+              <widget class="QLabel" name="label_54">
+               <property name="text">
+                <string>停止位: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
               <widget class="QLabel" name="label_53">
                <property name="text">
                 <string>校验位: </string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_mprtu_parity">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="currentIndex">
-                <number>0</number>
-               </property>
-               <item>
-                <property name="text">
-                 <string>NOPARITY</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>ODDPARITY</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>EVENPARITY</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>MARKPARITY</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>SPACEPARITY</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
+             <item row="1" column="4">
               <widget class="QLabel" name="label_52">
                <property name="text">
                 <string>数据位: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="1" column="12">
+              <widget class="QComboBox" name="comboBox_mprtu_sts">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string>ONESTOPBIT</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ONE5STOPBITS</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>TWOSTOPBITS</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="10">
               <widget class="QComboBox" name="comboBox_mprtu_bs">
                <property name="minimumSize">
                 <size>
@@ -2896,53 +2818,62 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </item>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_54">
-               <property name="text">
-                <string>停止位: </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_mprtu_sts">
+             <item row="1" column="2">
+              <widget class="QComboBox" name="comboBox_mprtu_parity">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>0</height>
                 </size>
                </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
                <item>
                 <property name="text">
-                 <string>ONESTOPBIT</string>
+                 <string>NOPARITY</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>ONE5STOPBITS</string>
+                 <string>ODDPARITY</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>TWOSTOPBITS</string>
+                 <string>EVENPARITY</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>MARKPARITY</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>SPACEPARITY</string>
                 </property>
                </item>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_mprtu_ok">
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_36">
                <property name="text">
-                <string>连接</string>
+                <string>端口: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="2">
+              <widget class="QComboBox" name="comboBox_mprtu_com"/>
+             </item>
+             <item row="0" column="4">
               <widget class="QLabel" name="label_38">
                <property name="text">
                 <string>主机ID: </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="10">
               <widget class="QSpinBox" name="spinBox_mprtu_id">
                <property name="minimum">
                 <number>0</number>
@@ -2955,14 +2886,14 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="11">
               <widget class="QLabel" name="label_39">
                <property name="text">
                 <string>扫描间隔(ms)： </string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="12">
               <widget class="QSpinBox" name="spinBox_mprtu">
                <property name="suffix">
                 <string/>
@@ -2981,18 +2912,12 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
                </property>
               </widget>
              </item>
-             <item>
-              <spacer name="horizontalSpacer_9">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="0" column="14">
+              <widget class="QPushButton" name="pushButton_mprtu_ok">
+               <property name="text">
+                <string>连接</string>
                </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -3014,12 +2939,6 @@ QTextEdit{background-color: rgba(255, 255, 255,128);color:#000000;}</string>
              </property>
              <item>
               <widget class="QLabel" name="label_mprtu_msg">
-               <property name="minimumSize">
-                <size>
-                 <width>500</width>
-                 <height>20</height>
-                </size>
-               </property>
                <property name="font">
                 <font>
                  <family>Arial</family>

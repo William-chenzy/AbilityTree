@@ -18,6 +18,22 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 	this->setWindowIcon(QIcon(":/img/res/LOGO-AT.ico"));
 
+	QFile init_file("./conf/AbilityTree.pr");
+	if (!init_file.exists()) {
+		sp = new ATS::StartPage();
+		auto wid = sp->GetWidget();
+		connect(sp, &ATS::StartPage::StartDone, this, &MainWindow::StartDone);
+		ui->centralwidget->layout()->addWidget(wid);
+		ui->widget_title->setVisible(false);
+		ui->widget_mask->setVisible(false);
+	}
+
+	sp = new ATS::StartPage();
+	connect(sp, &ATS::StartPage::StartDone, this, &MainWindow::StartDone);
+	ui->centralwidget->layout()->addWidget(sp->GetWidget());
+	ui->widget_title->setVisible(false);
+	ui->widget_mask->setVisible(false);
+
 	language = LoadConfigure::getInstance()->IS_EN();
 	animation = LoadConfigure::getInstance()->GetAnimation();
 
@@ -40,10 +56,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	this->setStyleSheet(this->styleSheet() + PUSH_BUTTON_STYLE + SCROLL_AREA_STYLE);
 
     QRect deskRect = QApplication::desktop()->availableGeometry();
-    if (deskRect.width() < width() || deskRect.height() < height()) {
-        this->setMinimumSize(deskRect.width(), deskRect.height());
-        this->setFixedSize(deskRect.width(), deskRect.height());
-    }
+    if (deskRect.width() < width() || deskRect.height() < height()) this->setMaximumSize(deskRect.width(), deskRect.height());
     this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 
 	main_layout = static_cast<QGridLayout*>(ui->widget_center->layout());
@@ -62,6 +75,11 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::SwitchLanguage() {
 
+}
+void MainWindow::StartDone() {
+	ui->widget_mask->setVisible(true);
+	ui->widget_title->setVisible(true);
+	sp->GetWidget()->setVisible(false);
 }
 
 void MainWindow::on_toolButton_main_setting_clicked() {
@@ -122,6 +140,9 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
 		QRect rect_top = ui->widget_title->rect();
 		rect_top.translate(ui->widget_title->pos());
 
+		QRect rect_top2 = sp->GetWidget()->rect();
+		rect_top.translate(sp->GetWidget()->pos());
+
 		int _x = event->screenPos().x();
 		int _y = event->screenPos().y();
 		if (abs(_x - pos().x()) <= 4 && abs(_y - pos().y()) <= 4) size_m_type = 1;
@@ -135,7 +156,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
 		else size_m_type = 0;
 
 		if (size_m_type) mouse_pos = event->screenPos().toPoint();
-		else if (rect_top.contains(event->pos())) {
+		else if (rect_top.contains(event->pos()) || rect_top2.contains(event->pos())) {
 			is_move_mouse = true;
 			mouse_pos = event->screenPos().toPoint();
 		}
@@ -202,5 +223,5 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent* event){
 }
 bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
 
-	return MainWindow::eventFilter(watched, event);
+	return false;
 }

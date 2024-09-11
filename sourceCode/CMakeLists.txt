@@ -13,6 +13,8 @@ set(INJECTIONTOOL_VERSION 1.0.0)
 set(PACKAGEDTOOL_VERSION 1.0.0)
 set(INSTALLTOOL_VERSION 1.0.1)
 set(SERVER_VERSION 1.0.0)
+set(CLOUDANIMATION_VERSION 1.0.0)
+set(IMAGEFILTERTOOL_VERSION 1.0.0)
 
 
 string(TIMESTAMP COMPILE_TIME %Y%m%d)
@@ -31,6 +33,8 @@ set(INJECTIONTOOL InjectionTool)
 set(PACKAGEDTOOL PackagedTool)
 set(INSTALLTOOL InstallTool)
 set(SERVER Server)
+set(CLOUDANIMATION CloudAnimation)
+set(IMAGEFILTERTOOL ImageFilterTool)
 
 
 #set path
@@ -63,6 +67,9 @@ option(BUILD_NetConfigTool "" OFF)
 option(BUILD_PeFileAnalyzer "" OFF)
 option(BUILD_INJECTIONTOOL "" OFF)
 option(BUILD_Server "" OFF)
+option(BUILD_CloudAnimation "" OFF)
+option(BUILD_ImageFilterTool "" OFF)
+
 
 set(QT_STATIC OFF)
 if (${QT_STATIC})
@@ -91,6 +98,8 @@ else()
 		set(BUILD_PhotosTool ON)
 		set(BUILD_PackagedTool ON)
 		set(BUILD_Server ON)
+		set(BUILD_CloudAnimation ON)
+		set(BUILD_ImageFilterTool ON)
 
 		if (WIN32)
 		set(BUILD_QuickMacro ON)
@@ -162,5 +171,15 @@ endif()
 if(BUILD_Server)
 	message("add_subdirectory: " Server)
 add_subdirectory(Server)
+endif()
+
+if(BUILD_CloudAnimation)
+	message("add_subdirectory: " CloudAnimation)
+add_subdirectory(CloudAnimation)
+endif()
+
+if(BUILD_ImageFilterTool)
+	message("add_subdirectory: " ImageFilterTool)
+add_subdirectory(ImageFilterTool)
 endif()
 

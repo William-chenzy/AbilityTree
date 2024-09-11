@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <qtimer.h>
 #include <QGridLayout>
+#include <StartPage.h>
 #include <qmainwindow.h>
 #include "ModuleList.h"
 #include "HelpPage.h"
@@ -28,6 +29,7 @@ protected:
 	void mouseDoubleClickEvent(QMouseEvent* event) override;
 
 private slots:
+	void StartDone();
 	void DeleteModule();
 	void RefreshViewer();
 	void MainConfigChange(MainConfig val);
@@ -50,6 +52,7 @@ private:
 	bool animation;
     Ui::MainWindow* ui;
 	QTimer refresh_viewer;
+	ATS::StartPage* sp = nullptr;
 	bool refresh_module_list = true;
 	ModuleMember* current_m = nullptr;
 	SettingPage* set_page = nullptr;
