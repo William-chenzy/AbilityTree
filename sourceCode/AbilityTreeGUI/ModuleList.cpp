@@ -7,7 +7,6 @@
 #include <QFileIconProvider>
 
 #define RAW_STYLE QString("#%1{border-radius: 5px;border:0px solid #272e2e;%2}").arg(obj_name)
-#define GetTimeM std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()
 
 static int obj_name_index = 10001;
 static std::vector<uchar>begin_color = hexTorgb("#AAAAAA");
@@ -126,6 +125,8 @@ void ModuleList::RefreshDescribe(int expand_number) {
 }
 
 void ModuleList::CreateAnimation() {
+	if (!this->isActiveWindow() || !this->isVisible())return;
+
 	if (fx_func.empty()) {
 		std::default_random_engine e;
 		e.seed(GetTimeM);

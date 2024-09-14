@@ -332,7 +332,7 @@ static void DrawNetworkIcon() {
 	img_bk = cv::Mat(48, 48, CV_8UC4, cv::Scalar(0, 0, 0, 0));
 
 	int base_abgle = 15, base_len = 24;
-	float circle_num = 3, circle_space = 3.6, radius = 5;
+	float circle_num = 3, circle_space = 3.6f, radius = 5;
 
 	float base_angle = base_abgle * PI_U / 180.f;
 	for (int i = 0; i < base_len; i++) {

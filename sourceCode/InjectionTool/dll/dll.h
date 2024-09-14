@@ -17,7 +17,7 @@ public:
 		ReadProcessMemory(GetCurrentProcess(), m_pfnOld, m_bOldBytes, 5, &dwNum);
 
 		m_bNewBytes[0] = '\xe9';
-		*(DWORD*)(m_bNewBytes + 1) = (DWORD)pHookFunc - (DWORD)m_pfnOld - 5;
+		*(uintptr_t *)(m_bNewBytes + 1) = (uintptr_t)pHookFunc - (uintptr_t)m_pfnOld - 5;
 		WriteProcessMemory(GetCurrentProcess(), m_pfnOld, m_bNewBytes, 5, &dwNum);
 		return TRUE;
 	}
@@ -51,13 +51,13 @@ int ReadFromIniFile(HMODULE hModule) {
 	std::vector<char> buffer(24);
 	DWORD processId = GetCurrentProcessId();
 	std::string pid_str = std::to_string(processId);
-	DWORD length = GetModuleFileName(hModule, path.data(), path.size());
+	DWORD length = GetModuleFileName(hModule, path.data(), (DWORD)path.size());
 	std::string path_str = std::string(path.data(), length).c_str();
 	while (path_str.find('\\') != std::string::npos) path_str.replace(path_str.find('\\'), 1, "/");
 	path_str = path_str.substr(0, path_str.find_last_of('/'));
 	path_str = path_str + "/conf/InjectionTool.param";
 
-	GetPrivateProfileString("Main", pid_str.c_str(), "0", buffer.data(), buffer.size(), path_str.c_str());
+	GetPrivateProfileString("Main", pid_str.c_str(), "0", buffer.data(), (DWORD)buffer.size(), path_str.c_str());
 	val = atoi(std::string(buffer.data()).c_str());
 	return val;
 }

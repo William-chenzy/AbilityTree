@@ -24,14 +24,14 @@ signals:
 private slots:
 
 protected:
-	void resizeEvent(QResizeEvent *event) override;
-	void mouseMoveEvent(QMouseEvent* event) override;
-	void mousePressEvent(QMouseEvent* event) override;
-	void mouseReleaseEvent(QMouseEvent* event) override;
-	void mouseDoubleClickEvent(QMouseEvent* event) override;
-	bool eventFilter(QObject* watched, QEvent* event) override;
-	void dragEnterEvent(QDragEnterEvent* event) override;
-	void dropEvent(QDropEvent* event) override;
+	//void resizeEvent(QResizeEvent *event) override;
+	//void mouseMoveEvent(QMouseEvent* event) override;
+	//void mousePressEvent(QMouseEvent* event) override;
+	//void mouseReleaseEvent(QMouseEvent* event) override;
+	//void mouseDoubleClickEvent(QMouseEvent* event) override;
+	//bool eventFilter(QObject* watched, QEvent* event) override;
+	//void dragEnterEvent(QDragEnterEvent* event) override;
+	//void dropEvent(QDropEvent* event) override;
 
 private:
 

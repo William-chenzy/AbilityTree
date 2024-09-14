@@ -11,8 +11,8 @@
 #include <iostream>
 #include <QIODevice>
 #include <QFileDialog>
-#include <zip.h>
 #include <md5.hpp>
+#include <zip.h>
 using namespace std;
 
 #if _MSC_VER >= 1600
@@ -99,7 +99,7 @@ void PackagedTool::CreateScript() {
 	QString pack_cmd = is_Linux ? qt_dir + " " : "windeployqt ";
 
 	if (is_Linux)file_str += "#!/bin/bash\r\n";
-	else file_str += "@echo off\r\nset \"PATH=" + qt_dir + "\; %PATH%\"" + "\r\n";
+	else file_str += "@echo off\r\nset \"PATH=" + qt_dir + "; %PATH%\"" + "\r\n";
 	for (auto i : fileList)if (is_Linux || i.suffix() == "exe")file_str += pack_cmd + i.filePath() + "\r\n";
 
 	QFile cmd_file(file_name);

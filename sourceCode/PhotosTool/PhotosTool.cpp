@@ -71,12 +71,12 @@ PhotosTool::PhotosTool(QWidget *parent) :
 	load.start(100);
 
 	float last = 0;
-	for (float i = 0.05; i < 1; i *= 1.15) {
-		if (i - last < 0.01)i += 0.01;
+	for (float i = 0.05f; i < 1; i *= 1.15f) {
+		if (i - last < 0.01f)i += 0.01f;
 		mutiple_list.push_back(i);
 		last = i;
 	}
-	for (float i = 1; i < 50; i *= 1.15) mutiple_list.push_back(i);
+	for (float i = 1; i < 50; i *= 1.15f) mutiple_list.push_back(i);
 	mutiple_list.push_back(50);
 }
 

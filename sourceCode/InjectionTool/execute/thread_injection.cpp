@@ -28,7 +28,7 @@ int thread_injection(DWORD pid, TYPE type) {
 		fun_addr_end = kill_self_nullFunc;
 	}
 
-	DWORD cbCodeSize = ((LPBYTE)kill_self_nullFunc - (LPBYTE)kill_self);
+	auto cbCodeSize = ((LPBYTE)kill_self_nullFunc - (LPBYTE)kill_self);
 	PDWORD pCodeRemote = (PDWORD)VirtualAllocEx(hProcess, 0, cbCodeSize, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	WriteProcessMemory(hProcess, pCodeRemote, kill_self, cbCodeSize, nullptr);
 

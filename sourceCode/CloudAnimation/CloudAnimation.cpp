@@ -39,8 +39,6 @@ CloudAnimation::CloudAnimation(QWidget *parent) :
 	this->move((deskRect.width() - width()) / 2, (deskRect.height() - height()) / 2);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
 	this->setWindowIcon(QIcon(QPixmap(":/img/res/LOGO-AT-CloudAnimation.png")));
-
-	read2();
 }
 
 void CloudAnimation::dragEnterEvent(QDragEnterEvent* event) {

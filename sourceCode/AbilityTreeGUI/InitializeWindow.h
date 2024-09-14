@@ -40,7 +40,7 @@ private:
     Ui::InitializeWindow* ui;
 };
 
-#define SOFTWARE_INFORMATION "This software is based on GPL\r\n\
+#define SOFTWARE_INFORMATION "This software is based on GPL v3\r\n\
 Can be used for learning, research, and commercial purposes\r\n\
 But it must be open-source\r\n\
 After modification, the original author's name cannot be used for promotion\r\n\

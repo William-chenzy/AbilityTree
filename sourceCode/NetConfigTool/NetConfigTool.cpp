@@ -45,7 +45,6 @@ NetConfigTool::NetConfigTool(QWidget *parent) :
 		connect(i, &QCheckBox::clicked, this, &NetConfigTool::NetCardRule);
 	connect(ui->lineEdit, &QLineEdit::editingFinished, this, &NetConfigTool::NetCardRuleWord);
 
-	LoadConfigure configure();
 	NetCardRuleWord();
 	SwitchLanguage();
 	NetCardRule();

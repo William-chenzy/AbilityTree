@@ -31,11 +31,13 @@ public:
 public:
 	bool IS_EN() { return val[0]; }
 	bool GetAnimation() { return val[1]; }
+	char GetFirstInit() { return val[2]; }
 	bool GetConfigStatus() { return config_status; }
 
 public:
 	void SetEN(char s) { val[0] = s; WriteConfigFile(); }
-	void SetAnimation(char s) { val[1] = s; WriteConfigFile();}
+	void SetAnimation(char s) { val[1] = s; WriteConfigFile(); }
+	void SetFirstInit(char s) { val[2] = s; WriteConfigFile(); }
 
 private:
 	LoadConfigure(){
@@ -48,6 +50,7 @@ private:
 
 		if (val.size() < 1)val.push_back(0);//语言
 		if (val.size() < 2)val.push_back(1);//动画效果
+		if (val.size() < 3)val.push_back(0);//是否初始化过
 		
 		ts.open("./conf/AbilityTree.pr", std::ios::in | std::ios::out | std::ios::trunc | std::ios::binary);
 		config_status = ts.is_open();

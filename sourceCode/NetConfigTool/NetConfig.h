@@ -59,10 +59,10 @@ bool InvokeTCPIPProperties(HWND hWndParent, std::string Guid){
 	if (hr == S_OK)hr = CoCreateInstance(CLSID_CNetCfg, NULL, CLSCTX_SERVER, IID_INetCfg, (LPVOID*)&NetCfg);
 
 	WCHAR wsz[64];
-	swprintf(wsz, L"%S", "MY CLIENT");
+	swprintf(wsz, 100, L"%S", "MY CLIENT");
 	LPCWSTR lpcs = wsz;
 	WCHAR wsz2[64];
-	swprintf(wsz2, L"%S", NETCFG_TRANS_CID_MS_TCPIP);
+	swprintf(wsz2, 100, L"%S", NETCFG_TRANS_CID_MS_TCPIP);
 	LPCWSTR lpcs2 = wsz2;
 
 	NetCfgLock = NetCfg;

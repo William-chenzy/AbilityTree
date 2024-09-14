@@ -175,7 +175,7 @@ void ModuleCard::StartButtonClicked() {
 		QString check_str = raw_path + exe_path + (is_Linux ? "" : ".exe");
 		if (!CheckFile(check_str)) {
 			if (exe_path == "Locked")QMessageBox::information(nullptr, "提示", "功能被锁定，将会在后续更新中开放!");
-			else QMessageBox::warning(nullptr, "错误", "文件损坏或不存在，请重新安装或检查文件路径\r\n\部分功能只能在Windows或Linux下运行!");
+			else QMessageBox::warning(nullptr, "错误", "文件损坏或不存在，请重新安装或检查文件路径\r\n部分功能只能在Windows或Linux下运行!");
 			return;
 		}
 		int max_wait = 100;

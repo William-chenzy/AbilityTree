@@ -5,6 +5,7 @@
 #include "GlobalDefine.h"
 #include <QGridLayout>
 #include <QPushButton>
+#include <QApplication>
 #include <QProcess>
 #include <QWidget>
 #include <QLabel>
@@ -66,6 +67,7 @@ private:
 };
 
 static QString WidgetStyle = QString("QWidget{background:transparent;}") + PUSH_BUTTON_STYLE;
+
 class GlobalImage :public QObject {
 	Q_OBJECT
 public:
@@ -106,6 +108,7 @@ private:
 private slots:
 	void UpdataImage() {
 		if (!LoadConfigure::getInstance()->GetAnimation()) return;
+		if (!QApplication::activeWindow())return;
 
 		int _val = mask_val++;
 		if (_val >= 200) _val = mask_val = 0;
@@ -138,7 +141,7 @@ private slots:
 			}
 		}
 
-		auto pixmap = QPixmap::fromImage(QImage(_img.data, _img.cols, _img.rows, _img.step, QImage::Format_ARGB32));
+		auto pixmap = QPixmap::fromImage(QImage(_img.data, _img.cols, _img.rows, (int)_img.step, QImage::Format_ARGB32));
 		for (auto i : refresh_lab) if (i.second)i.first->setPixmap(pixmap);
 
 		if (circle_point_size[2] - line_width >= max_radius) {
@@ -149,7 +152,7 @@ private slots:
 			line_width = 0;
 		}
 		circle_point_size[2] += 2;
-		line_width += 0.2;
+		line_width += 0.2f;
 	}
 private:
 	int mask_val;

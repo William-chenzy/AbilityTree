@@ -39,6 +39,7 @@ add_executable(${GUI_ABILITY_TREE} WIN32
 	${QRC_FILES}
 	${RC}
 	${QRC}
+	${GLOBAL_CPP}
 	${VERSION_RC}
 	)
 

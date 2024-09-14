@@ -15,8 +15,8 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
 	DWORD processId = 0;
 	GetWindowThreadProcessId(GetForegroundWindow(), &processId);
 
-	if (wParam == WM_KEYDOWN);
-	else if (wParam == WM_KEYUP);
+	//if (wParam == WM_KEYDOWN);
+	//else if (wParam == WM_KEYUP);
 
 	if (processId == current) return -1;
 	else return CallNextHookEx(NULL, nCode, wParam, lParam);
@@ -26,11 +26,11 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam){
 	MOUSEHOOKSTRUCT* ms = (MOUSEHOOKSTRUCT*)lParam;
 	GetWindowThreadProcessId(WindowFromPoint(ms->pt), &processId);
 
-	if (wParam == WM_LBUTTONDOWN);
-	else if (wParam == WM_LBUTTONUP);
-	else if (wParam == WM_RBUTTONDOWN);
-	else if (wParam == WM_RBUTTONUP);
-	else if (wParam == WM_MOUSEMOVE);
+	//if (wParam == WM_LBUTTONDOWN);
+	//else if (wParam == WM_LBUTTONUP);
+	//else if (wParam == WM_RBUTTONDOWN);
+	//else if (wParam == WM_RBUTTONUP);
+	//else if (wParam == WM_MOUSEMOVE);
 
 	if (processId == current) return -1;
 	else return CallNextHookEx(NULL, nCode, wParam, lParam);

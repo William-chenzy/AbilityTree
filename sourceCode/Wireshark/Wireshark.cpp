@@ -260,9 +260,9 @@ QImage MatToQImage(const cv::Mat& cvImage) {
 
 #ifdef _WIN32
 string wideCharToMultiByte(wchar_t* pWCStrKey){
-	int pSize = WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), NULL, 0, NULL, NULL);
+	int pSize = WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, (int)wcslen(pWCStrKey), NULL, 0, NULL, NULL);
 	char* pCStrKey = new char[pSize + 1];
-	WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, wcslen(pWCStrKey), pCStrKey, pSize, NULL, NULL);
+	WideCharToMultiByte(CP_OEMCP, 0, pWCStrKey, (int)wcslen(pWCStrKey), pCStrKey, pSize, NULL, NULL);
 	pCStrKey[pSize] = '\0';
 	string str_ = pCStrKey;
 	delete pCStrKey;
@@ -528,7 +528,7 @@ bool Wireshark::GetSpeedAndByte(string guid, DWORD& speed, DWORD& in, DWORD& out
 	if (pIfTable == NULL)ErrExit(LU_STR125);
 	if (GetIfTable(pIfTable, &dwSize, TRUE) != 0L)ErrExit(LU_STR124);
 
-	for (int i = 0; i < pIfTable->dwNumEntries; i++) {
+	for (DWORD i = 0; i < pIfTable->dwNumEntries; i++) {
 		string guid_ = wideCharToMultiByte((pIfTable->table[i]).wszName);
 		guid_ = guid_.substr(guid_.find('{'));
 		if (guid_ != guid)continue;
@@ -778,7 +778,7 @@ void Wireshark::AnalysisPackages() {
 	if (row_height <= 0)row_height = 20;
 	pack_row_num = table_height / row_height;
 
-	ui->verticalScrollBar->setMaximum(packets.size() / 3);
+	ui->verticalScrollBar->setMaximum((int)packets.size() / 3);
 	on_verticalScrollBar_valueChanged(ui->verticalScrollBar->value());
 }
 
@@ -791,7 +791,7 @@ void Wireshark::IpToNet(){
 		for (pcap_addr_t* a = all->addresses; a != nullptr && ch_name.empty(); a = a->next) {
 			string _guid = all->name;
 			if(!is_Linux){
-				int f_ = _guid.find('{'), l_ = _guid.find('}');
+				int f_ = (int)_guid.find('{'), l_ = (int)_guid.find('}');
 				if (f_ == string::npos || l_ == string::npos)continue;
 				if (_guid.substr(f_, l_ - f_ + 1) == ch_guid)ch_name = all->name;
 			}
@@ -964,7 +964,7 @@ void Wireshark::Pack_itemClicked(QTableWidgetItem* item) {
 	}
 	////----------------------------------------------------------------------------------------------------------------------------------
 	for (int i = ui->tableWidget_value->rowCount(); i; i--)ui->tableWidget_value->removeRow(0);
-	uint row_c = it->msg.size() / 15 + ((it->msg.size() % 15) ? 1 : 0);
+	uint row_c = (int)it->msg.size() / 15 + (((int)it->msg.size() % 15) ? 1 : 0);
 	ui->tableWidget_value->setRowCount(row_c);
 	int row(0), col(0);
 	std::string h_val;

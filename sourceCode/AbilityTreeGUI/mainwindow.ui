@@ -59,10 +59,7 @@ QToolButton::disabled{background-color:#7d7d7d;}</string>
    <property name="mouseTracking">
     <bool>true</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_8">
-    <property name="spacing">
-     <number>0</number>
-    </property>
+   <layout class="QGridLayout" name="gridLayout_3">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -75,7 +72,10 @@ QToolButton::disabled{background-color:#7d7d7d;}</string>
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
      <widget class="QWidget" name="widget_title" native="true">
       <property name="minimumSize">
        <size>
@@ -514,7 +514,7 @@ QComboBox QAbstractItemView{border:1px solid #6D6E6E;selection-background-color:
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QWidget" name="widget_mask" native="true">
       <property name="mouseTracking">
        <bool>true</bool>

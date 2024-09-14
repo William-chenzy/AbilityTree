@@ -39,9 +39,9 @@ void MainWindow::RefreshViewer(){
 		refresh_module_list = false;
 	}
 
-	g += 0.01;
-	if (g >= 0.99)g = -0.99;
-	if (g >= -0.01 && g <= 0.01)g = 0.01;
+	g += 0.01f;
+	if (g >= 0.99f)g = -0.99f;
+	if (g >= -0.01f && g <= 0.01f)g = 0.01f;
 	QString color_val = QString::number(abs(g), 'f', 2);
 	QString color = QString("stop:0 #f4716e, stop:%1 #42f875, stop:1 #1edffc").arg(color_val);
 	ui->widget_line->setStyleSheet(QString("background: qlineargradient(x1:0,y1:1,x2:1,y2:1,%1);").arg(color));

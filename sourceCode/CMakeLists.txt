@@ -2,7 +2,7 @@
 project(AbilityTree)
 
 #define version
-set(GUI_ABILITY_TREE_VER 1.0.0)
+set(GUI_ABILITY_TREE_VER 1.1.2)
 set(NET_CONFIG_TOOL_VERSION 1.1.0)
 set(WIRESHARK_VERSION 1.1.0)
 set(COMMUNICATION_TOOL_VERSION 1.1.1)
@@ -55,6 +55,8 @@ if(${OPENCV_FOUND})
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
+file(GLOB GLOBAL_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../include/*.cpp)
+message(GLOBAL_CPP ${GLOBAL_CPP})
 
 option(BUILD_InstallTool "" OFF)
 option(BUILD_VIEWER "" OFF)

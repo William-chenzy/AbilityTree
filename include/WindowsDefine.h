@@ -10,7 +10,7 @@ static std::wstring QStringToStdWstring(const QString& qstr) {
 	std::wstring wstr(reinterpret_cast<const wchar_t*>(qstr.utf16()), qstr.length());
 	return wstr;
 }
-static QString ByteArrayToQString(const LPBYTE byteArray, size_t length) {
+static QString ByteArrayToQString(const LPBYTE byteArray, DWORD length) {
 	QString result = QString::fromUtf8(reinterpret_cast<const char*>(byteArray), length);
 	return result;
 }

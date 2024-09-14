@@ -114,7 +114,7 @@ void PeFileAnalyzer::ShowValue() {
 		add_item(w_to_hex("OEM information:   0x", &pehead.dos->e_oeminfo).c_str(), 2, dos_item);
 		add_item(w_to_hex("Reserved words:   0x", pehead.dos->e_res2, 10).c_str(), 20, dos_item);
 		add_item(dw_to_hex("PE头偏移地址:   0x", (DWORD*)&pehead.dos->e_lfanew).c_str(), 4, dos_item);
-		add_item(s_to_fos("Dos stub:   ", pehead.dos_info).c_str(), pehead.dos_info.length(), dos_item);
+		add_item(s_to_fos("Dos stub:   ", pehead.dos_info).c_str(), (int)pehead.dos_info.length(), dos_item);
 	}
 
 	auto nt_item = add_item("NT Header", 0);

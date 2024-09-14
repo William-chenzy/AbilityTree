@@ -18,21 +18,16 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 	this->setWindowIcon(QIcon(":/img/res/LOGO-AT.ico"));
 
-	QFile init_file("./conf/AbilityTree.pr");
-	if (!init_file.exists()) {
+	bool init_page = init_page = (LoadConfigure::getInstance()->GetFirstInit() != 1);
+	if (init_page) {
 		sp = new ATS::StartPage();
-		auto wid = sp->GetWidget();
 		connect(sp, &ATS::StartPage::StartDone, this, &MainWindow::StartDone);
-		ui->centralwidget->layout()->addWidget(wid);
+		QGridLayout* layout = static_cast<QGridLayout*>(ui->centralwidget->layout());
 		ui->widget_title->setVisible(false);
 		ui->widget_mask->setVisible(false);
+		layout->addWidget(sp, 0, 0, 2, 2);
+		sp->raise();
 	}
-
-	sp = new ATS::StartPage();
-	connect(sp, &ATS::StartPage::StartDone, this, &MainWindow::StartDone);
-	ui->centralwidget->layout()->addWidget(sp->GetWidget());
-	ui->widget_title->setVisible(false);
-	ui->widget_mask->setVisible(false);
 
 	language = LoadConfigure::getInstance()->IS_EN();
 	animation = LoadConfigure::getInstance()->GetAnimation();
@@ -79,7 +74,6 @@ void MainWindow::SwitchLanguage() {
 void MainWindow::StartDone() {
 	ui->widget_mask->setVisible(true);
 	ui->widget_title->setVisible(true);
-	sp->GetWidget()->setVisible(false);
 }
 
 void MainWindow::on_toolButton_main_setting_clicked() {
@@ -137,11 +131,14 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
 	}
 
 	if (event->button() == Qt::LeftButton) {
-		QRect rect_top = ui->widget_title->rect();
+		QRect rect_top, rect_top2;
+		rect_top = ui->widget_title->rect();
 		rect_top.translate(ui->widget_title->pos());
 
-		QRect rect_top2 = sp->GetWidget()->rect();
-		rect_top.translate(sp->GetWidget()->pos());
+		if (sp) {
+			rect_top2 = sp->rect();
+			rect_top.translate(sp->pos());
+		}
 
 		int _x = event->screenPos().x();
 		int _y = event->screenPos().y();
@@ -156,7 +153,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
 		else size_m_type = 0;
 
 		if (size_m_type) mouse_pos = event->screenPos().toPoint();
-		else if (rect_top.contains(event->pos()) || rect_top2.contains(event->pos())) {
+		else if ( rect_top.contains(event->pos()) || (sp && rect_top2.contains(event->pos())) ) {
 			is_move_mouse = true;
 			mouse_pos = event->screenPos().toPoint();
 		}
@@ -176,11 +173,11 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event){
 		return;
 	}
 
-	if (is_move_mouse){
+	if (is_move_mouse && event->buttons() & Qt::LeftButton){
 		move(this->pos() + (event->screenPos().toPoint() - mouse_pos));
 		mouse_pos = event->screenPos().toPoint();
 	}
-	else if (size_m_type){
+	else if (size_m_type && event->buttons() & Qt::LeftButton){
 		QPoint movePos = event->screenPos().toPoint() - mouse_pos;
 		QRect g_Geometry = frameGeometry();
 

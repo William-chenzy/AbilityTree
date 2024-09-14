@@ -133,7 +133,7 @@ void GetProcessCmdline(HANDLE procesHandle, std::string& cmdline){
 
 	qInfo() << "NtQueryInformationProcess";
 	if (0 != NtQueryInformationProcess(procesHandle, ProcessBasicInformation, (PVOID)&pbi, sizeof(pbi), NULL))return;
-	if (pbi.PebBaseAddress == nullptr);
+	if (pbi.PebBaseAddress == nullptr) return;
 	qInfo() << "ReadProcessMemory";
 	if (FALSE == ReadProcessMemory(procesHandle, pbi.PebBaseAddress, &peb, sizeof(peb), &dwDummy))return;
 	qInfo() << "ReadProcessMemory";

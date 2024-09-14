@@ -24,7 +24,7 @@ static const unsigned int Se[]{
 		4, 11, 16, 23,
 		6, 10, 15, 21,
 };
-static const unsigned int Yl[]{
+static const unsigned char Yl[]{
 		0, 1, 2, 3,
 		3, 0, 1, 2,
 		2, 3, 0, 1,
@@ -65,7 +65,7 @@ static void Alg(unsigned int* val) {
 static std::string MD5_32Bit(std::string msg) {
 	unsigned long long raw_len = msg.length() * 8;
 	int fm = (448 - (raw_len % 512)) / 8;
-	if (fm) { msg.push_back(0x80); fm--; }
+	if (fm) { msg.push_back((uchar)0x80); fm--; }
 	for (; fm > 0; fm--)msg.push_back(0);
 	for (int i = 0; i < 8; i++)
 		msg.push_back(((unsigned char*)&raw_len)[i]);

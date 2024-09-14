@@ -141,5 +141,5 @@ bool ImageWidget::eventFilter(QObject* obj, QEvent* event) {
 		if (mouseEvent->button() == Qt::RightButton) qInfo() << "ImageWidget RightButton: " << path;
 	}
 
-	return ImageWidget::eventFilter(obj, event);
+	return false;
 }

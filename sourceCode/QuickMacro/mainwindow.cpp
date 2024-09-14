@@ -367,7 +367,7 @@ void QuickMacro::on_pushButton_mdify_video_clicked() {
 	begin_hook = !begin_hook;
 	if (!begin_hook) {
 		lab_str = "录制完成!";
-		ui->horizontalSlider_action->setMaximum(act.size() - 1);
+		ui->horizontalSlider_action->setMaximum((int)act.size() - 1);
 		return;
 	}
 	act.clear();
@@ -442,7 +442,7 @@ void QuickMacro::SaveFile() {
 		return;
 	}
 	file << "LxQuicMacro";
-	unsigned long number = act.size();
+	auto number = (unsigned long)act.size();
 	file.write((char*)&number, sizeof(number));
 	for (auto i : act) file.write((char*)&i, sizeof(i));
 	file.close();
@@ -470,7 +470,7 @@ void QuickMacro::ReadFile() {
 		file.read((char*)&pti, sizeof(pti));
 		act.push_back(pti);
 	}
-	ui->horizontalSlider_action->setMaximum(act.size() - 1);
+	ui->horizontalSlider_action->setMaximum((int)act.size() - 1);
 }
 
 void QuickMacro::SaveConfigure() {
