@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html><head>
+    <title>ProblemFeedback</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/LOGO-AT.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000000;
+    }
+
+    select {
+        padding: 2px;
+        background-color: transparent;
+        color: #dddddd;
+        font-size: 16px;
+        width: 200px;
+    }
+
+    option {
+        color: #000000;
+        background-color: transparent;
+    }
+
+    textarea,input{
+        padding: 2px;
+        color: #dddddd;
+        min-width: 420px;
+        border-width: 1px;
+        border-color: #ffffff;
+        background-color: transparent;
+    }
+
+    .container {
+        display: flex;
+        color:#dddddd;
+        font-family: Arial;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(to bottom,#474e5e 0%, #000000 100%);
+    }
+
+    .header {
+        display: flex;
+    }
+
+    img{
+        width: auto/9;
+        object-fit: contain;
+    }
+
+    .all-style{
+        color:#dddddd;
+        background-color: transparent;
+    }
+
+    .submit-btn {
+        background-color: #4CAF50;
+        border: none;
+        color: #dddddd;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        width: 420px;
+        border-radius: 4px;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    .char-count {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-size: 14px;
+        color: #dddddd;
+        pointer-events: none; 
+    }
+
+    .textarea-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .preview-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .preview-container img {
+        max-width: 100px;
+        max-height: 100px;
+        margin: 5px;
+    }
+
+    .text-box{
+        margin-bottom: 64px;
+    }
+    </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <img src="img/LOGO-ATWR.png" background-color="transparent" Ondragstart= "return false">
+    
+            <form id="uploadForm" enctype="multipart/form-data">
+                <h1>问题反馈</h1>
+                <div class="text-box">
+                    <p style="color: #dd4848;">* 问题组件</p>
+                    <select id="module" name="module" required>
+                        <option value="AbilityTreeViewer">AbilityTreeViewer</option>
+                        <option value="CommunicationTool">CommunicationTool</option>
+                        <option value="InstallTool">InstallTool</option>
+                        <option value="NetConfigTool">NetConfigTool</option>
+                        <option value="PackagedTool">PackagedTool</option>
+                        <option value="PeFileAnalyzer">PeFileAnalyzer</option>
+                        <option value="PhotosTool">PhotosTool</option>
+                        <option value="QuickMacro">QuickMacro</option>
+                        <option value="Wireshark">Wireshark</option>
+                        <option value="Wireshark">InjectionTool</option>
+                    </select>
+
+                    <p style="color: #dd4848;">* 问题描述</p>
+                    <div class="textarea-container">
+                        <textarea id="message" name="message" rows="4" cols="50" maxlength="200" style=" placeholder="请输入你的问题或建议(200字以内)" oninput="updateCharCount()" required></textarea>
+                        <div id="charCount" class="char-count">0/200</div>
+                    </div>
+
+                    <p>图片描述</p>
+                    <input type="file" name="images[]" accept="image/*" id="fileInput" multiple onchange="checkFileCount()">
+                    <div id="fileCount">0/5</div>
+                    <div id="previewContainer" class="preview-container"></div>
+
+                    <p style="color: #dd4848;">* 如何称呼您</p>
+                    <input type="text" name="username" id="username" placeholder="若问题/建议被采纳，您输入的的名字将会出现在支持者名单中" required>
+
+                    <p>联系方式</p>
+                    <input type="text" id="email" name="email" placeholder="请输入邮箱号或者手机号">
+
+                    <br><br><br>
+                    <button type="submit" class="submit-btn">提交</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+        function updateCharCount() {
+            const textarea = document.getElementById('message');
+            const charCount = textarea.value.length;
+            const maxLength = textarea.maxLength;
+            document.getElementById('charCount').textContent = `${charCount}/${maxLength}`;
+        }
+
+        function checkFileCount() {
+            const fileInput = document.getElementById('fileInput');
+            const fileCount = fileInput.files.length;
+            const maxFiles = 5;
+            const fileCountDiv = document.getElementById('fileCount');
+            if (fileCount > maxFiles) {
+                fileInput.value = '';
+                fileCountDiv.textContent = `0/${maxFiles}`;
+                alert(`最多只能上传 ${maxFiles} 张图片!`);
+            }
+            else fileCountDiv.textContent = `${fileCount}/${maxFiles}`;
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const module = document.getElementById('module').value;
+            const message = document.getElementById('message').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            if(message.length == 0){
+                alert('问题描述不能为空!');
+                return;
+            }
+
+            if(username.length == 0){
+                alert('称呼不能为空!');
+                return;
+            }
+
+            const formData = new FormData(this);
+            const formDataObject = formDataToObject(formData);
+            const currentData = objectToJSON(formDataObject);
+            const previousData = localStorage.getItem('savedData');
+            if (currentData === previousData) {
+                alert('请勿重复提交');
+                return;
+            } else localStorage.setItem('savedData', currentData);
+
+            for (const [key, value] of formData.entries()) console.log(`${key}: ${value}`);
+            fetch('ProblemFeedbackUpload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {alert('已提交!');})
+            .catch(error => {alert('提交失败!');})
+
+        });
+
+
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('previewContainer');
+            previewContainer.innerHTML = '';
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function formDataToObject(formData) {
+            const obj = {};
+            formData.forEach((value, key) => {
+                if (obj[key]) {
+                    if (!Array.isArray(obj[key]))obj[key] = [obj[key]];
+                    obj[key].push(value);
+                } 
+                else obj[key] = value;
+            });
+            return obj;
+        }
+        function objectToJSON(obj) {
+            return JSON.stringify(obj);
+        }
+
+        </script>
+    </body>
+</html>

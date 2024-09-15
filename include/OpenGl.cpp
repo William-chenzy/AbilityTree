@@ -57,11 +57,11 @@ OpenGl::OpenGl(QWidget* parent) {
 	layout(location = 0) in vec3 aPos;\n\
 	layout(location = 1) in vec3 aColor;\n\
 	layout(location = 2) in vec3 Uvw;\n\
-	uniform float pointSize;\n\
-	varying vec3 outColor;\n\
-	varying vec3 outUvw;\n\
-	varying vec3 outPos;\n\
 	uniform mat4 modelViewProjection;\n\
+	uniform float pointSize;\n\
+	out vec3 outColor;\n\
+	out vec3 outUvw;\n\
+	out vec3 outPos;\n\
 	void main() {\n\
 		gl_Position = modelViewProjection * vec4(aPos, 1.0f);\n\
 		gl_PointSize = pointSize; \n\
@@ -75,9 +75,9 @@ OpenGl::OpenGl(QWidget* parent) {
 	uniform float diffuseFactor;\n\
 	uniform vec3 lightColor;\n\
 	uniform vec3 lightPos;\n\
-	varying vec3 outColor;\n\
-	varying vec3 outUvw;\n\
-	varying vec3 outPos;\n\
+	in vec3 outColor;\n\
+	in vec3 outUvw;\n\
+	in vec3 outPos;\n\
 	out vec4 FragColor;\n\
 	void main(){\n\
 		vec3 normol=normalize(outUvw);\n\
@@ -92,8 +92,8 @@ OpenGl::OpenGl(QWidget* parent) {
 	layout(location = 1) in vec3 aColor;\n\
 	layout(location = 2) in vec2 aTexCoord;\n\
 	uniform float pointSize;\n\
-	varying vec2 TexCoord;\n\
 	uniform mat4 modelViewProjection;\n\
+	out vec2 TexCoord;\n\
 	void main() {\n\
 		gl_Position = modelViewProjection * vec4(aPos, 1.0f);\n\
 		gl_PointSize = pointSize; \n\
@@ -102,16 +102,16 @@ OpenGl::OpenGl(QWidget* parent) {
 
 	fragment_t = "#version 330 core\n\
 	uniform sampler2D ourTexture;\n\
-	varying vec2 TexCoord;\n\
+	in vec2 TexCoord;\n\
 	out vec4 FragColor;\n\
 	void main(){FragColor = texture(ourTexture, TexCoord);}";
 
 	vertex = "#version 330 core\n\
 	layout(location = 0) in vec3 aPos;\n\
 	layout(location = 1) in vec3 aColor;\n\
-	uniform float pointSize;\n\
-	varying vec3 outColor;\n\
 	uniform mat4 modelViewProjection;\n\
+	uniform float pointSize;\n\
+	out vec3 outColor;\n\
 	void main() {\n\
 		gl_Position = modelViewProjection * vec4(aPos, 1.0f);\n\
 		gl_PointSize = pointSize; \n\
@@ -119,9 +119,21 @@ OpenGl::OpenGl(QWidget* parent) {
 	}";
 
 	fragment = "#version 330 core\n\
-	varying vec3 outColor;\n\
+	in vec3 outColor;\n\
 	out vec4 FragColor;\n\
 	void main(){FragColor = vec4(outColor, 1.0f);}";
+
+#ifdef __linux__
+	auto v330_to_v300es = [&](QString& f, QString& v) {
+		v.replace("#version 330 core\n", "#version 300 es\r");
+		f.replace("#version 330 core\n", "#version 300 es\rprecision mediump float;\r");
+		v.replace("\n", "\r");
+		f.replace("\n", "\r");
+	};
+	v330_to_v300es(fragment, vertex);
+	v330_to_v300es(fragment_m, vertex_m);
+	v330_to_v300es(fragment_t, vertex_t);
+#endif
 
 	AllCloud[PickupArea].draw_size = 3;
 	AllCloud[PickupArea].is_show = true;
@@ -151,8 +163,8 @@ OpenGl::OpenGl(QWidget* parent) {
 }
 
 OpenGl::~OpenGl() {
-	core->glDeleteVertexArrays(1, &SVAO);
-	core->glDeleteBuffers(1, &SVBO);
+	glDeleteVertexArrays(1, &SVAO);
+	glDeleteBuffers(1, &SVBO);
 
 	shaderProgram_texture->release();
 	delete shaderProgram_texture;
@@ -165,8 +177,7 @@ OpenGl::~OpenGl() {
 }
 
 void OpenGl::initializeGL() {
-	core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_3_3_Core>();
-
+	initializeOpenGLFunctions();
 	shaderProgram->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex);
 	shaderProgram->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment);
 	shaderProgram_model->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_m);
@@ -174,15 +185,15 @@ void OpenGl::initializeGL() {
 	shaderProgram_texture->addShaderFromSourceCode(QOpenGLShader::Vertex, vertex_t);
 	shaderProgram_texture->addShaderFromSourceCode(QOpenGLShader::Fragment, fragment_t);
 
-	core->glGenVertexArrays(1, &SVAO);
-	core->glBindVertexArray(SVAO);
-	core->glGenBuffers(1, &SVBO);
-	core->glBindBuffer(GL_ARRAY_BUFFER, SVBO);
+	glGenVertexArrays(1, &SVAO);
+	glBindVertexArray(SVAO);
+	glGenBuffers(1, &SVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, SVBO);
 
 	auto bindEnable = [&](QOpenGLShaderProgram* shader, std::vector<int>param) {
 		shader->link();
 		shader->bind();
-		for (auto i : param)core->glEnable(i);
+		for (auto i : param)glEnable(i);
 	};
 	bindEnable(shaderProgram_model, { GL_DEPTH_TEST });
 	bindEnable(shaderProgram_texture, { GL_DEPTH_TEST });
@@ -355,24 +366,27 @@ void OpenGl::UpdateUndefineValue() {
 	}
 }
 void OpenGl::paintGL() {
-	core->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	UpdateUndefineValue();
 
 	QMatrix4x4 view;
 	view.lookAt(cameraEye, cameraCenter, cameraUp);
 	golb_view = view;
 	PGC = projection * golb_view;
-	core->glBindVertexArray(SVAO);
+	glBindVertexArray(SVAO);
 
 	auto set_and_get_type = [&](BaseValue& pt, QOpenGLShaderProgram* shard)->unsigned int {
 		if (!pt.raw_value) SetSharderValue(shard, "modelViewProjection", PGC);
-		else SetSharderValue(shard, "modelViewProjection", projection * view_raw);
+		else {
+			auto qmat = projection * view_raw;
+			SetSharderValue(shard, "modelViewProjection", qmat);
+		}
 
 		unsigned int draw_type = GL_POINTS;
 		if (pt.dtype == DPoint)SetSharderValue(shard, "pointSize", pt.draw_size), draw_type = GL_POINTS;
-		if (pt.dtype == DLineLoop)core->glLineWidth(pt.draw_size), draw_type = GL_LINE_LOOP;
-		if (pt.dtype == DLine)core->glLineWidth(pt.draw_size), draw_type = GL_LINES;
-		if (pt.dtype == DTriangle)core->glLineWidth(1), draw_type = GL_TRIANGLES;
+		if (pt.dtype == DLineLoop)glLineWidth(pt.draw_size), draw_type = GL_LINE_LOOP;
+		if (pt.dtype == DLine)glLineWidth(pt.draw_size), draw_type = GL_LINES;
+		if (pt.dtype == DTriangle)glLineWidth(1), draw_type = GL_TRIANGLES;
 		if (pt.dtype == DQuadsStrip)draw_type = GL_QUAD_STRIP;
 		if (pt.dtype == DPoltgon)draw_type = GL_POLYGON;
 		if (pt.dtype == DQuads)draw_type = GL_QUADS;
@@ -394,12 +408,12 @@ void OpenGl::paintGL() {
 		texture.bind(0);
 		SetSharderValue(shaderProgram_texture, "ourTexture", 0);
 		auto draw_type = set_and_get_type(pt, shaderProgram_texture);
-		core->glBufferData(GL_ARRAY_BUFFER, pt.texture.size() * 32, pt.texture.data(), GL_STATIC_DRAW);
-		core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-		core->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-		core->glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-		core->glEnableVertexAttribArray(0); core->glEnableVertexAttribArray(1); core->glEnableVertexAttribArray(2);
-		core->glDrawArrays(draw_type, 0, (GLsizei)pt.texture.size());
+		glBufferData(GL_ARRAY_BUFFER, pt.texture.size() * 32, pt.texture.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(0); glEnableVertexAttribArray(1); glEnableVertexAttribArray(2);
+		glDrawArrays(draw_type, 0, (GLsizei)pt.texture.size());
 	}
 
 	shaderProgram->bind();
@@ -407,11 +421,11 @@ void OpenGl::paintGL() {
 		auto& pt = i.second;
 		if (!pt.is_show || pt.cloud.empty())continue;
 		auto draw_type = set_and_get_type(pt, shaderProgram);
-		core->glBufferData(GL_ARRAY_BUFFER, pt.cloud.size() * 24, pt.cloud.data(), GL_STATIC_DRAW);
-		core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-		core->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-		core->glEnableVertexAttribArray(0); core->glEnableVertexAttribArray(1);
-		core->glDrawArrays(draw_type, 0, (GLsizei)pt.cloud.size());
+		glBufferData(GL_ARRAY_BUFFER, pt.cloud.size() * 24, pt.cloud.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(0); glEnableVertexAttribArray(1);
+		glDrawArrays(draw_type, 0, (GLsizei)pt.cloud.size());
 	}
 
 	shaderProgram_model->bind();
@@ -422,12 +436,12 @@ void OpenGl::paintGL() {
 		auto& pt = i.second;
 		if (!pt.is_show || pt.model.empty())continue;
 		auto draw_type = set_and_get_type(pt, shaderProgram_model);
-		core->glBufferData(GL_ARRAY_BUFFER, pt.model.size() * 36, pt.model.data(), GL_STATIC_DRAW);
-		core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
-		core->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
-		core->glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(6 * sizeof(float)));
-		core->glEnableVertexAttribArray(0); core->glEnableVertexAttribArray(1); core->glEnableVertexAttribArray(2);
-		core->glDrawArrays(draw_type, 0, (GLsizei)pt.model.size());
+		glBufferData(GL_ARRAY_BUFFER, pt.model.size() * 36, pt.model.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(0); glEnableVertexAttribArray(1); glEnableVertexAttribArray(2);
+		glDrawArrays(draw_type, 0, (GLsizei)pt.model.size());
 	}
 
 	if (auto_update)update();
@@ -798,7 +812,7 @@ void OpenGl::SetSystemCoord(float size, bool is_show, float dsize) {
 	AllCloud[SystemCoord] = cloud;
 }
 void OpenGl::SetBackGroundColor(double r, double g, double b, double a) {
-	core->glClearColor(r, g, b, a);
+	glClearColor(r, g, b, a);
 }
 
 void OpenGl::SetSharderValue(QOpenGLShaderProgram* shader, QString name, float value) {

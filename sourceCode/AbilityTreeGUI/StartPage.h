@@ -11,7 +11,7 @@
 #include <QGridLayout>
 #include <QApplication>
 #include <qpushbutton.h>
-#include <CloudViewer.h>
+#include <CloudWidget.h>
 #include <opencv2/opencv.hpp>
 
 

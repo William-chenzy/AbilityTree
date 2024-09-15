@@ -913,7 +913,6 @@ bool RawTcpSever::Connect(std::string ip, int port) {
 
 	if (bind(soc_fd, (sockaddr*)&_addr, sizeof(sockaddr)) == -1) {
 		son->CallBack(MsG, { "", LU_STR239 + std::to_string(errno) });
-		qInfo() << ip.c_str() << port << GetLastError() << WSAGetLastError() << soc_fd;
 		return false;
 	}
 	else son->CallBack(MsG, { "", LU_STR240 });

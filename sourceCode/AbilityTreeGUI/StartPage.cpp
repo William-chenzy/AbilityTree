@@ -146,7 +146,8 @@ Welcome::Welcome(CloudViewer* _cloud) {
 	center_layout->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding), 2, 0, 1, 3);
 	center_layout->addWidget(contin, 3, 0, 1, 3);
 
-	cloud->MatToCloudPoint(QImageToMat(QImage(":/img/res/LOGO-AT.png"), true), cloud_name, -5, 2, 10);
+	cv::Mat img = QImageToMat(QImage(":/img/res/LOGO-AT.png"), true);
+	cloud->MatToCloudPoint(img, cloud_name, -5, 2, 10);
 	for (int i = 0; i < logo.rows; i++) {
 		for (int j = 0; j < logo.cols; j++)
 			if (logo.at<cv::Vec4b>(i, j)[3]) {
@@ -360,7 +361,7 @@ AbilityTree 使用 GPL3 许可协议，任何使用或继承 AbilityTree 源码�
 	auto AddNewStar = [&](float radius, float r, float g, float b, float x_offset, float y_offset)->BaseValue {
 		BaseValue val;
 		val.is_show = false;
-		val.dtype = DQuadsStrip;
+		val.dtype = DLineLoop;
 		for (int i = 0; i < slices; ++i) {
 			float theta1 = i * 2 * M_PI / slices;
 			float theta2 = (i + 1) * 2 * M_PI / slices;
@@ -464,9 +465,9 @@ void Notice::OutAnimation(int width, int height) {
 	if (text_pos < 100)text_pos = text_pos + 2.0 > 100 ? 100 : text_pos + 2.0;
 
 	if (text_pos <= 100) {
-		if (l_idx / 2 < line.size()) cloud->SetVisible(line[l_idx++ / 2].toStdString(), false);
-		if (c_idx / 2 < child.size()) cloud->SetVisible(child[c_idx++ / 2].toStdString(), false);
-		if (g_idx / 5 < group.size()) cloud->SetVisible(group[g_idx++ / 5].toStdString(), false);
+		if (l_idx / 2 < line.size()) cloud->RemoveBaseValue(line[l_idx++ / 2].toStdString());
+		if (c_idx / 2 < child.size()) cloud->RemoveBaseValue(child[c_idx++ / 2].toStdString());
+		if (g_idx / 5 < group.size()) cloud->RemoveBaseValue(group[g_idx++ / 5].toStdString());
 
 		uchar val = 255 - 255 * text_pos / 100;
 		info->setStyleSheet("color:#" + rgbTohex({ val,127,255,212 }) + ";");
@@ -533,6 +534,8 @@ Set::Set(CloudViewer* _cloud) {
 	center_wid->setMouseTracking(true);
 	center_wid->setLayout(center_layout);
 	in_viwewer->setVisible(false);
+	height->setEnabled(false);
+	low->setEnabled(false);
 
 	info->setFont(QFont("LiShu", 10, 75));
 	descripe->setFont(QFont("LiShu", 12, 75));
@@ -600,6 +603,8 @@ void Set::Animation(int _width, int _height) {
 			auto str_val = QString("background-color:transparent;color:#" + rgbTohex({ val,255,255,255 }) + ";");
 			low->setStyleSheet(QString("QPushButton{%1}QPushButton:hover{text-decoration: underline;}").arg(str_val));
 			height->setStyleSheet(QString("QPushButton{%1}QPushButton:hover{text-decoration: underline;}").arg(str_val));
+			height->setEnabled(cho_pos >= 100);
+			low->setEnabled(cho_pos >= 100);
 		}
 
 		if (!cho_pos) {

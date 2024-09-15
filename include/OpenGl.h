@@ -13,7 +13,6 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLExtraFunctions>
 #include <QOpenGLVertexArrayObject>
-#include <QOpenGLFunctions_3_3_Core>
 #include <GL/glu.h>
 
 #define NORMAL_SPEED 8
@@ -146,7 +145,6 @@ private:
 	QString vertex, fragment;
 	QString vertex_m, fragment_m;
 	QString vertex_t, fragment_t;
-	QOpenGLFunctions_3_3_Core* core;
 	QOpenGLShaderProgram* shaderProgram;
 	QOpenGLShaderProgram* shaderProgram_model;
 	QOpenGLShaderProgram* shaderProgram_texture;
