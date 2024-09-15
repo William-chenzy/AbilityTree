@@ -48,7 +48,7 @@ function downloadWindows(){
 
 function downloadLinux(){
     const link = document.createElement('a');
-    link.href = './AbilityTreeInstallApp.zip';
+    link.href = './AbilityTree.zip';
     link.download = 'AbilityTree.zip';
     document.body.appendChild(link);
     link.click();
